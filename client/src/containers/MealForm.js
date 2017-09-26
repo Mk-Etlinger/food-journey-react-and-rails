@@ -8,8 +8,9 @@ class MealForm extends Component {
 
         this.state = {
             showForm: false,
-            mealType: '',
-            ingredients: '',
+            meal_type: '',
+            ingredients_attributes: '',
+            description: '',
         }
 
         this.handleRadioChange = this.handleRadioChange.bind(this)
@@ -20,7 +21,7 @@ class MealForm extends Component {
 
     handleRadioChange(e) {
         this.setState({
-            mealType: e.target.value
+            meal_type: e.target.value
         })        
     }
 
@@ -29,7 +30,6 @@ class MealForm extends Component {
         this.setState({
             [name]: value
         })                
-        console.log("changing state!")
     }
 
     handleShowForm(e) {
@@ -41,11 +41,23 @@ class MealForm extends Component {
     handleOnSubmit(e) {
         e.preventDefault();
         // fetch/post to Meals/new 
-        this.setState({
-            showForm: false,
-            mealType: '',
-            ingredients: '',
-        })
+        return fetch('/meals', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                meal: Object.assign({}, this.state, { 
+                    ingredients_attributes: 
+                        { 
+                            name: this.state.ingredients_attributes 
+                        }
+                    })
+                })
+            })
+        .then(response => response.json())
+        .then(meal => console.log(meal))
+        .catch(err => console.log("error of ", err))
     }
 
     render() {
@@ -53,11 +65,12 @@ class MealForm extends Component {
             this.state.showForm === true ?
                 <div>
                     <form onSubmit={this.handleOnSubmit}>                    
-                        <RadioInput name="breakfast" mealType={this.state.mealType} onChangeCb={this.handleRadioChange} />
-                        <RadioInput name="lunch" type="text" value={this.state.mealType} onChangeCb={this.handleInputChange} />
-                        <RadioInput name="dinner" type="text" value={this.state.mealType} onChangeCb={this.handleInputChange} />
-                        <RadioInput name="snack" type="text" value={this.state.mealType} onChangeCb={this.handleInputChange} />
-                        <InputField name="ingredients" type="text" value={this.state.ingredients} onChangeCb={this.handleInputChange}/>            
+                        <RadioInput name="breakfast" meal_type={this.state.meal_type} onChangeCb={this.handleRadioChange} />
+                        <RadioInput name="lunch" type="text" value={this.state.meal_type} onChangeCb={this.handleInputChange} />
+                        <RadioInput name="dinner" type="text" value={this.state.meal_type} onChangeCb={this.handleInputChange} />
+                        <RadioInput name="snack" type="text" value={this.state.meal_type} onChangeCb={this.handleInputChange} />
+                        <InputField name="ingredients_attributes" type="text" value={this.state.ingredients_attributes} onChangeCb={this.handleInputChange}/>            
+                        <InputField name="description" type="text" value={this.state.description} onChangeCb={this.handleInputChange}/>            
                         <input type="submit" value="Create Meal"/>
                     </form>
                 </div>

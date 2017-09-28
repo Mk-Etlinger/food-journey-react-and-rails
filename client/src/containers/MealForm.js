@@ -40,7 +40,8 @@ class MealForm extends Component {
 
     handleOnSubmit(e) {
         e.preventDefault();
-        // fetch/post to Meals/new 
+        this.setState({ showForm: false })
+        
         return fetch('/meals', {
             method: 'POST',
             headers: {

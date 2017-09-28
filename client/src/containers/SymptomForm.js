@@ -36,8 +36,9 @@ class SymptomForm extends Component {
 
     handleOnSubmit(e) {
         e.preventDefault();
-        // fetch/post to Symptoms/create
-            return fetch('/symptoms', {
+        this.setState({ showForm: false })
+        
+        return fetch('/symptoms', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -59,12 +60,13 @@ class SymptomForm extends Component {
                         {
                             occurred_at: this.state.occurred_at
                         }
-                    })
                 })
             })
+        })
         .then(response => response.json())
-        .then(meal => console.log(meal))
+        .then(symptom => console.log(symptom))
         .catch(err => console.log("error of ", err))
+
     }    
 
     render() {

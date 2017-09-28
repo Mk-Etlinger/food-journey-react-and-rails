@@ -1,5 +1,5 @@
 class SymptomsController < ApplicationController
-  before_action :user_signed_in?, :authenticate_user!
+  # before_action :user_signed_in?, :authenticate_user!
   before_action :set_symptom, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -10,12 +10,12 @@ class SymptomsController < ApplicationController
     @symptom = Symptom.new
   end
   
-  def create
-    redirect_to dashboard_path, alert: no_meals_message and return if valid_meals.empty?
-    @symptom = current_user.symptoms.build(symptom_params)
-
+  def create    
+    @current_user = User.find_by(id: symptom_params['ingredients_attributes']['current_user_id'])
+    render json: { message: no_meals_message } and return if valid_meals.empty?
+    @symptom = @current_user.symptoms.build(symptom_params)
     if @symptom.save
-      redirect_to symptom_path(@symptom)
+      render json: @symptom
     else
       render :new
     end
@@ -68,9 +68,9 @@ class SymptomsController < ApplicationController
   end
 
   def valid_meals
-    hours = symptom_params['ingredients_attributes']['0']['occurred_at'].to_f
+    hours = symptom_params['ingredients_attributes']['occurred_at'].to_f
     occurred_at = Time.current.ago(hours.hour)
-    Meal.for_user(current_user).created_within(occurred_at - 3.day, occurred_at)
+    Meal.for_user(@current_user).created_within(occurred_at - 3.day, occurred_at)
   end
 
   def no_meals_message

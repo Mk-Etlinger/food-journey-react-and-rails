@@ -9,7 +9,7 @@ class MealForm extends Component {
         this.state = {
             showForm: false,
             meal_type: '',
-            ingredients_attributes: '',
+            ingredients: '',
             description: '',
         }
 
@@ -50,7 +50,7 @@ class MealForm extends Component {
                 meal: Object.assign({}, this.state, { 
                     ingredients_attributes: 
                         { 
-                            name: this.state.ingredients_attributes 
+                            name: this.state.ingredients
                         }
                     })
                 })
@@ -69,7 +69,7 @@ class MealForm extends Component {
                         <RadioInput name="lunch" type="text" value={this.state.meal_type} onChangeCb={this.handleInputChange} />
                         <RadioInput name="dinner" type="text" value={this.state.meal_type} onChangeCb={this.handleInputChange} />
                         <RadioInput name="snack" type="text" value={this.state.meal_type} onChangeCb={this.handleInputChange} />
-                        <InputField name="ingredients_attributes" type="text" value={this.state.ingredients_attributes} onChangeCb={this.handleInputChange}/>            
+                        <InputField name="ingredients" type="text" value={this.state.ingredients} onChangeCb={this.handleInputChange}/>            
                         <InputField name="description" type="text" value={this.state.description} onChangeCb={this.handleInputChange}/>            
                         <input type="submit" value="Create Meal"/>
                     </form>

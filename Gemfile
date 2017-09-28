@@ -22,7 +22,9 @@ gem 'active_model_serializers'
 gem 'foreman', '~> 0.82.0'
 gem 'thor', '~> 0.19.1'
 gem 'pry'
+gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'dotenv-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

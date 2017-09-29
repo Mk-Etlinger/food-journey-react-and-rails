@@ -16,11 +16,15 @@ class App extends Component {
 
   }
 
-  componentDidMount() {
-    fetch('/meals')
-      .then(response => response.json())
-      .then(meals => this.setState({ meals }))
-      .catch(error => console.log("The error is", error))
+	componentDidMount() {
+		let token = "Bearer " + localStorage.getItem("jwt")
+		
+		fetch('/meals', {
+			headers: { "Authorization": token} 
+		})
+			.then(response => response.json())
+			.then(response => console.log(response))
+			.catch(error => console.log("The error is", error))
   }
 
   render() {
@@ -33,9 +37,17 @@ class App extends Component {
           <h2>Food Journey</h2>
           <p>A simple food journaling app to get your health on track</p>
         </div>
+<<<<<<< HEAD
         
         <Routes />
         {/*<Login />*/}      
+=======
+        <a href={`${API_URL}/login`}>Login with FB</a>
+        <Login />
+        {/*<MealForm />
+        <SymptomForm />
+        <DateDisplay />        */}
+>>>>>>> develop/jwt-auth
       </div>
     );
   }

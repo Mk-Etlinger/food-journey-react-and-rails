@@ -31,7 +31,7 @@ class Login extends Component {
                 <FacebookLogin
                 appId='502844323394833'
                 size='small'
-                redirectUri='http://localhost:3001/auth/facebook/callback'
+                redirectUri='http://localhost:3000/dashboard'
                 fields="name,email,picture"
                 onClick={() => console.log('You clicked the FB Login button!')}
                 callback={this.responseFacebook} />               

@@ -37,17 +37,9 @@ class App extends Component {
           <h2>Food Journey</h2>
           <p>A simple food journaling app to get your health on track</p>
         </div>
-<<<<<<< HEAD
         
         <Routes />
         {/*<Login />*/}      
-=======
-        <a href={`${API_URL}/login`}>Login with FB</a>
-        <Login />
-        {/*<MealForm />
-        <SymptomForm />
-        <DateDisplay />        */}
->>>>>>> develop/jwt-auth
       </div>
     );
   }

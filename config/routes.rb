@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root 'application#index'
   get 'dashboard', to: 'dashboard#index'
-  # post 'auth', to: 'sessions#auth', as: 'auth'
   get 'login', to: 'sessions#test', as: 'login'
   get 'auth/facebook/callback', to: 'sessions#create'
 
@@ -10,7 +9,13 @@ Rails.application.routes.draw do
   end
 
   resources :symptoms
+
+  Rails.application.routes.draw do    
+    resources :meals
+    post 'user_token' => 'user_token#create'
+  end  
   
+
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   # get '/ingredients/safe', to: 'ingredients#safe'
   # post '/ingredients/mark_safe', to: 'ingredients#mark_safe'

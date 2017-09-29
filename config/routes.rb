@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'application#index'
   get 'dashboard', to: 'dashboard#index'
   # post 'auth', to: 'sessions#auth', as: 'auth'
-  get 'login', to: 'sessions#test', as: 'login'
+  get 'login', to: 'sessions#login', as: 'login'
   get 'auth/facebook/callback', to: 'sessions#create'
 
   resources :meals do

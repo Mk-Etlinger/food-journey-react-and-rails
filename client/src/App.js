@@ -5,7 +5,7 @@ import './App.css';
 import MealForm from './containers/MealForm';
 import SymptomForm from './containers/SymptomForm';
 import DateDisplay from './containers/DateDisplay';
-// import Login from './containers/Login';
+import Login from './containers/Login';
 // import post from './ApiCalls';
 
 const API_URL = process.env.REACT_APP_API_URL
@@ -21,11 +21,15 @@ class App extends Component {
 
   }
 
-  componentDidMount() {
-    fetch('/meals')
-      .then(response => response.json())
-      .then(meals => this.setState({ meals }))
-      .catch(error => console.log("The error is", error))
+	componentDidMount() {
+		let token = "Bearer " + localStorage.getItem("jwt")
+		
+		fetch('/meals', {
+			headers: { "Authorization": token} 
+		})
+			.then(response => response.json())
+			.then(response => console.log(response))
+			.catch(error => console.log("The error is", error))
   }
 
   render() {
@@ -39,10 +43,10 @@ class App extends Component {
           <p>A simple food journaling app to get your health on track</p>
         </div>
         <a href={`${API_URL}/login`}>Login with FB</a>
-        {/*<Login />*/}
-        <MealForm />
+        <Login />
+        {/*<MealForm />
         <SymptomForm />
-        <DateDisplay />        
+        <DateDisplay />        */}
       </div>
     );
   }

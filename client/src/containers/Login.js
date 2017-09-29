@@ -6,36 +6,65 @@ class Login extends Component {
         super();
 
         this.state = {
-        facebook: '',
+        email: '',
+        password: '',
         }
-    }
-
-    responseFacebook = (response) => {
-        console.log('Everything coming back from FB:\n',response)
-        // return fetch('/auth', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({response})
-        //     // .then(message => console.log(message))
-        //     // .then(meal => console.log(meal))
-        //     // .catch(err => console.log("error of ", err))
-        // })
+        
+        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleOnSubmit = this.handleOnSubmit.bind(this)        
     }
         
+    handleInputChange(e) {
+        const { name, value } = e.target
+        this.setState({
+            [name]: value
+        })                
+    }
+
+    handleOnSubmit() {
+        debugger;
+        const email = this.state.email
+        const password = this.state.password
+        const request = JSON.stringify({
+            auth: { email: email, password: password }
+        })
+        console.log(request)
+        return fetch("/user_token", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: request,
+        })
+        .then(response => response.json())
+        .then(json => localStorage.setItem("jwt", json.jwt))
+        .catch(err => console.log("error of ", err))
+    }    
 
     render() {
         return (
             <div className="Login">        
-                <FacebookLogin
-                appId='502844323394833'
-                size='small'
-                redirectUri='http://localhost:3001/auth/facebook/callback'
-                fields="name,email,picture"
-                onClick={() => console.log('You clicked the FB Login button!')}
-                callback={this.responseFacebook} />               
-            </div>
+                <h1>Login</h1>
+            <form onSubmit={this.handleOnSubmit}>
+                <label htmlFor="email">Email: </label>
+                <br />
+                <input
+                    name="email"                    
+                    type="email"
+                    onChange={this.handleInputChange}
+                    value={this.state.username}/>
+                <br /><br />
+                <label htmlFor="password">Password:</label>
+                <br />
+                <input
+                    name="password"                    
+                    type="password"
+                    onChange={this.handleInputChange}
+                    value={this.state.password}/>
+                <br/>
+                <input type="submit" value="Login"/>
+            </form>                            
+        </div>
         );
     }
 }

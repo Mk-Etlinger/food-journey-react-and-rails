@@ -3,10 +3,10 @@ class SessionsController < ApplicationController
   	@user = User.find_or_create_from_auth_hash(auth)
   	session[:user_id] = @user.id    
     
-  	redirect_back fallback_location: 'http://localhost:3000'
+  	redirect_back fallback_location: 'http://localhost:3000/dashboard'
   end
 
-  def test    
+  def login
     redirect_to '/auth/facebook'
   end  
 

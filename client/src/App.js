@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-// import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './App.css';
-// import Login from './containers/Login';
 // import post from './ApiCalls';
 import Routes from './routes'
 
@@ -39,7 +37,6 @@ class App extends Component {
         </div>
         
         <Routes />
-        {/*<Login />*/}      
       </div>
     );
   }

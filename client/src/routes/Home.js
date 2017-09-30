@@ -1,5 +1,8 @@
 import React from 'react';
+import Login from '../containers/Login';
 
 export default () => (
-    <div>Home</div>
+    <div>
+        <Login />
+    </div>
 )

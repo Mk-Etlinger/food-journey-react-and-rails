@@ -3,15 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 const API_URL = process.env.REACT_APP_API_URL
 
-const FbLogin = () => {
-    return fetch('/login')
-      .then(response => response.json())
-      .then(login => console.log(login))
-      .catch(error => console.log("The error is", error))
-}
-
-
-
 const Navbar = () => (
     <div>
         <li>
@@ -33,8 +24,7 @@ const Navbar = () => (
             >Overview </NavLink>
         </li>
         <li>           
-            <a href={`${API_URL}/login`}>Login with FB</a>
-            <button onClick={FbLogin}>LoGGGG</button>
+            <a href={`${API_URL}/login`}>Login with FB</a>            
         </li>
     </div>
 )

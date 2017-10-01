@@ -37,17 +37,17 @@ class SymptomForm extends Component {
     handleOnSubmit(e) {
         e.preventDefault();
         this.setState({ showForm: false })
-        
+        let token = "Bearer " + localStorage.getItem("jwt")
         return fetch('/symptoms', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token
             },
             body: JSON.stringify({ 
                 symptom: Object.assign({}, this.state, { 
                     ingredients_attributes: 
-                        {                             
-                            current_user_id: 1,
+                        {                                                         
                             occurred_at: this.state.occurred_at,                            
                         },
                     reactions_attributes: 

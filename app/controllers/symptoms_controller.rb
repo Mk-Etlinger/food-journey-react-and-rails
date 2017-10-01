@@ -10,14 +10,14 @@ class SymptomsController < ApplicationController
     @symptom = Symptom.new
   end
   
-  def create    
-    @current_user = User.find_by(id: symptom_params['ingredients_attributes']['current_user_id'])
+  def create
+    binding.pry
     render json: { message: no_meals_message } and return if valid_meals.empty?
-    @symptom = @current_user.symptoms.build(symptom_params)
+    @symptom = current_user.symptoms.build(symptom_params)
     if @symptom.save
       render json: @symptom
     else
-      render :new
+      render json: { message: 'Unable to save symptom, please try again.'}
     end
   end
 
@@ -70,7 +70,7 @@ class SymptomsController < ApplicationController
   def valid_meals
     hours = symptom_params['ingredients_attributes']['occurred_at'].to_f
     occurred_at = Time.current.ago(hours.hour)
-    Meal.for_user(@current_user).created_within(occurred_at - 3.day, occurred_at)
+    Meal.for_user(current_user).created_within(occurred_at - 3.day, occurred_at)
   end
 
   def no_meals_message

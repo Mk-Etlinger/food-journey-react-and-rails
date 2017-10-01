@@ -1,11 +1,11 @@
 class MealsController < ApplicationController
   # before_action :user_signed_in?, :authenticate_user!
-  # before_action :authenticate_user
+  before_action :authenticate_user
   before_action :set_meal, only: [:edit, :show, :update, :destroy]
 
   def index
-    # @meals = current_user.meals.order(created_at: :desc)
-    render json: Meal.all
+    @meals = current_user.meals.order(created_at: :desc)
+    render json: @meals
   end
 
   def show
@@ -14,17 +14,13 @@ class MealsController < ApplicationController
   
 
   def create
-    # @meal = current_user.meals.build(meal_params)
-    @meal = Meal.new(meal_params)
-    @meal.user_id = 1
-    @meal.save
-    render json: @meal
-
-    # if @meal.save
-    #   render json: @meal
-    # else
-    #   render :new
-    # end
+    @meal = current_user.meals.build(meal_params)
+      
+    if @meal.save
+      render json: @meal
+    else
+      render json: { error: "Unable to save meal, please try again." }
+    end
   end
 
   def edit

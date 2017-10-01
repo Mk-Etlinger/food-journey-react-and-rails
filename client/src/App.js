@@ -7,27 +7,9 @@ class App extends Component {
   constructor() {
     super();
 
-    this.state = {
-      meals: [],
-      symptoms: [],
-    }
-
   }
-
-	componentDidMount() {
-		let token = "Bearer " + localStorage.getItem("jwt")
-		
-		fetch('/meals', {
-			headers: { "Authorization": token} 
-		})
-			.then(response => response.json())
-			.then(response => console.log(response))
-			.catch(error => console.log("The error is", error))
-  }
-
-  render() {
-
-    console.log(this.state.meals)
+  
+  render() {    
 
     return (
       <div className="App">

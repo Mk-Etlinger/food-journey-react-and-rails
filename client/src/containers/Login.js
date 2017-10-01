@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import FacebookLogin from 'react-facebook-login';
 
 class Login extends Component {
     constructor() {
@@ -21,8 +20,8 @@ class Login extends Component {
         })                
     }
 
-    handleOnSubmit() {
-        debugger;
+    handleOnSubmit(e) {
+        e.preventDefault();
         const email = this.state.email
         const password = this.state.password
         const request = JSON.stringify({

@@ -11,6 +11,7 @@ class MealForm extends Component {
             meal_type: '',
             ingredients: '',
             description: '',
+            meal: {},
         }
 
         this.handleRadioChange = this.handleRadioChange.bind(this)
@@ -41,11 +42,12 @@ class MealForm extends Component {
     handleOnSubmit(e) {
         e.preventDefault();
         this.setState({ showForm: false })
-        
+        let token = "Bearer " + localStorage.getItem("jwt")
         return fetch('/meals', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token
             },
             body: JSON.stringify({ 
                 meal: Object.assign({}, this.state, { 
@@ -57,11 +59,12 @@ class MealForm extends Component {
                 })
             })
         .then(response => response.json())
-        .then(meal => console.log(meal))
+        .then(meal => this.setState({ meal })) // dispatch a new meal to this.props.meals then mapPropsToState
         .catch(err => console.log("error of ", err))
     }
 
     render() {
+        console.log(this.state.meal)
         return (
             this.state.showForm === true ?
                 <div>
@@ -81,6 +84,10 @@ class MealForm extends Component {
             </div>
         )
     }
+}
+
+MealForm.defaultProps = {
+    meals: [],
 }
 
 export default MealForm;

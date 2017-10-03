@@ -3,7 +3,15 @@ class SymptomsController < ApplicationController
   before_action :set_symptom, only: [:show, :edit, :update, :destroy]
 
   def index
-    @symptoms = current_user.symptoms.order(created_at: :desc)
+    @symptoms = current_user.symptoms.order(created_at: :desc).limit(20)
+                  .group_by{ |symptom| symptom.created_at.strftime("%b %d") }
+    render json: @symptoms
+  end
+
+  def recent
+    @symptoms = current_user.symptoms.order(created_at: :desc).limit(20)
+                  .group_by{ |symptom| symptom.created_at.strftime("%b %d") }
+    render json: @symptoms
   end
   
   def new
@@ -11,9 +19,9 @@ class SymptomsController < ApplicationController
   end
   
   def create
-    binding.pry
     render json: { message: no_meals_message } and return if valid_meals.empty?
     @symptom = current_user.symptoms.build(symptom_params)
+
     if @symptom.save
       render json: @symptom
     else

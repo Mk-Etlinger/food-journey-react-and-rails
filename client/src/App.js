@@ -4,10 +4,10 @@ import './App.css';
 import Routes from './routes'
 
 class App extends Component {
-  constructor() {
-    super();
+  // constructor() {
+  //   super();
 
-  }
+  // }
   
   render() {    
 

@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   root 'application#index'
   get 'dashboard', to: 'dashboard#index'
-  get 'login', to: 'sessions#login', as: 'login'
+  get 'login', to: 'sessions#login'
   get 'auth/facebook/callback', to: 'sessions#create'
-
+  get 'recent_meals', to: 'meals#recent'
+  get 'recent_symptoms', to: 'symptoms#recent'
   resources :meals do
     resources :ingredients, only: [:index]
   end
@@ -18,9 +19,7 @@ Rails.application.routes.draw do
 
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   # get '/ingredients/safe', to: 'ingredients#safe'
-  # post '/ingredients/mark_safe', to: 'ingredients#mark_safe'
-
-  # get '/users/:id/meals/new', to: 'meals#new', as: 'nested_new_meal'
+  # post '/ingredients/mark_safe', to: 'ingredients#mark_safe'  
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

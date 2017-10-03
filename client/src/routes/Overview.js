@@ -23,8 +23,7 @@ export default class Overview extends Component {
 			.catch(error => console.log("The error is", error))
     }
     
-    render(){  
-        console.log(this.state.meals)      
+    render(){
         return (
             <div>
                 Meals:

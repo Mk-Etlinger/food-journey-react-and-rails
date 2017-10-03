@@ -27,7 +27,7 @@ class Login extends Component {
         const request = JSON.stringify({
             auth: { email: email, password: password }
         })
-        console.log(request)
+        this.setState({ email: '', password: ''})
         return fetch("/user_token", {
             method: "POST",
             headers: {
@@ -51,7 +51,7 @@ class Login extends Component {
                     name="email"                    
                     type="email"
                     onChange={this.handleInputChange}
-                    value={this.state.username}/>
+                    value={this.state.email}/>
                 <br /><br />
                 <label htmlFor="password">Password:</label>
                 <br />

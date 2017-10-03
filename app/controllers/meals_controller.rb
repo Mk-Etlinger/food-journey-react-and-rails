@@ -1,11 +1,18 @@
 class MealsController < ApplicationController
   # before_action :user_signed_in?, :authenticate_user!
+  before_action :set_meal, only: [:show, :update, :destroy]
   before_action :authenticate_user
-  before_action :set_meal, only: [:edit, :show, :update, :destroy]
 
   def index
     @meals = current_user.meals.order(created_at: :desc)
-    render json: @meals
+               .group_by{ |meal| meal.created_at.strftime("%b %dth") }                               
+    render json: @meals.as_json(include: :ingredients)
+  end
+
+  def recent
+    @meals = current_user.meals.order(created_at: :desc).limit(30)
+              .group_by{ |meal| meal.created_at.strftime("%b %dth") }
+    render json: @meals.as_json(include: :ingredients)
   end
 
   def show
@@ -23,19 +30,19 @@ class MealsController < ApplicationController
     end
   end
 
-  def edit
-    if user_authorized?
-      render :edit
-    else
-      redirect_to dashboard_path
-    end
+  def edit    
+    # if user_authorized?
+    #   render :edit
+    # else
+    #   redirect_to dashboard_path
+    # end
   end
 
   def update
     if user_authorized? && @meal.update(meal_params)
-      redirect_to dashboard_path
+      render json: @meal
     else
-      render :edit
+      render json: { message: 'Unable to save, please try again' }
     end
   end
 

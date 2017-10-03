@@ -5,13 +5,13 @@ class MealsController < ApplicationController
 
   def index
     @meals = current_user.meals.order(created_at: :desc)
-               .group_by{ |meal| meal.created_at.strftime("%b %dth") }                               
+               .group_by{ |meal| meal.created_at.strftime("%b %d") }                               
     render json: @meals.as_json(include: :ingredients)
   end
 
   def recent
     @meals = current_user.meals.order(created_at: :desc).limit(30)
-              .group_by{ |meal| meal.created_at.strftime("%b %dth") }
+              .group_by{ |meal| meal.created_at.strftime("%b %d") }
     render json: @meals.as_json(include: :ingredients)
   end
 

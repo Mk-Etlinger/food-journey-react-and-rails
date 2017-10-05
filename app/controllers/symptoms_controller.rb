@@ -4,13 +4,14 @@ class SymptomsController < ApplicationController
 
   def index
     @symptoms = current_user.symptoms.order(created_at: :desc).limit(20)
-                  .group_by{ |symptom| symptom.created_at.strftime("%b %d") }
-    render json: @symptoms
+                  .group_by{ |symptom| symptom.created_at.strftime("%b #{symptom.created_at.day.ordinalize}") }
+                      
+    render json: @symptoms.as_json(include: :ingredients)
   end
 
   def recent
     @symptoms = current_user.symptoms.order(created_at: :desc).limit(20)
-                  .group_by{ |symptom| symptom.created_at.strftime("%b %d") }
+                  .group_by{ |symptom| symptom.created_at.strftime("%b #{symptom.created_at.day.ordinalize}") }
     render json: @symptoms
   end
   
@@ -20,8 +21,8 @@ class SymptomsController < ApplicationController
   
   def create
     render json: { message: no_meals_message } and return if valid_meals.empty?
-    @symptom = current_user.symptoms.build(symptom_params)
 
+    @symptom = current_user.symptoms.build(update_params())
     if @symptom.save
       render json: @symptom
     else
@@ -69,6 +70,7 @@ class SymptomsController < ApplicationController
                                     ingredients_attributes: [:current_user_id, :hours_elapsed, :occurred_at],
                                     reactions_attributes: [:severity, :stress_level, :notes],
                                     reaction_logs: [:occurred_at])
+                                    
   end
 
   def user_authorized?
@@ -79,6 +81,11 @@ class SymptomsController < ApplicationController
     hours = symptom_params['ingredients_attributes']['occurred_at'].to_f
     occurred_at = Time.current.ago(hours.hour)
     Meal.for_user(current_user).created_within(occurred_at - 3.day, occurred_at)
+  end
+
+  def update_params
+    merge_user_id_to_ingredients = symptom_params['ingredients_attributes'].merge({current_user_id: current_user.id})
+    symptom_params.merge(ingredients_attributes: merge_user_id_to_ingredients)
   end
 
   def no_meals_message

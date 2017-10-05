@@ -1,6 +1,6 @@
 class Symptom < ApplicationRecord
   belongs_to :user
-  has_many :reactions
+  has_many :reactions, dependent: :destroy
   has_many :ingredients, -> { distinct }, through: :reactions
   has_many :reaction_logs, through: :reactions
 
@@ -17,7 +17,7 @@ class Symptom < ApplicationRecord
     set_user_id(attributes) && set_occurred_at(attributes)
     set_meals_within_three_days
     @meals.each do |meal|
-      meal.ingredients.each do |ingredient|      
+      meal.ingredients.each do |ingredient|    
         self.ingredients << ingredient
       end
     end
@@ -39,6 +39,6 @@ class Symptom < ApplicationRecord
   end
 
   def set_user_id(attributes)
-    self.user_id = 1
+    self.user_id = attributes['current_user_id']
   end
 end

@@ -1,5 +1,5 @@
 class Reaction < ApplicationRecord
   belongs_to :ingredient
   belongs_to :symptom
-  has_many :reaction_logs
+  has_many :reaction_logs, dependent: :destroy
 end

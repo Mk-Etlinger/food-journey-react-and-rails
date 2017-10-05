@@ -77,8 +77,8 @@ class SymptomForm extends Component {
                     <InputField name="description" type="text" value={this.state.description} onChangeCb={this.handleInputChange}/>
                     <InputField name="severity" type="number" value={this.state.severity} onChangeCb={this.handleInputChange}/>
                     <InputField name="stress_level" type="number" value={this.state.stress_level} onChangeCb={this.handleInputChange}/>
-                    <InputField name="notes" type="textarea" value={this.state.notes} onChangeCb={this.handleInputChange}/>
                     <InputField name="occurred_at" type="number" value={this.state.occurred_at} onChangeCb={this.handleInputChange}/>                    
+                    <InputField name="notes" type="textarea" value={this.state.notes} onChangeCb={this.handleInputChange}/>
                     <input type="submit" value="Create Symptom"/>
                 </form>              
             </div>

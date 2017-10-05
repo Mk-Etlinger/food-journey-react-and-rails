@@ -2,34 +2,25 @@ import React, { Component } from 'react';
 import MealForm from '../containers/MealForm';
 import SymptomForm from '../containers/SymptomForm';
 import DateDisplay from '../containers/DateDisplay';
+import { connect } from 'react-redux';
+import { getRecentMeals } from '../actions/recentMeals'
+import { getRecentSymptoms } from '../actions/recentSymptoms'
 // import Api from '../Api';
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
     constructor() {
         super();
 
         this.state = {
-            meals: [],
-            symptoms: [],          
+            recentMeals: [],
+            recentSymptoms: [],
         }
     }
 
     componentDidMount() {
         // Api.get('meals')
-		let token = "Bearer " + localStorage.getItem("jwt")
-		
-		fetch('/recent_meals', {
-			headers: { "Authorization": token} 
-		})
-			.then(response => response.json())
-			.then(meals => this.setState({ meals }))
-			.catch(error => console.log("The error is", error))
-		fetch('/recent_symptoms', {
-			headers: { "Authorization": token} 
-		})
-			.then(response => response.json())
-			.then(symptoms => this.setState({ symptoms }))
-			.catch(error => console.log("The error is", error))
+        this.props.getRecentMeals();
+        this.props.getRecentSymptoms();
     }
 
     render() {
@@ -37,8 +28,17 @@ export default class Dashboard extends Component {
             <div>
                 <MealForm />
                 <SymptomForm />
-                <DateDisplay meals={this.state.meals} symptoms={this.state.symptoms} />        
+                <DateDisplay meals={this.props.recentMeals} symptoms={this.props.recentSymptoms} />        
             </div>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return ({
+        recentSymptoms: state.recentSymptoms,
+        recentMeals: state.recentMeals
+    })
+}
+
+export default connect(mapStateToProps, { getRecentSymptoms, getRecentMeals })(Dashboard);

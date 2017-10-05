@@ -4,13 +4,8 @@ import './App.css';
 import Routes from './routes'
 
 class App extends Component {
-  // constructor() {
-  //   super();
 
-  // }
-  
-  render() {    
-
+  render() {
     return (
       <div className="App">
         <div className="App-header">        

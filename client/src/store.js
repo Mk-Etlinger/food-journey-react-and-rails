@@ -5,15 +5,11 @@ import {
 } from 'redux';
 import meals from './reducers/meals'
 import symptoms from './reducers/symptoms'
-import recentMeals from './reducers/recentMeals'
-import recentSymptoms from './reducers/recentSymptoms'
 import thunk from 'redux-thunk';
 
 const reducers = combineReducers({
     meals,
-    symptoms,
-    recentMeals,
-    recentSymptoms,
+    symptoms,    
 });
 
 const middleware = [thunk];

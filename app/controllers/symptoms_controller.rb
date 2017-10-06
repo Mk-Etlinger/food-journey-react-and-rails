@@ -5,7 +5,6 @@ class SymptomsController < ApplicationController
   def index
     @symptoms = current_user.symptoms.order(created_at: :desc).limit(20)
                   .group_by{ |symptom| symptom.created_at.strftime("%b #{symptom.created_at.day.ordinalize}") }
-                      
     render json: @symptoms.as_json(include: :ingredients)
   end
 

@@ -1,14 +1,15 @@
 import React from 'react';
 
-export default ({ name, meal_type, onChangeCb }) => {    
+export default ({ value, meal_type, onChangeCb }) => {    
     return (
         <div>   
-            {name}
-            <label htmlFor={name}>
+            {value}
+            <label htmlFor={value}>
                 <input 
                     type="radio"                    
-                    value={name}
-                    checked={meal_type === name}
+                    value={value}
+                    name='meal_type'
+                    checked={meal_type === value}
                     onChange={onChangeCb} />                    
             </label>
         </div>

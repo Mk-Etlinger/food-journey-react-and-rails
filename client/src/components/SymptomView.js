@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default ({ symptomsByDate }) => {    
-    const mapDates = Object.keys(symptomsByDate).map((date, i) => {       
+    const mapSymptomDates = Object.keys(symptomsByDate).map((date, i) => {       
         let symptomsList = symptomsByDate[date].map(symptom => {
             return (            
                 <div key={symptom.id}>                    
@@ -17,6 +17,6 @@ export default ({ symptomsByDate }) => {
         )
     })
     return (
-            <div>{mapDates}</div>
+            <div>{mapSymptomDates}</div>
         )
 }

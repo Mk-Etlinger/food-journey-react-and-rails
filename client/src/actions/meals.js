@@ -18,7 +18,3 @@ export const getMeals = () => {
 			.catch(error => console.log("The error is", error))
     }
 }
-
-
-
-		

@@ -8,6 +8,13 @@ const setSymptoms = symptoms => {
     }
 }
 
+const setRecentSymptoms = recentSymptoms => {
+    return {
+        type: 'GET_RECENT_SYMPTOMS_SUCCESS',
+        recentSymptoms
+    }
+}
+
 export const getSymptoms = () => {
     return dispatch => {
         return fetch(`${API_URL}/symptoms`, {
@@ -15,6 +22,17 @@ export const getSymptoms = () => {
 		})
 			.then(response => response.json())
 			.then(symptoms => dispatch(setSymptoms(symptoms)))
+			.catch(error => console.log("The error is", error))
+    }
+}
+
+export const getRecentSymptoms = () => {
+    return dispatch => {
+        return fetch(`${API_URL}/recent_symptoms`, {
+			headers: { "Authorization": token} 
+		})
+			.then(response => response.json())
+			.then(recentSymptoms => dispatch(setRecentSymptoms(recentSymptoms)))
 			.catch(error => console.log("The error is", error))
     }
 }

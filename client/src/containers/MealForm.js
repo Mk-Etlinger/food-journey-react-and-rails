@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import InputField from '../components/InputField';
 import RadioInput from '../components/RadioInput';
+import { createMeal } from '../actions/createMeal';
+import { updateMealFormData } from '../actions/mealForm';
 
 class MealForm extends Component {
     constructor() {
@@ -8,29 +11,19 @@ class MealForm extends Component {
 
         this.state = {
             showForm: false,
-            meal_type: '',
-            ingredients: '',
-            description: '',
-            meal: {},
         }
 
-        this.handleRadioChange = this.handleRadioChange.bind(this)
-        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleOnChange = this.handleOnChange.bind(this)
         this.handleShowForm = this.handleShowForm.bind(this)
         this.handleOnSubmit = this.handleOnSubmit.bind(this)
     }
 
-    handleRadioChange(e) { 
-        this.setState({
-            meal_type: e.target.value
-        })        
-    }
-
-    handleInputChange(e) {
+    handleOnChange(e) {
         const { name, value } = e.target
-        this.setState({
+        const currentMealFormData = Object.assign({}, this.props.mealFormData, {
             [name]: value
-        })                
+        })
+        this.props.updateMealFormData(currentMealFormData)         
     }
 
     handleShowForm(e) {
@@ -41,39 +34,24 @@ class MealForm extends Component {
 
     handleOnSubmit(e) {
         e.preventDefault();
-        this.setState({ showForm: false })
-        let token = "Bearer " + localStorage.getItem("jwt")
-        return fetch('/meals', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token
-            },
-            body: JSON.stringify({ 
-                meal: Object.assign({}, this.state, { 
-                    ingredients_attributes: 
-                        { 
-                            name: this.state.ingredients
-                        }
-                    })
-                })
-            })
-        .then(response => response.json())
-        .then(meal => this.setState({ meal })) // dispatch a new meal to this.props.meals then mapPropsToState
-        .catch(err => console.log("error of ", err))
+        this.props.createMeal(this.props.mealFormData)
+        this.setState({
+            showForm: false,           
+        })
     }
 
     render() {
+        const { showForm, meal_type, ingredients, description } = this.props.mealFormData
         return (
             this.state.showForm === true ?
                 <div>
                     <form onSubmit={this.handleOnSubmit}>                    
-                        <RadioInput name="breakfast" meal_type={this.state.meal_type} onChangeCb={this.handleRadioChange} />
-                        <RadioInput name="lunch" meal_type={this.state.meal_type} onChangeCb={this.handleRadioChange} />
-                        <RadioInput name="dinner" meal_type={this.state.meal_type} onChangeCb={this.handleRadioChange} />
-                        <RadioInput name="snack" meal_type={this.state.meal_type} onChangeCb={this.handleRadioChange} />
-                        <InputField name="ingredients" type="text" value={this.state.ingredients} onChangeCb={this.handleInputChange}/>            
-                        <InputField name="description" type="text" value={this.state.description} onChangeCb={this.handleInputChange}/>            
+                        <RadioInput value="breakfast" meal_type={meal_type} onChangeCb={this.handleOnChange} />
+                        <RadioInput value="lunch" meal_type={meal_type} onChangeCb={this.handleOnChange} />
+                        <RadioInput value="dinner" meal_type={meal_type} onChangeCb={this.handleOnChange} />
+                        <RadioInput value="snack" meal_type={meal_type} onChangeCb={this.handleOnChange} />
+                        <InputField name="ingredients" type="text" value={ingredients} onChangeCb={this.handleOnChange}/>            
+                        <InputField name="description" type="text" value={description} onChangeCb={this.handleOnChange}/>            
                         <input type="submit" value="Create Meal"/>
                     </form>
                 </div>
@@ -85,8 +63,10 @@ class MealForm extends Component {
     }
 }
 
-MealForm.defaultProps = {
-    meals: [],
+const mapeStateToProps = state => {
+    return {
+        mealFormData: state.mealFormData
+    }
 }
 
-export default MealForm;
+export default connect(mapeStateToProps, { createMeal, updateMealFormData })(MealForm);

@@ -22,15 +22,19 @@ class Overview extends Component {
     };
     
     render(){
+        console.log(this.props)
+        const { meals, symptoms} = this.props
+        const isMealLoaded = Object.keys(meals).length > 0
+        const isSymptomLoaded = Object.keys(symptoms).length > 0
         return (
             <div>
                 <div style={{ display: 'inline-block' }}>
                     <h1>Meals:</h1>
-                    {Object.keys(this.props.meals).length > 0 ? <MealView mealsByDate={this.props.meals}/> : ''}
+                    {isMealLoaded && <MealView mealsByDate={meals}/>}
                 </div>
                 <div style={{ display: 'inline-block', verticalAlign: 'top', marginLeft: 100 }}>
                     <h1>Symptoms:</h1>
-                    {Object.keys(this.props.meals).length > 0 ? <SymptomView symptomsByDate={this.props.symptoms}/> : ''}
+                    {isSymptomLoaded && <SymptomView symptomsByDate={symptoms}/>}
                 </div>
             </div>
         )

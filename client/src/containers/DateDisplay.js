@@ -31,10 +31,6 @@ class DateDisplay extends Component {
     }
 }
 
-// DateDisplay.defaultProps = {
-//     recentMeals: {}
-// }
-
 const mapStateToProps = (state) => {
     return ({
         meals: state.meals,

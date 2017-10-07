@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ value, name, type, onChangeCb }) => {
+export default ({ value, name, type, placeholder, onChangeCb }) => {
     return (
         type === 'textarea' ?
             <div>                    
@@ -8,7 +8,8 @@ export default ({ value, name, type, onChangeCb }) => {
                     {splitToCapitalize(name)}: <br/>
                     <textarea name={name}              
                         value={value} 
-                        onChange={onChangeCb}>  
+                        onChange={onChangeCb}
+                        placeholder={placeholder}>  
                     </textarea> 
                 </label>
             </div>            
@@ -16,7 +17,8 @@ export default ({ value, name, type, onChangeCb }) => {
             <div>
                 <label htmlFor="">
                     {splitToCapitalize(name)}: <br/>
-                    <input type={type} 
+                    <input type={type}
+                    placeholder={placeholder} 
                     name={name}
                     value={value} 
                     onChange={onChangeCb} />

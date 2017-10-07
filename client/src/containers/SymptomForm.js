@@ -1,93 +1,102 @@
 import React, { Component } from 'react';
 import InputField from '../components/InputField';
-
-const initialState = {
-            showForm: false,
-            description: '',
-            severity: '',
-            stress_level: '',
-            notes: '',
-            occurred_at: '',            
-        }
+import { createSymptom } from '../actions/createSymptom';
+import { updateSymptomFormData } from '../actions/symptomForm';
+import { toggleMealButton } from '../actions/toggleMealButton';
+import { connect } from 'react-redux';
 
 class SymptomForm extends Component {
     constructor() {
         super();
 
-        this.state = initialState;
+        this.state = {
+            showForm: false
+        }
 
-        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleOnChange = this.handleOnChange.bind(this)
         this.handleShowForm = this.handleShowForm.bind(this)
         this.handleOnSubmit = this.handleOnSubmit.bind(this)
     }
 
-     handleInputChange(e) {
+    handleOnChange(e) {
         const { name, value } = e.target
-        this.setState({
+
+        const currentSymptomFormData = Object.assign({}, this.props.symptomFormData, {
             [name]: value
-        })        
+        })
+        this.props.updateSymptomFormData(currentSymptomFormData)         
     }
 
     handleShowForm(e) {
         this.setState({
             showForm: true
         })
+        this.props.toggleMealButton({
+            active: !this.props.symptomFormData.active
+        })
     }
 
     handleOnSubmit(e) {
         e.preventDefault();
         this.setState({ showForm: false })
-        let token = "Bearer " + localStorage.getItem("jwt")
-        return fetch('/symptoms', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token
-            },
-            body: JSON.stringify({ 
-                symptom: Object.assign({}, this.state, { 
-                    ingredients_attributes: 
-                        {                                                         
-                            occurred_at: this.state.occurred_at,                            
-                        },
-                    reactions_attributes: 
-                        {                             
-                            severity: this.state.severity,
-                            notes: this.state.notes,
-                            stress_level: this.state.stress_level,
-                        },
-                    reaction_logs:
-                        {
-                            occurred_at: this.state.occurred_at
-                        }
-                })
-            })
+        this.props.createSymptom(this.props.symptomFormData)
+        this.props.toggleMealButton({
+            active: !this.props.symptomFormData.active
         })
-        .then(response => response.json())
-        .then(symptom => console.log(symptom))
-        .catch(err => console.log("error of ", err))
-
     }    
 
     render() {
+        const { description, severity, stress_level, occurred_at, notes } = this.props.symptomFormData
+        const { mealFormData } = this.props
         return (
             this.state.showForm === true ?
             <div>
                 <form onSubmit={this.handleOnSubmit}>
-                    <InputField name="description" type="text" value={this.state.description} onChangeCb={this.handleInputChange}/>
-                    <InputField name="severity" type="number" value={this.state.severity} onChangeCb={this.handleInputChange}/>
-                    <InputField name="stress_level" type="number" value={this.state.stress_level} onChangeCb={this.handleInputChange}/>
-                    <InputField name="occurred_at" type="number" value={this.state.occurred_at} onChangeCb={this.handleInputChange}/>                    
-                    <InputField name="notes" type="textarea" value={this.state.notes} onChangeCb={this.handleInputChange}/>
+                    <InputField name="description" 
+                        type="text" value={description} 
+                        onChangeCb={this.handleOnChange}
+                        placeholder={"What's ailing you?"}/>
+                    <InputField name="severity" 
+                        type="number" 
+                        value={severity} 
+                        onChangeCb={this.handleOnChange}/>
+                    <InputField name="stress_level" 
+                    type="number" value={stress_level} 
+                    onChangeCb={this.handleOnChange}/>
+                    <InputField name="occurred_at" 
+                        type="number" 
+                        value={occurred_at} 
+                        onChangeCb={this.handleOnChange}/>                    
+                    <InputField name="notes" 
+                        type="textarea" 
+                        value={notes} 
+                        onChangeCb={this.handleOnChange}
+                        placeholder={"Notes..."}/>
                     <input type="submit" value="Create Symptom"/>
                 </form>              
             </div>
             :
             <div>
-                <button onClick={this.handleShowForm}>Add a Symptom</button>
+                {mealFormData.active === false ? 
+                    <button onClick={this.handleShowForm}>Add a Symptom</button>
+                :
+                    ''
+                }
             </div>
         )
     }
 }
 
-export default SymptomForm;
+export const mapStateToProps = state => {
+    return ({
+        mealFormData: state.mealFormData,
+        symptomFormData: state.symptomFormData,
+        symptoms: state.symptoms
+    })
+}
+
+export default connect(mapStateToProps, { 
+        updateSymptomFormData, 
+        toggleMealButton, 
+        createSymptom 
+    })(SymptomForm);

@@ -6,12 +6,14 @@ import {
 import meals from './reducers/meals'
 import symptoms from './reducers/symptoms'
 import mealFormData from './reducers/mealFormData'
+import symptomFormData from './reducers/symptomFormData'
 import thunk from 'redux-thunk';
 
 const reducers = combineReducers({
     meals,
     symptoms,
     mealFormData,
+    symptomFormData,
 });
 
 const middleware = [thunk];

@@ -1,19 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
 import DateDropdown from '../components/DateDropdown'
+import { getRecentMeals } from '../actions/recentMeals';
+import { getRecentSymptoms } from '../actions/recentSymptoms';
+import { connect } from 'react-redux';
 
-function DateDisplay({ meals, symptoms }) {
-    const mapDates = Object.keys(meals).map((date, i) => {
-        if (symptoms[date]) {
-            return <DateDropdown key={i} date={date} symptoms={symptoms[date]} meals={meals[date]}/>
-        }
-        return <DateDropdown key={i} date={date} symptoms={[]} meals={meals[date]}/>
-    }) 
-    
-    return (
-        <div>
-            {mapDates}
-        </div>
-    )
+// date: [meals]
+
+class DateDisplay extends Component {
+
+    componentDidMount() {
+        // Api.get('meals')
+        this.props.getRecentMeals();
+        this.props.getRecentSymptoms();
+    }
+
+    render() {
+        const { recentMeals } = this.props.meals
+        const { recentSymptoms } = this.props.symptoms
+        let mapDates = Object.keys(recentMeals).map((date, i) => {
+            if (recentSymptoms[date]) {
+                return <DateDropdown key={i} date={date} symptoms={recentSymptoms[date]} meals={recentMeals[date]}/>
+            }
+            return <DateDropdown key={i} date={date} symptoms={[]} meals={recentMeals[date]}/>
+        })
+        return (
+            <div>
+                {mapDates}
+            </div>
+        )
+    }
 }
 
-export default DateDisplay;
+// DateDisplay.defaultProps = {
+//     recentMeals: {}
+// }
+
+const mapStateToProps = (state) => {
+    return ({
+        meals: state.meals,
+        symptoms: state.symptoms
+    })
+}
+
+export default connect(mapStateToProps, { getRecentMeals, getRecentSymptoms } )(DateDisplay);

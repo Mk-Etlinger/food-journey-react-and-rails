@@ -1,5 +1,5 @@
 const initialState = {
-    meals: [],
+    meals: {},
     recentMeals: {},
 }
 
@@ -16,7 +16,7 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case 'GET_MEALS_SUCCESS':
-            return action.meals;
+            return Object.assign({}, state, { meals: action.meals })
         case 'GET_RECENT_MEALS_SUCCESS':
             return Object.assign({}, state, { recentMeals: action.recentMeals })
         case 'CREATE_MEAL_SUCCESS':

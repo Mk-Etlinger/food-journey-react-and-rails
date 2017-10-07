@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ mealsByDate }) => {    
+export default ({ mealsByDate }) => {
     const mapMealDates = Object.keys(mealsByDate).map((date, i) => {       
         let mealsList = mealsByDate[date].map(meal => {
             return (            

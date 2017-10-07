@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL
+
 let token = "Bearer " + localStorage.getItem("jwt")
 
 const addMeal = meal => {
@@ -9,7 +11,7 @@ const addMeal = meal => {
 
 export const createMeal = (state) => {
     return dispatch => {
-        return fetch('/meals', {
+        return fetch(`${API_URL}/meals`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

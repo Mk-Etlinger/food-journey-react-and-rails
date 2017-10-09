@@ -1,6 +1,12 @@
-export const toggleMealButton = toggle => {
+export const hideMealButton = () => {
     return {
-        type: 'SET_SYMPTOM_FORM_ACTIVE',
-        toggleMealButton: toggle
+        type: 'TOGGLE_SYMPTOM_FORM',
+        active: true
+    }
+}
+export const showMealButton = () => {
+    return {
+        type: 'TOGGLE_SYMPTOM_FORM',
+        active: false
     }
 }

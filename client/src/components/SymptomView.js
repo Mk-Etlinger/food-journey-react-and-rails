@@ -5,7 +5,11 @@ export default ({ symptomsByDate }) => {
         let symptomsList = symptomsByDate[date].map(symptom => {
             return (            
                 <div key={symptom.id}>                    
-                    <p>{symptom.description + ': ' + symptom.ingredients.map(ing => ing.name)}</p>
+                    <p>{symptom.description}</p>
+                    <p>Potential Triggers:</p>
+                    <ul>
+                        {symptom.ingredients.map(ing => <li key={ing.id}>{ing.name}</li>)}
+                    </ul>
                 </div>
             )
         })        

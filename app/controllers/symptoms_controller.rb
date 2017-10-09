@@ -11,19 +11,21 @@ class SymptomsController < ApplicationController
   def recent
     @symptoms = current_user.symptoms.order(created_at: :desc).limit(20)
                   .group_by{ |symptom| symptom.created_at.strftime("%b #{symptom.created_at.day.ordinalize}") }
-    render json: @symptoms
+    render json: @symptoms.as_json(include: [ :ingredients, :reactions , :reaction_logs])
   end
-  
+
   def new
     @symptom = Symptom.new
   end
-  
+
   def create
     render json: { message: no_meals_message } and return if valid_meals.empty?
 
     @symptom = current_user.symptoms.build(update_params())
     if @symptom.save
-      render json: @symptom
+      key = @symptom.created_at.strftime("%b #{@symptom.created_at.day.ordinalize}")
+      @formatted_symptom = Hash[key, @symptom]
+      render json: @formatted_symptom.as_json(include: [ :ingredients, :reactions , :reaction_logs])
     else
       render json: { message: 'Unable to save symptom, please try again.'}
     end

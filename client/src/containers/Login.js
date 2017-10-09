@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 
 class Login extends Component {
     constructor() {
         super();
 
         this.state = {
-        email: '',
-        password: '',
+            email: '',
+            password: '',
         }
         
         this.handleInputChange = this.handleInputChange.bind(this)
-        this.handleOnSubmit = this.handleOnSubmit.bind(this)        
+        this.handleOnSubmit = this.handleOnSubmit.bind(this)
+        this.checkAuth = this.checkAuth.bind(this)    
     }
         
     handleInputChange(e) {
@@ -20,6 +22,17 @@ class Login extends Component {
         })                
     }
 
+    checkAuth()  {
+        // when added to redux store
+        // if localStorage.jwt === this.props.jwt
+        this.props.history.push('/dashboard')
+    }
+
+    componentDidMount() {
+        
+        if (localStorage.jwt) this.checkAuth()
+    }
+
     handleOnSubmit(e) {
         e.preventDefault();
         const email = this.state.email
@@ -27,8 +40,9 @@ class Login extends Component {
         const request = JSON.stringify({
             auth: { email: email, password: password }
         })
+        const API_URL = process.env.REACT_APP_API_URL
         this.setState({ email: '', password: ''})
-        return fetch("/user_token", {
+        return fetch(`${API_URL}/user_token`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -36,8 +50,11 @@ class Login extends Component {
             body: request,
         })
         .then(response => response.json())
-        .then(json => localStorage.setItem("jwt", json.jwt))
+        .then(json => {
+            localStorage.setItem("jwt", json.jwt);          
+        })
         .catch(err => console.log("error of ", err))
+        .then(test => this.checkAuth())
     }    
 
     render() {
@@ -68,4 +85,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

@@ -4,7 +4,9 @@ import InputField from '../components/InputField';
 import RadioInput from '../components/RadioInput';
 import { createMeal } from '../actions/createMeal';
 import { updateMealFormData } from '../actions/mealForm';
-import { toggleSymptomButton } from '../actions/toggleSymptomButton';
+import { hideSymptomButton, showSymptomButton } from '../actions/toggleSymptomButton';
+import { Button } from 'react-bootstrap';
+// import Button from 'react-toolbox/lib/button/Button'
 
 class MealForm extends Component {
     constructor() {
@@ -29,23 +31,19 @@ class MealForm extends Component {
 
     handleShowForm(e) {
         this.setState({ showForm: true })
-        this.props.toggleSymptomButton({
-            active: !this.props.mealFormData.active
-        })
+        this.props.hideSymptomButton()
     }
 
     handleOnSubmit(e) {
         e.preventDefault();
         this.props.createMeal(this.props.mealFormData)
         this.setState({ showForm: false })
-        this.props.toggleSymptomButton({
-            active: !this.props.mealFormData.active
-        })
+        this.props.showSymptomButton()
     }
 
     render() {
         const { meal_type, ingredients } = this.props.mealFormData
-        const { mealFormData } = this.props
+        const { symptomFormData } = this.props
         return (
             this.state.showForm === true ?
                 <div>
@@ -72,10 +70,10 @@ class MealForm extends Component {
                 </div>
             :
             <div>
-                {mealFormData.active === false ? 
-                    <button onClick={this.handleShowForm}>Add a meal</button>
+                {symptomFormData.active === true ? 
+                    '' // if symptom form is active, hide add meal button
                 :
-                    ''
+                    <Button bsStyle="primary" onClick={this.handleShowForm}>+ Meal</Button>
                 }
             </div>
             
@@ -92,6 +90,7 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, { 
     createMeal,
-    toggleSymptomButton,
+    hideSymptomButton,
+    showSymptomButton,
     updateMealFormData 
 })(MealForm);

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import InputField from '../components/InputField';
 import { createSymptom } from '../actions/createSymptom';
 import { updateSymptomFormData } from '../actions/symptomForm';
-import { toggleMealButton } from '../actions/toggleMealButton';
+import { hideMealButton, showMealButton } from '../actions/toggleMealButton';
 import { connect } from 'react-redux';
+import { Button } from 'react-bootstrap';
 
 class SymptomForm extends Component {
     constructor() {
@@ -28,21 +29,15 @@ class SymptomForm extends Component {
     }
 
     handleShowForm(e) {
-        this.setState({
-            showForm: true
-        })
-        this.props.toggleMealButton({
-            active: !this.props.symptomFormData.active
-        })
+        this.setState({ showForm: true })
+        this.props.hideMealButton()
     }
 
     handleOnSubmit(e) {
         e.preventDefault();
         this.setState({ showForm: false })
         this.props.createSymptom(this.props.symptomFormData)
-        this.props.toggleMealButton({
-            active: !this.props.symptomFormData.active
-        })
+        this.props.showMealButton()
     }    
 
     render() {
@@ -51,12 +46,12 @@ class SymptomForm extends Component {
         return (
             this.state.showForm === true ?
             <div>
-                <form onSubmit={this.handleOnSubmit}>
+                <form onSubmit={this.handleOnSubmit} >
                     <InputField name="description" 
                         type="text" value={description} 
                         onChangeCb={this.handleOnChange}
                         placeholder={"What's ailing you?"}/>
-                    <InputField name="severity" 
+                    <InputField name="severity"
                         type="number" 
                         value={severity} 
                         onChangeCb={this.handleOnChange}/>
@@ -77,10 +72,10 @@ class SymptomForm extends Component {
             </div>
             :
             <div>
-                {mealFormData.active === false ? 
-                    <button onClick={this.handleShowForm}>Add a Symptom</button>
+                {mealFormData.active === true ? 
+                    '' // if symptom form is active, hide add meal button
                 :
-                    ''
+                    <Button bsStyle="primary" onClick={this.handleShowForm}>+ Symptom</Button>
                 }
             </div>
         )
@@ -97,6 +92,7 @@ export const mapStateToProps = state => {
 
 export default connect(mapStateToProps, { 
         updateSymptomFormData, 
-        toggleMealButton, 
+        hideMealButton,
+        showMealButton,
         createSymptom 
     })(SymptomForm);

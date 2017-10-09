@@ -37,9 +37,7 @@ export const createSymptom = (state) => {
             })
         })
             .then(response => response.json())
-            .then(symptom => {
-                dispatch(addSymptom(symptom))
-            })
+            .then(symptom => dispatch(addSymptom(symptom)))
             .catch(err => console.log("error of ", err))
     }
 }

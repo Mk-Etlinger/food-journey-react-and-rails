@@ -10,10 +10,18 @@ export default (state = initialState, action) => {
         case 'GET_RECENT_SYMPTOMS_SUCCESS':            
             return Object.assign({}, state, { recentSymptoms: action.recentSymptoms });
         case 'CREATE_SYMPTOM_SUCCESS':            
-            let key = Object.keys(state.recentSymptoms)[0]
-            let updatedRecentSymptoms = {
-                [key]: Object.values(state.recentSymptoms)[0].concat(action.symptom) 
-            }
+            const key = Object.keys(action.symptom)[0]
+            const recentSymptomsArray = state.recentSymptoms[key] || []
+            const updatedRecentSymptoms = recentSymptomsArray.length > 0 ? 
+                    {
+                        ...state.recentSymptoms,
+                        [key]: [...recentSymptomsArray, action.symptom[key]],
+                    }
+                :
+                    {
+                        [key]: [...recentSymptomsArray, action.symptom[key]],
+                        ...state.recentSymptoms,
+                    }
             return Object.assign({}, state, { 
                 recentSymptoms: updatedRecentSymptoms
             })

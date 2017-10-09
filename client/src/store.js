@@ -8,6 +8,7 @@ import symptoms from './reducers/symptoms'
 import mealFormData from './reducers/mealFormData'
 import symptomFormData from './reducers/symptomFormData'
 import thunk from 'redux-thunk';
+// import logger from 'redux-logger';
 
 const reducers = combineReducers({
     meals,

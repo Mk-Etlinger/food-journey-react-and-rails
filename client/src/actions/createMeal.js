@@ -27,9 +27,7 @@ export const createMeal = (state) => {
                 })
             })
         .then(response => response.json())
-        .then(meal => {
-            dispatch(addMeal(meal))
-        })
+        .then(meal => dispatch(addMeal(meal)))
         .catch(err => console.log("error of ", err))
     }
 }

@@ -9,23 +9,18 @@ class Meal < ApplicationRecord
   scope :for_user, ->(user) { where(:user_id => user.id) }
   scope :created_within, ->(time, occurred_at) { where("created_at > ? AND created_at < ?", time, occurred_at) }
 
-  # def parse_ingredients(new_ingredients)
-  #   new_ingredients.split(',').each do |ingredient|
-  #     self.ingredients << Ingredient.find_or_create_by(name: ingredient.strip.downcase)
-  #   end
-  # end
+  def parse_ingredients(meal_ingredients)
+    meal_ingredients.split(',').each do |ingredient|
+      self.ingredients << Ingredient.find_or_create_by(name: ingredient.strip.downcase)
+    end
+  end
 
   def ingredients_attributes=(ingredients_attributes)
-    ingredient = Ingredient.find_or_create_by(ingredients_attributes)
-    self.ingredients << ingredient
-  #   new_ingredients = ingredients_attributes.dig('0', 'name')
-  #   return if new_ingredients.blank?
-
-  #   if new_ingredients.include?(',')
-  #     parse_ingredients(new_ingredients)
-  #   else
-  #     ingredient = Ingredient.find_or_create_by(ingredients_attributes['0'])
-  #     self.ingredients << ingredient
-  #   end
+    meal_ingredients = ingredients_attributes['name']
+    if meal_ingredients.include?(',')
+      parse_ingredients(meal_ingredients)
+    else
+      self.ingredients << Ingredient.find_or_create_by(name: meal_ingredients.strip.downcase)
+    end
   end
 end

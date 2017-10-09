@@ -9,8 +9,8 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case 'UPDATE_MEAL_DATA':
             return action.mealFormData
-        case 'SET_MEAL_FORM_ACTIVE':
-            return Object.assign({}, state, action.toggleMealButton)
+        case 'TOGGLE_MEAL_FORM':
+            return Object.assign({}, state, { active: action.active })
         default:
             return state
     }

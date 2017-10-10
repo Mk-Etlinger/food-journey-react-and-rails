@@ -1,6 +1,6 @@
 class SymptomsController < ApplicationController
-  # before_action :user_signed_in?, :authenticate_user!
-  before_action :set_symptom, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user
+  before_action :set_symptom, only: [:show, :update, :destroy]
 
   def index
     @symptoms = current_user.symptoms.order(created_at: :desc).limit(20)
@@ -39,14 +39,13 @@ class SymptomsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def update
     if user_authorized? && @symptom.update(symptom_params)
-      redirect_to dashboard_path
+      key = @symptom.created_at.strftime("%b #{@symptom.created_at.day.ordinalize}")
+      @formatted_symptom = Hash[key, @symptom]
+      render json: @formatted_symptom.as_json(include: [ :ingredients, :reactions , :reaction_logs])
     else
-      render :edit
+      render json: { message: 'Unable to save symptom, please try again.'}
     end
   end
 
@@ -75,7 +74,7 @@ class SymptomsController < ApplicationController
   end
 
   def user_authorized?
-    @symptom.user == current_user
+    @symptom.user_id == current_user.id
   end
 
   def valid_meals

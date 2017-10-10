@@ -6,7 +6,6 @@ import { createMeal } from '../actions/createMeal';
 import { updateMealFormData } from '../actions/mealForm';
 import { hideSymptomButton, showSymptomButton } from '../actions/toggleSymptomButton';
 import { Button } from 'react-bootstrap';
-// import Button from 'react-toolbox/lib/button/Button'
 
 class MealForm extends Component {
     constructor() {
@@ -73,7 +72,7 @@ class MealForm extends Component {
                 {symptomFormData.active === true ? 
                     '' // if symptom form is active, hide add meal button
                 :
-                    <Button bsStyle="primary" onClick={this.handleShowForm}>+ Meal</Button>
+                    <Button bsStyle="primary" bsSize="large" onClick={this.handleShowForm}>+ Meal</Button>
                 }
             </div>
             

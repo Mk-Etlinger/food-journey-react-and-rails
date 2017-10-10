@@ -1,5 +1,4 @@
 class MealsController < ApplicationController
-  # before_action :user_signed_in?, :authenticate_user!
   before_action :set_meal, only: [:show, :update, :destroy]
   before_action :authenticate_user
 
@@ -31,17 +30,11 @@ class MealsController < ApplicationController
     end
   end
 
-  def edit
-    # if user_authorized?
-    #   render :edit
-    # else
-    #   redirect_to dashboard_path
-    # end
-  end
-
   def update
     if user_authorized? && @meal.update(meal_params)
-      render json: @meal
+      key = @meal.created_at.strftime("%b #{@meal.created_at.day.ordinalize}")
+      @formatted_meal = Hash[key, @meal]
+      render json: @formatted_meal.as_json(include: :ingredients)
     else
       render json: { message: 'Unable to save, please try again' }
     end
@@ -71,6 +64,6 @@ class MealsController < ApplicationController
   end
 
   def user_authorized?
-    @meal.user == current_user
+    @meal.user_id == current_user.id
   end
 end

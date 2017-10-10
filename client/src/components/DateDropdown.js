@@ -1,30 +1,34 @@
 import React from 'react';
-import ShowButton from './ShowButton';
+import ShowMealModal from './ShowMealModal';
+import ShowSymptomModal from './ShowSymptomModal';
 
 export default ({ date, meals, symptoms}) => {
     const formatting = "  |  "
     const mealButtons = meals.map(meal => {
-        return <ShowButton clicked={false} 
+        return <ShowMealModal
+            date={date}
             key={meal.id} 
             mealId={meal.id} 
-            mealType={meal.meal_type} 
-            ingredients={meal.ingredients}/>
+            meal_type={meal.meal_type}
+            ingredients={meal.ingredients.map(ing => ing.name).join(', ')}/>
     })
     const symptomButtons = symptoms.map(symptom => {
-        return <ShowButton clicked={false} 
-            key={symptom.id} 
+        return <ShowSymptomModal 
+            key={symptom.id}
+            date={date}
+            description={symptom.description}
             symptomId={symptom.id} 
             severity={symptom.reactions[0].severity}
             stress_level={symptom.reactions[0].stress_level}
             occurred_at={symptom.reaction_logs[0].occurred_at}
-            ingredients={symptom.ingredients}/>
+            ingredients={symptom.ingredients.map(ing => ing.name).join(', ')}/>
     })
     
     return (
         <div>
             <h4>{date}</h4>
             {mealButtons}
-            {formatting}
+            {symptomButtons.length === 0 || formatting}
             {symptomButtons}
             <p>_______________</p>
         </div>

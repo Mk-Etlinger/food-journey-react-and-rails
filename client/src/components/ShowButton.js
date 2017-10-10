@@ -1,27 +1,29 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 // import EditMealForm from '../containers/EditMealForm';
 
-const ShowButton = ({ 
-    mealId, 
-    mealType, 
-    ingredients, 
-    symptomId, 
-    severity, 
-    stress_level, 
-    ocurred_at 
-}) => {
+const ShowButton = props => {
     // let ingredientLi = ingredients.map(ing => <li key={ing.id}>{ing.name}</li>)
 
     // const editMeal = () => <EditMealForm showForm='true' mealId={mealId} />
     // const handleClick = () => editMeal
+    const { 
+        mealId, 
+        mealType, 
+        ingredients, 
+        symptomId, 
+        severity, 
+        stress_level, 
+        ocurred_at, 
+    } = props
     return (
         <div style={{ display: 'inline-block' }}>
-            <button onClick={() => console.log(props)}>
+            <Button bsSize="xsmall" onClick={() => console.log(props)}>
                 {mealType !== undefined ? 
                     mealType.charAt(0).toUpperCase() 
                 : 
                     '+'
-                }</button>
+                }</Button>
             {/* edit form modal needs to show on click */}
             {/*<EditMealForm showForm={true} mealId={mealId} />*/}
             {/*<ul>

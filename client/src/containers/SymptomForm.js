@@ -75,7 +75,7 @@ class SymptomForm extends Component {
                 {mealFormData.active === true ? 
                     '' // if symptom form is active, hide add meal button
                 :
-                    <Button bsStyle="primary" onClick={this.handleShowForm}>+ Symptom</Button>
+                    <Button bsStyle="primary" bsSize="large" onClick={this.handleShowForm}>+ Symptom</Button>
                 }
             </div>
         )

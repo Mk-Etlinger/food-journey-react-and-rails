@@ -1,32 +1,35 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+
 
 const API_URL = process.env.REACT_APP_API_URL
 
-const Navbar = () => (
+const NavbarTest = () => (
     <div>
-        <li>
-            <NavLink
-                to='/'
-                exact            
-            >Home </NavLink>
-        </li>
-        <li>
-            <NavLink
-                to='/dashboard'
-                exact            
-            >Dashboard </NavLink>
-        </li>
-        <li>
-            <NavLink
-                to='/overview'
-                exact            
-            >Overview </NavLink>
-        </li>
-        <li>           
-            <a href={`${API_URL}/login`}>Login with FB</a>            
-        </li>
+        <Navbar inverse collapseOnSelect>
+        <Navbar.Header>
+            <Navbar.Brand>
+                <a href="#">Food Journey</a>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+            <Nav>
+                <LinkContainer to='/' exact >
+                    <NavItem eventKey={1}>Home</NavItem>
+                </LinkContainer>
+                <LinkContainer to='/dashboard'>
+                    <NavItem eventKey={2}>Dashboard</NavItem>
+                </LinkContainer>
+                <LinkContainer to='/overview'>
+                    <NavItem eventKey={3}>Overview</NavItem>
+                </LinkContainer>
+            </Nav>
+            </Navbar.Collapse>
+        </Navbar>
     </div>
 )
 
-export default Navbar;
+export default NavbarTest;

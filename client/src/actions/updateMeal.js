@@ -3,7 +3,6 @@ const API_URL = process.env.REACT_APP_API_URL
 let token = "Bearer " + localStorage.getItem("jwt")
 
 const addUpdatedMeal = meal => {
-    debugger;
     return {
         type: 'UPDATE_MEAL_SUCCESS',
         meal

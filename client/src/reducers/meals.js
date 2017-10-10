@@ -4,22 +4,35 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
+    let date, recentMealsArray;
     switch (action.type) {
         case 'GET_MEALS_SUCCESS':
             return Object.assign({}, state, { meals: action.meals })
         case 'GET_RECENT_MEALS_SUCCESS':
             return Object.assign({}, state, { recentMeals: action.recentMeals })
+        case 'UPDATE_MEAL_SUCCESS':
+            date = Object.keys(action.meal)[0]
+            recentMealsArray = state.recentMeals[date].map(meal => {
+                return meal.id !== action.meal[date].id ? meal : action.meal[date]
+            });
+            
+            return Object.assign({}, state, { 
+                recentMeals: {
+                    ...state.recentMeals,
+                    [date]: recentMealsArray 
+                }
+            })
         case 'CREATE_MEAL_SUCCESS':
-            const key = Object.keys(action.meal)[0]
-            const recentMealsArray = state.recentMeals[key] || []
-            const updatedRecentMeals = recentMealsArray.length > 0 ? 
+            date = Object.dates(action.meal)[0]
+            recentMealsArray = state.recentMeals[date] || []
+            let updatedRecentMeals = recentMealsArray.length > 0 ? 
                     {
                         ...state.recentMeals,
-                        [key]: [...recentMealsArray, action.meal[key]],
+                        [date]: [...recentMealsArray, action.meal[date]],
                     }
                 :
                     {
-                        [key]: [...recentMealsArray, action.meal[key]],
+                        [date]: [...recentMealsArray, action.meal[date]],
                         ...state.recentMeals,
                     }
             return Object.assign({}, state, { 

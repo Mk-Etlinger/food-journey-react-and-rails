@@ -1,17 +1,16 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 
-const API_URL = process.env.REACT_APP_API_URL
+// const API_URL = process.env.REACT_APP_API_URL
 
 const NavbarTest = () => (
     <div>
         <Navbar style={{ marginBottom: 0 }} inverse collapseOnSelect>
         <Navbar.Header>
             <Navbar.Brand>
-                <a href="#">Food Journey</a>
+                <a href="/">Food Journey</a>
             </Navbar.Brand>
             <Navbar.Toggle />
         </Navbar.Header>

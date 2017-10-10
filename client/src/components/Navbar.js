@@ -8,7 +8,7 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const NavbarTest = () => (
     <div>
-        <Navbar inverse collapseOnSelect>
+        <Navbar style={{ marginBottom: 0 }} inverse collapseOnSelect>
         <Navbar.Header>
             <Navbar.Brand>
                 <a href="#">Food Journey</a>

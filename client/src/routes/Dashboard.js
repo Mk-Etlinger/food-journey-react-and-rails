@@ -5,9 +5,11 @@ import DateDisplay from '../containers/DateDisplay';
 
 export const Dashboard = () => {
     return (            
-        <div>
-            <MealForm />
-            <SymptomForm />
+        <div style={{ marginTop: 100}}>
+            <div>
+                <MealForm />
+                <SymptomForm />
+            </div>
             <DateDisplay />
         </div>
     )

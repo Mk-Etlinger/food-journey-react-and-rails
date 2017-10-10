@@ -36,14 +36,9 @@ class ShowMealModal extends Component {
     
     render() {
         const { 
-            mealId, 
-            meal_type, 
-            ingredients, 
-            symptomId, 
-            severity,
-            stress_level, 
-            ocurred_at,
+            meal_type,
             description,
+            ingredients, 
             date
         } = this.state
         
@@ -54,11 +49,7 @@ class ShowMealModal extends Component {
                         bsSize="xsmall"
                         onClick={this.launchModal}
                     >
-                    {meal_type !== undefined ? 
-                        this.props.meal_type.charAt(0).toUpperCase() 
-                    : 
-                        '+'
-                    }
+                    {this.props.meal_type.charAt(0).toUpperCase()}
                     </Button>
 
                     <Modal show={this.state.showModal} onHide={this.closeModal}>

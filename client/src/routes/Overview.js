@@ -17,7 +17,7 @@ class Overview extends Component {
         const isMealLoaded = Object.keys(meals.meals).length > 0
         const isSymptomLoaded = Object.keys(symptoms.symptoms).length > 0
         return (
-            <div>
+            <div style={{ marginTop: 70}}>
                 <div style={{ display: 'inline-block' }}>
                     <h1>Meals:</h1>
                     {isMealLoaded && <MealView mealsByDate={meals.meals}/>}

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Modal } from 'react-bootstrap';
 import InputField from './InputField'
-import RadioInput from './RadioInput'
 import { updateSymptom } from '../actions/updateSymptom';
 
 
@@ -36,11 +35,8 @@ class ShowSymptomModal extends Component {
     
     render() {
         const { 
-            symptomId, 
             severity,
             stress_level,
-            ingredients,
-            description,
             notes,
             date
         } = this.state

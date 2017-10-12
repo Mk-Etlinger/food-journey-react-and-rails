@@ -19,6 +19,3 @@ export default ({ mealsByDate }) => {
             <div>{mapMealDates}</div>
         )
 }
-
-// underneath each meal, add a button which is a counter
-// for every click, increment the counter +1

@@ -19,25 +19,23 @@ class SymptomsController < ApplicationController
   end
 
   def create
-    render json: { message: no_meals_message } and return if valid_meals.empty?
+    render json: { message: no_meals_message }, status: 400 and return if valid_meals.empty?
 
-    @symptom = current_user.symptoms.build(update_params())
+    @symptom = current_user.symptoms.build(update_params)
+
     if @symptom.save
       key = @symptom.created_at.strftime("%b #{@symptom.created_at.day.ordinalize}")
       @formatted_symptom = Hash[key, @symptom]
       render json: @formatted_symptom.as_json(include: [ :ingredients, :reactions , :reaction_logs])
     else
-      render json: { message: 'Unable to save symptom, please try again.'}
+      render json: { message: 'Unable to save symptom, please try again.' }
     end
   end
 
-  def show
-    @reaction = @symptom.reactions.first
-    respond_to do |format|
-      format.json {render json: @reaction}
-      format.html {}
-    end
-  end
+  # def show
+  #   @reaction = @symptom.reactions.first
+    # render json: @reaction
+  # end
 
   def update
     if user_authorized? && @symptom.update(symptom_params)
@@ -53,10 +51,15 @@ class SymptomsController < ApplicationController
     if user_authorized?
       @symptom.ingredients.clear
       @symptom.destroy
-      redirect_to dashboard_path
+      render json: { message: 'Delete Successful' }
     else
-      redirect_back fallback_location: root_path
+      render json: { message: 'Unable to delete symptom, please try again.' }
     end
+  end
+
+  def most_symptomatic_ingredients
+    @symptomatic_ingredients = Symptom.joins(:ingredients).group("ingredients.name").count
+    render json: @symptomatic_ingredients
   end
 
   private
@@ -65,12 +68,11 @@ class SymptomsController < ApplicationController
     @symptom = Symptom.find_by(id: params[:id])
   end
 
-   def symptom_params
+  def symptom_params
     params.require(:symptom).permit(:description,
                                     ingredients_attributes: [:current_user_id, :hours_elapsed, :occurred_at],
                                     reactions_attributes: [:severity, :stress_level, :notes],
                                     reaction_logs: [:occurred_at])
-                                    
   end
 
   def user_authorized?

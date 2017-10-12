@@ -1,6 +1,6 @@
 class MealsController < ApplicationController
-  before_action :set_meal, only: [:show, :update, :destroy]
   before_action :authenticate_user
+  before_action :set_meal, only: [:show, :update, :destroy]
 
   def index
     @meals = current_user.meals.order(created_at: :desc)

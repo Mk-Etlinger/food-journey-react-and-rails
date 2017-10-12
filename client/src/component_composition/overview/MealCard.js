@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export default class Mealcard extends React.Component {
+export default class Mealcard extends Component {
     constructor(){
         super();
 
@@ -18,7 +18,6 @@ export default class Mealcard extends React.Component {
             <div>                    
                 <p>{meal.meal_type + ': ' + meal.ingredients.map(ing => ing.name)}</p> 
                 <button onClick={this.handleClick}>Like</button>
-                <button onClick={this.callApi}>Call Api</button>
                 {this.state.likeCount}
             </div>    
         )

@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
                 }
             })
         case 'CREATE_MEAL_SUCCESS':
-            date = Object.dates(action.meal)[0]
+            date = Object.keys(action.meal)[0]
             recentMealsArray = state.recentMeals[date] || []
             let updatedRecentMeals = recentMealsArray.length > 0 ? 
                     {

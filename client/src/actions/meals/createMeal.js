@@ -1,6 +1,6 @@
 const API_URL = process.env.REACT_APP_API_URL
 
-let token = () => "Bearer " + localStorage.getItem("jwt")
+let getToken = () => "Bearer " + localStorage.getItem("jwt")
 
 const addMeal = meal => {
     return {
@@ -15,7 +15,7 @@ export const createMeal = (state) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token()
+                'Authorization': getToken()
             },
             body: JSON.stringify({ 
                 meal: Object.assign({}, state, { 

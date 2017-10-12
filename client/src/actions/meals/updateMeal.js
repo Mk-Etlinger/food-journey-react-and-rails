@@ -15,7 +15,7 @@ export const updateMeal = (state) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token()
+                'Authorization': getToken()
             },
             body: JSON.stringify({ 
                 meal: Object.assign({}, state, { 

@@ -30,7 +30,7 @@ export const getSymptoms = () => {
 export const getRecentSymptoms = () => {
     return dispatch => {
         return fetch(`${API_URL}/recent_symptoms`, {
-			headers: { "Authorization": token} 
+			headers: { "Authorization": getToken() } 
 		})
 			.then(response => response.json())
 			.then(recentSymptoms => dispatch(setRecentSymptoms(recentSymptoms)))

@@ -12,7 +12,7 @@ const setMeals = meals => {
 export const getMeals = () => {
     return dispatch => {
         return fetch(`${API_URL}/meals`, {
-			headers: { "Authorization": token() } 
+			headers: { "Authorization": getToken() } 
 		})
 			.then(response => response.json())
 			.then(meals => dispatch(setMeals(meals)))

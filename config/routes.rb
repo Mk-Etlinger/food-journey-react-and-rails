@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'auth/facebook/callback', to: 'sessions#create'
   get 'recent_meals', to: 'meals#recent'
   get 'recent_symptoms', to: 'symptoms#recent'
+  get 'most_symptomatic_ingredients', to: 'symptoms#most_symptomatic_ingredients'
   resources :meals do
     resources :ingredients, only: [:index]
   end

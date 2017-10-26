@@ -1,5 +1,4 @@
 import React from 'react';
-import MealCard from './MealCard';
 
 export default ({ mealsByDate }) => {
     const mapMealDates = Object.keys(mealsByDate).map((date, i) => {       

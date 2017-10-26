@@ -1,6 +1,14 @@
 import React from 'react';
+import moment from 'moment'
 
-export default ({ symptomsByDate }) => {    
+export default ({ symptomsIndex }) => {  
+    let symptomsByDate = {};
+    symptomsIndex.forEach(symptom => {
+        let date = moment(symptom.created_at).format('MMM Do')
+        let symptomsArray = symptomsByDate[date] || []
+        
+        symptomsByDate[date] = [...symptomsArray, symptom]
+    });
     const mapSymptomDates = Object.keys(symptomsByDate).map((date, i) => {       
         let symptomsList = symptomsByDate[date].map(symptom => {
             return (            

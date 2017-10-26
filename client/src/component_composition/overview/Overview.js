@@ -15,7 +15,7 @@ class Overview extends Component {
     render(){
         const { meals, symptoms} = this.props
         const isMealLoaded = Object.keys(meals.meals).length > 0
-        const isSymptomLoaded = Object.keys(symptoms.symptoms).length > 0
+        const isSymptomLoaded = symptoms.symptoms.length > 0
         return (
             <div style={{ marginTop: 70}}>
                 <div style={{ display: 'inline-block' }}>
@@ -24,7 +24,7 @@ class Overview extends Component {
                 </div>
                 <div style={{ display: 'inline-block', verticalAlign: 'top', marginLeft: 50 }}>
                     <h1>Symptoms:</h1>
-                    {isSymptomLoaded && <SymptomView symptomsByDate={symptoms.symptoms}/>}
+                    {isSymptomLoaded && <SymptomView symptomsIndex={symptoms.symptoms}/>}
                 </div>
             </div>
         )

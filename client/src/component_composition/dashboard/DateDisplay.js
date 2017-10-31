@@ -3,6 +3,7 @@ import DateDropdown from './DateDropdown'
 import { getRecentMeals } from '../../actions/meals/recentMeals';
 import { getRecentSymptoms } from '../../actions/symptoms/recentSymptoms';
 import { connect } from 'react-redux';
+import moment from 'moment'
 
 class DateDisplay extends Component {
 
@@ -12,14 +13,26 @@ class DateDisplay extends Component {
     }
 
     render() {
-        const { recentMeals } = this.props.meals
-        const { recentSymptoms } = this.props.symptoms
-        
-        let mapDates = Object.keys(recentMeals).map((date, i) => {
-            return recentSymptoms[date] ?
-                <DateDropdown key={i} date={date} symptoms={recentSymptoms[date]} meals={recentMeals[date]}/>
+        const { recentMeals } = this.props.meals, { recentSymptoms } = this.props.symptoms
+        let symptomsByDate = {}, mealsByDate = {};
+        recentSymptoms.forEach(symptom => {
+            let date = moment(symptom.created_at).format('MMM Do')
+            let symptomsArray = symptomsByDate[date] || []
+            
+            symptomsByDate[date] = [...symptomsArray, symptom]
+        });
+        recentMeals.forEach(meal => {
+            let date = moment(meal.created_at).format('MMM Do')
+            let mealsArray = mealsByDate[date] || []
+            
+            mealsByDate[date] = [...mealsArray, meal]
+        });
+
+        let mapDates = Object.keys(mealsByDate).map((date, i) => {
+            return symptomsByDate[date] ?
+                <DateDropdown key={i} date={date} symptoms={symptomsByDate[date]} meals={mealsByDate[date]}/>
             :
-                <DateDropdown key={i} date={date} symptoms={[]} meals={recentMeals[date]}/>
+                <DateDropdown key={i} date={date} meals={mealsByDate[date]}/>
         })
 
         return (

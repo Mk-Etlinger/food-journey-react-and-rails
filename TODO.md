@@ -1,6 +1,6 @@
 Todo: 
 - [ ] Clean up reducers/redux store
-- [ ] Handle display format: frontend or backend?
+- [x] Handle display format: Front End
 - [ ] User authorization
 - [ ] Oauth- FB/Gmail/Github
 - [ ] formatted/printable meals list for easy reading

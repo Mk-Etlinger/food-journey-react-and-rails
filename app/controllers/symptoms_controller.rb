@@ -8,9 +8,8 @@ class SymptomsController < ApplicationController
   end
 
   def recent
-    @symptoms = current_user.symptoms.order(created_at: :desc).limit(20)
-                  .group_by{ |symptom| symptom.created_at.strftime("%b #{symptom.created_at.day.ordinalize}") }
-    render json: @symptoms.as_json(include: [ :ingredients, :reactions , :reaction_logs])
+    @symptoms = current_user.symptoms.order(created_at: :asc).limit(20)
+    render json: @symptoms
   end
 
   def new
@@ -19,13 +18,10 @@ class SymptomsController < ApplicationController
 
   def create
     render json: { message: no_meals_message }, status: 400 and return if valid_meals.empty?
-
     @symptom = current_user.symptoms.build(update_params)
 
     if @symptom.save
-      key = @symptom.created_at.strftime("%b #{@symptom.created_at.day.ordinalize}")
-      @formatted_symptom = Hash[key, @symptom]
-      render json: @formatted_symptom.as_json(include: [ :ingredients, :reactions , :reaction_logs])
+      render json: @symptom
     else
       render json: { message: 'Unable to save symptom, please try again.' }
     end
@@ -38,9 +34,7 @@ class SymptomsController < ApplicationController
 
   def update
     if user_authorized? && @symptom.update(symptom_params)
-      key = @symptom.created_at.strftime("%b #{@symptom.created_at.day.ordinalize}")
-      @formatted_symptom = Hash[key, @symptom]
-      render json: @formatted_symptom.as_json(include: [ :ingredients, :reactions , :reaction_logs])
+      render json: @symptom
     else
       render json: { message: 'Unable to save symptom, please try again.'}
     end

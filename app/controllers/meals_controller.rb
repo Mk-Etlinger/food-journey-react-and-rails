@@ -4,14 +4,12 @@ class MealsController < ApplicationController
 
   def index
     @meals = current_user.meals.order(created_at: :desc)
-                         .group_by{ |meal| meal.created_at.strftime("%b #{meal.created_at.day.ordinalize}") }
-    render json: @meals.as_json(include: :ingredients)
+    render json: @meals
   end
 
   def recent
     @meals = current_user.meals.order(created_at: :desc).limit(30)
-                         .group_by{ |meal| meal.created_at.strftime("%b #{meal.created_at.day.ordinalize}") }
-    render json: @meals.as_json(include: :ingredients)
+    render json: @meals
   end
 
   def show
@@ -22,9 +20,7 @@ class MealsController < ApplicationController
     @meal = current_user.meals.build(meal_params)
 
     if @meal.save
-      key = @meal.created_at.strftime("%b #{@meal.created_at.day.ordinalize}")
-      @formatted_meal = Hash[key, @meal]
-      render json: @formatted_meal.as_json(include: :ingredients)
+      render json: @meal
     else
       render json: { error: 'Unable to save meal, please try again.' }
     end
@@ -32,9 +28,7 @@ class MealsController < ApplicationController
 
   def update
     if user_authorized? && @meal.update(meal_params)
-      key = @meal.created_at.strftime("%b #{@meal.created_at.day.ordinalize}")
-      @formatted_meal = Hash[key, @meal]
-      render json: @formatted_meal.as_json(include: :ingredients)
+      render json: @meal
     else
       render json: { message: 'Unable to save, please try again' }
     end

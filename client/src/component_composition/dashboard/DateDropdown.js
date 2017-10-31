@@ -2,7 +2,7 @@ import React from 'react';
 import ShowMealModal from './ShowMealModal';
 import ShowSymptomModal from './ShowSymptomModal';
 
-export default ({ date, meals, symptoms}) => {
+export default ({ date, meals = [], symptoms = []}) => {
     const formatting = "  |  "
     const mealButtons = meals.map(meal => {
         return <ShowMealModal
@@ -12,6 +12,7 @@ export default ({ date, meals, symptoms}) => {
             meal_type={meal.meal_type}
             ingredients={meal.ingredients.map(ing => ing.name).join(', ')}/>
     })
+
     const symptomButtons = symptoms.map(symptom => {
         return <ShowSymptomModal 
             key={symptom.id}

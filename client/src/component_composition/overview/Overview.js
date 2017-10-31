@@ -13,18 +13,19 @@ class Overview extends Component {
     };
     
     render(){
-        const { meals, symptoms} = this.props
-        const isMealLoaded = Object.keys(meals.meals).length > 0
-        const isSymptomLoaded = symptoms.symptoms.length > 0
+        const { meals } = this.props.meals, 
+            { symptoms } = this.props.symptoms
+        const isMealLoaded = meals.length > 0
+        const isSymptomLoaded = symptoms.length > 0
         return (
             <div style={{ marginTop: 70}}>
                 <div style={{ display: 'inline-block' }}>
                     <h1>Meals:</h1>
-                    {isMealLoaded && <MealView mealsByDate={meals.meals}/>}
+                    {isMealLoaded && <MealView meals={meals}/>}
                 </div>
                 <div style={{ display: 'inline-block', verticalAlign: 'top', marginLeft: 50 }}>
                     <h1>Symptoms:</h1>
-                    {isSymptomLoaded && <SymptomView symptomsIndex={symptoms.symptoms}/>}
+                    {isSymptomLoaded && <SymptomView symptomsIndex={symptoms}/>}
                 </div>
             </div>
         )

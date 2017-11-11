@@ -11,7 +11,7 @@
 * Database initialization
     `rails db:migrate`
 * Deployment instructions
-    `rails start` opens on localhost:3000
+    `rake start` opens on localhost:3000
 * How to run the test suite
 
 * Services (job queues, cache servers, search engines, etc.)

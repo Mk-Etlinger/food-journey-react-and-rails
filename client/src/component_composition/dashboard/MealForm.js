@@ -5,7 +5,7 @@ import ToggleRadioButtons from '../reusables/ToggleRadioButtons';
 import { createMeal } from '../../actions/meals/createMeal';
 import { updateMealFormData } from '../../actions/mealForm';
 import { hideSymptomButton, showSymptomButton } from '../../actions/toggleSymptomButton';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
 class MealForm extends Component {
     constructor() {
@@ -35,6 +35,11 @@ class MealForm extends Component {
         this.setState({ showForm: true })
         this.props.hideSymptomButton()
     }
+    
+    handleHideForm = (e) => {
+        this.setState({ showForm: false })
+        this.props.showSymptomButton()
+    }
 
     handleOnSubmit = (e) => {
         e.preventDefault();
@@ -46,10 +51,13 @@ class MealForm extends Component {
     render() {
         const { ingredients, meal_type } = this.props.mealFormData
         const { symptomFormData } = this.props
+        
+        let divStyle = { width: '40%', border: '1px solid  #d8edf3', boxShadow: '2px 6px 6px grey', borderRadius: '4px' , padding: '20px', margin: '0 auto 0 auto' }
         return (
             this.state.showForm === true ?
-                <div>
-                    <form onSubmit={this.handleOnSubmit}>
+                <div style={divStyle}>
+                    <span onMouseOver="" onClick={this.handleHideForm} style={{ margin: '0 0 99% 97%', cursor: 'pointer' }}>x</span>
+                    <Form inline onSubmit={this.handleOnSubmit}>
                         <ToggleRadioButtons
                             currentValue={meal_type}
                             name='meal_type'
@@ -61,7 +69,7 @@ class MealForm extends Component {
                             onChangeCb={this.handleOnChange}
                             placeholder={"Eg: eggs, bacon, salad"}/>
                         <input type="submit" value="Create Meal"/>
-                    </form>
+                    </Form>
                 </div>
             :
                 <div>

@@ -1,34 +1,32 @@
 import React from 'react';
-import moment from 'moment'
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
 export default ({ symptomsIndex }) => {  
-    let symptomsByDate = {};
-    symptomsIndex.forEach(symptom => {
-        let date = moment(symptom.created_at).format('MMM Do')
-        let symptomsArray = symptomsByDate[date] || []
-        
-        symptomsByDate[date] = [...symptomsArray, symptom]
-    });
-    const mapSymptomDates = Object.keys(symptomsByDate).map((date, i) => {       
-        let symptomsList = symptomsByDate[date].map(symptom => {
-            return (            
-                <div key={symptom.id}>                    
-                    <p>{symptom.description}</p>
-                    <p>Potential Triggers:</p>
-                    <ul>
-                        {symptom.ingredients.map(ing => <li key={ing.id}>{ing.name}</li>)}
-                    </ul>
-                </div>
-            )
-        })        
-        return (
-            <div key={i}>
-                <h3>{date}</h3>
-                {symptomsList}
-            </div> 
-        )
-    })
+    function triggersFormatter(cell, row) {
+        return row.ingredients.map(ingredient => ingredient.name).join(', ')
+    }
+
     return (
-            <div>{mapSymptomDates}</div>
-        )
+        <div style={{ width: "400px" }}>
+            {/*<BootstrapTable data={symptomsIndex} striped hover>
+                <TableHeaderColumn width="10%" 
+                    isKey 
+                    dataSort 
+                    dataField='id'
+                    >#
+                </TableHeaderColumn>
+                <TableHeaderColumn width="30%" 
+                    dataSort 
+                    dataField='description'
+                    >Ailment
+                </TableHeaderColumn>
+                <TableHeaderColumn width="50%" 
+                    tdStyle={{overflow: 'scroll'}} 
+                    dataFormat={triggersFormatter}
+                    >Potential Triggers
+                </TableHeaderColumn>
+            </BootstrapTable>*/}
+        </div>
+
+    )
 }

@@ -27,12 +27,11 @@ export default ({ date, meals = [], symptoms = []}) => {
     })
     
     return (
-        <div>
+        <div style={{ boxShadow: '-3px 6px 6px grey', width: '40%', margin: '10px auto 10px auto', padding: '10px 0px 20px 0px' }}>
             <h4>{date}</h4>
             {mealButtons}
             {symptomButtons.length === 0 || formatting}
             {symptomButtons}
-            <p>_______________</p>
         </div>
     )
 }

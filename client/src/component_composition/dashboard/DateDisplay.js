@@ -15,6 +15,8 @@ class DateDisplay extends Component {
     render() {
         const { recentMeals } = this.props.meals, { recentSymptoms } = this.props.symptoms
         let symptomsByDate = {}, mealsByDate = {};
+        // This needs to be abstracted away. This will introduce a bug for
+        // symptoms that happen after midnight because no assoc. meal exists
         recentSymptoms.forEach(symptom => {
             let date = moment(symptom.created_at).format('MMM Do')
             let symptomsArray = symptomsByDate[date] || []

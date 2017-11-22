@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 export default ({ value, name, type, placeholder, onChangeCb }) => {
     return (
@@ -15,14 +16,14 @@ export default ({ value, name, type, placeholder, onChangeCb }) => {
             </div>            
         :
             <div>
-                <label htmlFor="">
-                    {splitToCapitalize(name)}: <br/>
-                    <input type={type}
+                <FormGroup bsSize="small">
+                <ControlLabel>{splitToCapitalize(name)}</ControlLabel>
+                <FormControl type={type} 
                     placeholder={placeholder} 
                     name={name}
                     value={value} 
                     onChange={onChangeCb} />
-                </label>
+                </FormGroup>
             </div>
     )
 }

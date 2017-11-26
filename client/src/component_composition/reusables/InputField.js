@@ -5,19 +5,21 @@ export default ({ value, name, type, placeholder, onChangeCb }) => {
     return (
         type === 'textarea' ?
             <div>                    
-                <label htmlFor="">
-                    {splitToCapitalize(name)}: <br/>
-                    <textarea name={name}              
-                        value={value} 
+                <FormGroup controlId="formControlsTextarea">
+                    <ControlLabel>{name}:</ControlLabel>
+                    <span>{' '}</span>
+                    <FormControl value={value}
+                        name={name}
                         onChange={onChangeCb}
-                        placeholder={placeholder}>  
-                    </textarea> 
-                </label>
+                        placeholder={placeholder}
+                        componentClass="textarea"/>
+            </FormGroup>
             </div>            
         :
-            <div>
+            <div style={{ margin: '0 0 10px 0' }}>
                 <FormGroup bsSize="small">
-                <ControlLabel>{splitToCapitalize(name)}</ControlLabel>
+                <ControlLabel>{splitToCapitalize(name)}:</ControlLabel>
+                <span>{' '}</span>
                 <FormControl type={type} 
                     placeholder={placeholder} 
                     name={name}

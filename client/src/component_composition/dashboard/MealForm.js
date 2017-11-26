@@ -74,7 +74,8 @@ class MealForm extends Component {
             :
                 <div>
                     {symptomFormData.active === true || 
-                        <Button 
+                        <Button
+                            style={{ width: '125px' }}
                             bsStyle="primary" 
                             bsSize="large" 
                             onClick={this.handleShowForm}

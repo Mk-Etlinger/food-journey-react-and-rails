@@ -5,7 +5,7 @@ import DateDisplay from './DateDisplay';
 
 export const Dashboard = () => {
     return (            
-        <div style={{ marginTop: 100}}>
+        <div style={{ marginTop: 50}}>
             <div>
                 <MealForm />
                 <SymptomForm />

@@ -7,7 +7,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 const NavbarTest = () => (
     <div>
-        <Navbar style={{ marginBottom: 0 }} inverse collapseOnSelect>
+        <Navbar style={{ marginBottom: 0, height: '100px' }} inverse collapseOnSelect>
         <Navbar.Header>
             <Navbar.Brand>
                 <a href="/">Food Journey</a>

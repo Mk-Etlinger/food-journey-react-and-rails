@@ -11,12 +11,14 @@ class SymptomForm extends Component {
         super();
 
         this.state = {
-            showForm: false
+            showForm: false,
+            showNotes: false
         }
 
         this.handleOnChange = this.handleOnChange.bind(this)
         this.handleShowForm = this.handleShowForm.bind(this)
         this.handleHideForm = this.handleHideForm.bind(this)
+        this.handleShowNotes= this.handleShowNotes.bind(this)
         this.handleOnSubmit = this.handleOnSubmit.bind(this)
     }
 
@@ -32,6 +34,10 @@ class SymptomForm extends Component {
     handleShowForm(e) {
         this.setState({ showForm: true })
         this.props.hideMealButton()
+    }
+    
+    handleShowNotes(e) {
+        this.setState({ showNotes: true })
     }
     
     handleHideForm(e) {
@@ -71,12 +77,23 @@ class SymptomForm extends Component {
                         type="number" 
                         value={occurred_at} 
                         onChangeCb={this.handleOnChange}/>                    
-                    <InputField name="notes" 
-                        type="textarea" 
-                        value={notes} 
-                        onChangeCb={this.handleOnChange}
-                        placeholder={"Notes..."}/>
-                    <input type="submit" value="Create Symptom"/>
+                    
+                    {this.state.showNotes ?
+                        <InputField name="Notes" 
+                            type="textarea" 
+                            value={notes} 
+                            onChangeCb={this.handleOnChange}
+                            placeholder={"Notes..."}/>
+                       
+                    :
+                        <Button bsSize="small"
+                            bsStyle="primary"  
+                            onClick={this.handleShowNotes}>
+                            + Notes
+                        </Button>
+                    }
+                    <br/>
+                    <input type="submit" style={{ marginTop: '5px' }} value="Create Symptom"/>
                 </Form>              
             </div>
             :

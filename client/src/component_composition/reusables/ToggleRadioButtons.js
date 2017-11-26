@@ -14,7 +14,7 @@ export default ({ fields, currentValue, name, onChangeCb }) => {
     })
     
     return (
-        <div>
+        <div style={{ margin: '0 0 10px 0' }}>
             <ToggleButtonGroup type="radio" 
                 name={name}
                 defaultValue={currentValue}

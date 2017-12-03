@@ -1,69 +1,54 @@
 import React from 'react';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-// import Map from 'grommet/components/Map';
+import Map from 'grommet/components/Map';
 
-export default ({ symptomsIndex }) => {  
-    function triggersFormatter(cell, row) {
-        return row.ingredients.map(ingredient => ingredient.name).join(', ')
-    }
+export default ({ symptomsIndex }) => {
 
+    let symptoms = symptomsIndex.map(symptom => {
+        return {"id": `symp-${symptom.id}`, "label": `${symptom.description}`}
+    })
+
+    let filterItems = [];
+    let triggers = symptomsIndex.map(symptom => {
+        let ingredientsArray = symptom.ingredients.map(ingredient => {
+            if (filterItems.indexOf(ingredient.id) === -1) {
+                filterItems.push(ingredient.id)
+                return {"id": `ing-${ingredient.id}`, "label": `${ingredient.name}`}
+            } 
+        })
+        return ingredientsArray
+    })
+
+    let links = symptomsIndex.map(symptom => {
+        let reactionsArray = symptom.reactions.map(reaction => {
+            return {"parentId": `symp-${reaction.symptom_id}`, "childId": `ing-${reaction.ingredient_id}`}
+        })
+        return reactionsArray
+    })
+
+    let mergedLinks = [].concat.apply([], links)
+    let mergedSymptoms = [].concat.apply([], symptoms)
+    let mergedTriggers = [].concat.apply([], triggers)
+    let uniqueTriggers = mergedTriggers.filter(trigger => {
+        return trigger !== undefined
+    })
+    
     return (
-        <div style={{ width: "400px" }}>
-            {/*<BootstrapTable data={symptomsIndex} striped hover>
-                <TableHeaderColumn width="10%" 
-                    isKey 
-                    dataSort 
-                    dataField='id'
-                    >#
-                </TableHeaderColumn>
-                <TableHeaderColumn width="30%" 
-                    dataSort 
-                    dataField='description'
-                    >Ailment
-                </TableHeaderColumn>
-                <TableHeaderColumn width="50%" 
-                    tdStyle={{overflow: 'scroll'}} 
-                    dataFormat={triggersFormatter}
-                    >Potential Triggers
-                </TableHeaderColumn>
-            </BootstrapTable>*/}
-
-            {/*<Map data={{
-            "categories": [
-                {
-                "id": "category-1",
-                "label": "First category",
-                "items": [
-                    {"id": "item-1-1", "label": "First item"},
-                    {"id": "item-1-2", "label": "Second item"},
-                    {"id": "item-1-3", "label": "Third item"}
-                ]
-                },
-                {
-                "id": "category-2",
-                "label": "Second category",
-                "items": [
-                    {"id": "item-2-1", "label": "Fourth item"},
-                    {"id": "item-2-2", "label": "Fifth item"}
-                ]
-                },
-                {
-                "id": "category-3",
-                "label": "Third category",
-                "items": [
-                    {"id": "item-3-1", "label": "Sixth item"},
-                    {"id": "item-3-2", "label": "Seventh item"}
-                ]
-                }
-            ],
-            "links": [
-                {"parentId": "item-1-1", "childId": "item-2-2"},
-                {"parentId": "item-1-2", "childId": "item-2-2"},
-                {"parentId": "item-1-2", "childId": "item-2-1"},
-                {"parentId": "item-2-2", "childId": "item-3-1"},
-                {"parentId": "item-2-1", "childId": "item-3-2"}
-            ]
-            }} />*/}
+        <div style={{ width: '60%', border: 'solid grey', margin: '0 auto 0 auto' }}>
+            <Map vertical data={{
+                "categories": [
+                    {
+                    "id": "symptoms-map",
+                    "label": "Symptoms",
+                    "items": mergedSymptoms
+                    },
+                    {
+                    "id": "triggers-map",
+                    "label": "Triggers",
+                    "items": uniqueTriggers
+                    }
+                ],
+                "links": mergedLinks
+            }} />
         </div>
 
     )

@@ -55,8 +55,7 @@ class SymptomForm extends Component {
     render() {
         const { description, severity, stress_level, occurred_at, notes } = this.props.symptomFormData
         const { mealFormData } = this.props
-
-        let divStyle = { width: '40%', border: '1px solid  #d8edf3', boxShadow: '2px 6px 6px grey', borderRadius: '4px' , padding: '20px', margin: '0 auto 0 auto' }
+        
         return (
             this.state.showForm === true ?
             <div style={divStyle}>
@@ -125,3 +124,12 @@ export default connect(mapStateToProps, {
         showMealButton,
         createSymptom 
     })(SymptomForm);
+
+let divStyle = { 
+    width: '40%', 
+    border: '1px solid  #d8edf3', 
+    boxShadow: '2px 6px 6px grey', 
+    borderRadius: '4px' , 
+    padding: '20px', 
+    margin: '0 auto 0 auto' 
+}

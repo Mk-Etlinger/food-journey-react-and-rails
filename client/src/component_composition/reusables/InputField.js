@@ -1,12 +1,12 @@
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
-export default ({ value, name, type, placeholder, onChangeCb }) => {
+export default ({ value, name, displayName, type, placeholder, onChangeCb }) => {
     return (
         type === 'textarea' ?
             <div>                    
                 <FormGroup controlId="formControlsTextarea">
-                    <ControlLabel>{name}:</ControlLabel>
+                    <ControlLabel>{displayName || splitToCapitalize(name)}:</ControlLabel>
                     <span>{' '}</span>
                     <FormControl value={value}
                         name={name}
@@ -18,10 +18,10 @@ export default ({ value, name, type, placeholder, onChangeCb }) => {
         :
             <div style={{ margin: '0 0 10px 0' }}>
                 <FormGroup bsSize="small">
-                <ControlLabel>{splitToCapitalize(name)}:</ControlLabel>
+                <ControlLabel>{displayName || splitToCapitalize(name)}:</ControlLabel>
                 <span>{' '}</span>
                 <FormControl type={type} 
-                    placeholder={placeholder} 
+                    placeholder={placeholder}
                     name={name}
                     value={value} 
                     onChange={onChangeCb} />

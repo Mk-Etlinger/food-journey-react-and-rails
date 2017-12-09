@@ -7,6 +7,7 @@ import meals from './reducers/meals'
 import symptoms from './reducers/symptoms'
 import mealFormData from './reducers/mealFormData'
 import symptomFormData from './reducers/symptomFormData'
+import overviewQueries from './reducers/overviewQueries'
 import thunk from 'redux-thunk';
 // import logger from 'redux-logger';
 
@@ -15,6 +16,7 @@ const reducers = combineReducers({
     symptoms,
     mealFormData,
     symptomFormData,
+    overviewQueries,
 });
 
 const middleware = [thunk];

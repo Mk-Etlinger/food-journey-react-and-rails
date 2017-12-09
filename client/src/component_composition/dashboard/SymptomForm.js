@@ -70,9 +70,12 @@ class SymptomForm extends Component {
                         value={severity} 
                         onChangeCb={this.handleOnChange}/>
                     <InputField name="stress_level" 
-                    type="number" value={stress_level} 
-                    onChangeCb={this.handleOnChange}/>
-                    <InputField name="occurred_at" 
+                        displayName="Stress level"
+                        value={stress_level} 
+                        type="number"
+                        onChangeCb={this.handleOnChange}/>
+                    <InputField name="occurred_at"
+                        displayName="Duration in hours" 
                         type="number" 
                         value={occurred_at} 
                         onChangeCb={this.handleOnChange}/>                    

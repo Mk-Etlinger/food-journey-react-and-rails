@@ -12,21 +12,14 @@ class Overview extends Component {
         super()
 
         this.state = {
-            tableActive: false,
-            dataVisActive: false,
-            overviewActive: true,
+            compActive: 'overview',
         }
 
         this.handleClickDynamicRender = this.handleClickDynamicRender.bind(this)
     }
 
     handleClickDynamicRender = (e) => {
-        for (let key in this.state) {
-           key === e.target.className ?
-                this.setState({[key]: true}) 
-            : 
-                this.setState({[key]: false})
-        }
+        this.setState({ compActive: e.target.id }) 
     }
 
     componentDidMount() {
@@ -38,7 +31,8 @@ class Overview extends Component {
     render(){
         const { meals } = this.props.meals, 
             { symptoms } = this.props.symptoms,
-            { mostSymptomaticFoods } = this.props.overviewQueries
+            { mostSymptomaticFoods } = this.props.overviewQueries,
+            { compActive } = this.state
         const isMealLoaded = meals.length > 0,
             isSymptomLoaded = symptoms.length > 0,
             isMostSymptomaticFoodsLoaded = Object.keys(mostSymptomaticFoods).length > 0
@@ -46,39 +40,27 @@ class Overview extends Component {
         return (
             <div>
                 <div onMouseOver="" style={OverviewDivStyle}>
-                    <h2 className="overviewActive" onClick={this.handleClickDynamicRender}>Overview</h2>
+                    <h2 id="overview" onClick={this.handleClickDynamicRender}>Overview</h2>
                 </div>
                 <div style={OverviewDivStyle}>
-                    <h2 className="tableActive" onClick={this.handleClickDynamicRender}>Table View</h2>
+                    <h2 id="tableView" onClick={this.handleClickDynamicRender}>Table View</h2>
                 </div>
                 <div style={OverviewDivStyle}>
-                    <h2 className="dataVisActive" onClick={this.handleClickDynamicRender}>Visual View</h2>
+                    <h2 id="dataVisView" onClick={this.handleClickDynamicRender}>Visual View</h2>
                 </div>
-                { this.state.overviewActive ?
+                { compActive === 'overview' &&
                     <div style={{ marginTop: 40 }}>
                         { isMostSymptomaticFoodsLoaded && <Stats mostSymptomaticFoods={mostSymptomaticFoods}/> }
                     </div> 
-                :
-                    <div>
-                        
-                    </div> 
                 }
-                { this.state.tableActive ?
+                { compActive === 'tableView' &&
                     <div style={{ marginTop: 40 }}>
                         { isMealLoaded && <MealView meals={meals} symptoms={symptoms}/> }
                     </div> 
-                :
-                    <div>
-                        
-                    </div> 
                 }
-                { this.state.dataVisActive ?
+                { compActive === 'dataVisView' &&
                     <div style={{ marginTop: 40 }}>
                         { isSymptomLoaded && <SymptomView symptomsIndex={symptoms}/> }
-                    </div>
-                :
-                    <div>
-
                     </div>
                 }
             </div>

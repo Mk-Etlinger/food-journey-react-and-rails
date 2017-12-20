@@ -13,48 +13,45 @@ class MealForm extends Component {
 
         this.state = {
             showForm: false,
+            meal_type: '',
+            ingredients: '',
         }
+
+        this.handleOnChange = this.handleOnChange.bind(this)
     }
 
     handleOnChange = (e) => {
         const { name, value } = e.target
-        const currentMealFormData = Object.assign({}, this.props.mealFormData, {
-            [name]: value
-        })
-        this.props.updateMealFormData(currentMealFormData)
+        this.setState({ [name]: value })
     }
 
     handleRadioOnChange = (value) => {
-        const currentMealFormData = Object.assign({}, this.props.mealFormData, {
-            meal_type: value
-        })
-        this.props.updateMealFormData(currentMealFormData)
+        this.setState({ meal_type: value })
     }
 
-    handleShowForm = (e) => {
+    handleShowForm = () => {
         this.setState({ showForm: true })
         this.props.hideSymptomButton()
     }
     
-    handleHideForm = (e) => {
+    handleHideForm = () => {
         this.setState({ showForm: false })
         this.props.showSymptomButton()
     }
 
     handleOnSubmit = (e) => {
         e.preventDefault();
-        this.props.createMeal(this.props.mealFormData)
+        this.props.createMeal(this.state)
         this.setState({ showForm: false })
         this.props.showSymptomButton()
     }
 
     render() {
-        const { ingredients, meal_type } = this.props.mealFormData
+        const { ingredients, meal_type } = this.state
         const { symptomFormData } = this.props
-        
         let divStyle = { width: '40%', border: '1px solid  #d8edf3', boxShadow: '2px 6px 6px grey', borderRadius: '4px' , padding: '20px', margin: '0 auto 0 auto' }
         return (
-            this.state.showForm === true ?
+            this.state.showForm ?
                 <div style={divStyle}>
                     <span onMouseOver="" onClick={this.handleHideForm} style={{ margin: '0 0 99% 97%', cursor: 'pointer' }}>x</span>
                     <Form inline onSubmit={this.handleOnSubmit}>
@@ -73,7 +70,7 @@ class MealForm extends Component {
                 </div>
             :
                 <div>
-                    {symptomFormData.active === true || 
+                    {symptomFormData.active || 
                         <Button
                             style={{ width: '125px' }}
                             bsStyle="primary" 
@@ -90,7 +87,6 @@ class MealForm extends Component {
 
 const mapStateToProps = state => {
     return {
-        mealFormData: state.mealFormData,
         symptomFormData: state.symptomFormData
     }
 }

@@ -12,8 +12,8 @@ export default ({ value, name, displayName, type, placeholder, onChangeCb }) => 
                         name={name}
                         onChange={onChangeCb}
                         placeholder={placeholder}
-                        componentClass="textarea"/>
-            </FormGroup>
+                        componentClass="textarea" />
+                </FormGroup>
             </div>            
         :
             <div style={{ margin: '0 0 10px 0' }}>

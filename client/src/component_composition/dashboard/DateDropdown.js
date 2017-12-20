@@ -2,8 +2,9 @@ import React from 'react';
 import ShowMealModal from './ShowMealModal';
 import ShowSymptomModal from './ShowSymptomModal';
 
-export default ({ date, meals = [], symptoms = []}) => {
-    const formatting = "  |  "
+export default ({ date, meals = [], symptoms = [] }) => {
+    let showFormatting = symptoms.length !== 0  &&
+        meals.length !== 0
     const mealButtons = meals.map(meal => {
         return <ShowMealModal
             date={date}
@@ -30,7 +31,7 @@ export default ({ date, meals = [], symptoms = []}) => {
         <div style={{ boxShadow: '-3px 6px 6px grey', width: '40%', margin: '10px auto 10px auto', padding: '10px 0px 20px 0px' }}>
             <h4>{date}</h4>
             {mealButtons}
-            {symptomButtons.length === 0 || formatting}
+            { showFormatting && <span> | </span>}
             {symptomButtons}
         </div>
     )

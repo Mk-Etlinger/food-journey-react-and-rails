@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import DateDropdown from './DateDropdown'
+import DateDropdown from './DateDropdown';
 import { getRecentMeals } from '../../actions/meals/recentMeals';
 import { getRecentSymptoms } from '../../actions/symptoms/recentSymptoms';
 import { connect } from 'react-redux';
-import moment from 'moment'
+import * as customGroupByDate from '../reusables/CustomGroupByDate';
+import { mergeObjectsByDate } from '../reusables/MergeObjectsByDate';
+import moment from 'moment';
 
 class DateDisplay extends Component {
 
@@ -13,28 +15,19 @@ class DateDisplay extends Component {
     }
 
     render() {
-        const { recentMeals } = this.props.meals, { recentSymptoms } = this.props.symptoms
-        let symptomsByDate = {}, mealsByDate = {};
-        // This needs to be abstracted away. This will introduce a bug for
-        // symptoms that happen after midnight because no assoc. meal exists
-        recentSymptoms.forEach(symptom => {
-            let date = moment(symptom.created_at).format('MMM Do')
-            let symptomsArray = symptomsByDate[date] || []
-            
-            symptomsByDate[date] = [...symptomsArray, symptom]
-        });
-        recentMeals.forEach(meal => {
-            let date = moment(meal.created_at).format('MMM Do')
-            let mealsArray = mealsByDate[date] || []
-            
-            mealsByDate[date] = [...mealsArray, meal]
-        });
+        const { recentMeals } = this.props.meals, 
+            { recentSymptoms } = this.props.symptoms
+        
+        let symptomsByDate = recentSymptoms.customGroupByDate(),
+            mealsByDate = recentMeals.customGroupByDate()
 
-        let mapDates = Object.keys(mealsByDate).map((date, i) => {
-            return symptomsByDate[date] ?
-                <DateDropdown key={i} date={date} symptoms={symptomsByDate[date]} meals={mealsByDate[date]}/>
-            :
-                <DateDropdown key={i} date={date} meals={mealsByDate[date]}/>
+        const mergedMealsAndSymptoms = mergeObjectsByDate(mealsByDate, symptomsByDate)
+        
+        let mapDates = Object.keys(mergedMealsAndSymptoms).map( (date, i) => {
+            return <DateDropdown key={i} 
+                date={moment(date, 'YYYY-MM-DD').format('MMM Do')}
+                symptoms={mergedMealsAndSymptoms[date].symptoms} 
+                meals={mergedMealsAndSymptoms[date].meals} />
         })
 
         return (
@@ -43,6 +36,11 @@ class DateDisplay extends Component {
             </div>
         )
     }
+}
+
+DateDisplay.defaultProps = {
+    recentMeals: {},
+    recentSymptoms: {},
 }
 
 const mapStateToProps = (state) => {

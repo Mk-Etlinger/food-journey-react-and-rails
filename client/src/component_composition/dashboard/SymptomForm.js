@@ -12,52 +12,47 @@ class SymptomForm extends Component {
 
         this.state = {
             showForm: false,
-            showNotes: false
+            showNotes: false,
+            description: '',
+            severity: 0,
+            stress_level: 0,
+            notes: '',
+            occurred_at: 0,
         }
-
-        this.handleOnChange = this.handleOnChange.bind(this)
-        this.handleShowForm = this.handleShowForm.bind(this)
-        this.handleHideForm = this.handleHideForm.bind(this)
-        this.handleShowNotes= this.handleShowNotes.bind(this)
-        this.handleOnSubmit = this.handleOnSubmit.bind(this)
     }
 
-    handleOnChange(e) {
+    handleOnChange = (e) => {
         const { name, value } = e.target
-
-        const currentSymptomFormData = Object.assign({}, this.props.symptomFormData, {
-            [name]: value
-        })
-        this.props.updateSymptomFormData(currentSymptomFormData)         
+        this.setState({ [name]: value })         
     }
 
-    handleShowForm(e) {
+    handleShowForm = () => {
         this.setState({ showForm: true })
         this.props.hideMealButton()
     }
     
-    handleShowNotes(e) {
+    handleShowNotes = () => {
         this.setState({ showNotes: true })
     }
     
-    handleHideForm(e) {
+    handleHideForm = () => {
         this.setState({ showForm: false })
         this.props.showMealButton()
     }
 
-    handleOnSubmit(e) {
+    handleOnSubmit = (e) => {
         e.preventDefault();
         this.setState({ showForm: false })
-        this.props.createSymptom(this.props.symptomFormData)
+        this.props.createSymptom(this.state)
         this.props.showMealButton()
     }    
 
     render() {
-        const { description, severity, stress_level, occurred_at, notes } = this.props.symptomFormData
+        const { description, severity, stress_level, occurred_at, notes } = this.state
         const { mealFormData } = this.props
         
         return (
-            this.state.showForm === true ?
+            this.state.showForm ?
             <div style={divStyle}>
                 <span onMouseOver="" onClick={this.handleHideForm} style={{ margin: '0 0 99% 97%', cursor: 'pointer' }}>x</span>
                 <Form inline onSubmit={this.handleOnSubmit} >
@@ -81,7 +76,7 @@ class SymptomForm extends Component {
                         onChangeCb={this.handleOnChange}/>                    
                     
                     {this.state.showNotes ?
-                        <InputField name="Notes" 
+                        <InputField name="notes" 
                             type="textarea" 
                             value={notes} 
                             onChangeCb={this.handleOnChange}
@@ -100,7 +95,7 @@ class SymptomForm extends Component {
             </div>
             :
             <div>
-                {mealFormData.active === true || 
+                {mealFormData.active || 
                     <Button 
                         bsStyle="primary" 
                         bsSize="large" 
@@ -116,7 +111,6 @@ class SymptomForm extends Component {
 export const mapStateToProps = state => {
     return ({
         mealFormData: state.mealFormData,
-        symptomFormData: state.symptomFormData,
         symptoms: state.symptoms
     })
 }

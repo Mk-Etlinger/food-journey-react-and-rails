@@ -8,7 +8,7 @@ class SymptomsController < ApplicationController
   end
 
   def recent
-    @symptoms = current_user.symptoms.order(created_at: :asc).limit(20)
+    @symptoms = current_user.symptoms.order(created_at: :desc).limit(20)
     render json: @symptoms
   end
 

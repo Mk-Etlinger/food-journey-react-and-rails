@@ -52,8 +52,7 @@ class SymptomsController < ApplicationController
 
   def most_symptomatic_ingredients
     @symptomatic_ingredients = Symptom.joins(:ingredients)
-      .group("ingredients.name").order('count_id desc').count('id')
-    
+      .group("ingredients.name").order('count_id desc').limit(5).count('id')
     render json: @symptomatic_ingredients
   end
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import InputField from '../reusables/InputField';
 
 const Login = ({ password, email, onChangeCb}) => {    

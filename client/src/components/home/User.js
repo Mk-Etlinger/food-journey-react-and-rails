@@ -38,7 +38,7 @@ class User extends Component {
     }
 
     componentDidMount() {
-        // if (localStorage.jwt) this.checkAuth()
+        if (localStorage.jwt) this.checkAuth()
     }
 
     handleOnSubmit(e) {

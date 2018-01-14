@@ -6,6 +6,16 @@ export default class Home extends Component {
         this.props.history.push(`/${ route }`)
     }
 
+    checkAuth()  {
+        // when added to redux store
+        // if localStorage.jwt === this.props.jwt
+        this.props.history.push('/dashboard')
+    }
+
+    componentDidMount() {
+        if (localStorage.jwt) this.checkAuth()
+    }
+
     render() {        
         return (
             <div>

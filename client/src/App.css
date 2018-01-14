@@ -12,3 +12,10 @@
 .App-intro {
   font-size: large;
 }
+
+.grommetux-map__category-label {
+    font-size: 14px;
+    font-size: 1.8rem;
+    line-height: 1.71429;
+    margin-bottom: 12px;
+}

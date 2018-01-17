@@ -20,7 +20,6 @@ export default ({ mostSymptomaticFoods = {} }) => {
                 align='center'
                 pad={{ "horizontal": "small", "between": "small" }}>
                 <Value value={ barValue }
-<<<<<<< HEAD
                     active={ false } />
                 <Meter id='meter-1-id'
                     label={ false }
@@ -29,16 +28,6 @@ export default ({ mostSymptomaticFoods = {} }) => {
                     value={ barValue }
                     vertical={ true }
                     active={ false } />
-=======
-                active={ false } />
-                <Meter id='meter-1-id'
-                label={ false }
-                max={ highestValue + 2 }
-                min={ 0 }
-                value={ barValue }
-                vertical={ true }
-                active={ false } />
->>>>>>> b08874fa75d33bffddb283d02dc9b7d0ed0712f8
                 <Label margin='small'>
                 { food }
                 </Label>

@@ -41,11 +41,7 @@ export default ({ mostSymptomaticFoods = {} }) => {
                 vertical={ true } />
             <Chart vertical={ true }
                 verticalAlignWith='meter-1-id'>
-<<<<<<< HEAD
-                <Base height='xxsmall'>
-=======
                 <Base>
->>>>>>> b08874fa75d33bffddb283d02dc9b7d0ed0712f8
                     { meterValues }
                 </Base>
                 <Layers>

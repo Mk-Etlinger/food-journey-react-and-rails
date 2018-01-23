@@ -5,7 +5,9 @@ import { getRecentSymptoms } from '../../actions/symptoms/recentSymptoms';
 import { connect } from 'react-redux';
 import * as customGroupByDate from '../reusables/CustomGroupByDate';
 import { mergeObjectsByDate } from '../reusables/MergeObjectsByDate';
+import Tiles from 'grommet/components/Tiles';
 import moment from 'moment';
+
 
 class DateDisplay extends Component {
 
@@ -23,17 +25,17 @@ class DateDisplay extends Component {
 
         const mergedMealsAndSymptoms = mergeObjectsByDate(mealsByDate, symptomsByDate)
         
-        let mapDates = Object.keys(mergedMealsAndSymptoms).map( (date, i) => {
+        let mapDates = Object.keys(mergedMealsAndSymptoms).slice(0, 3).map( (date, i) => {
             return <DateDropdown key={i} 
-                date={moment(date, 'YYYY-MM-DD').format('MMM Do')}
-                symptoms={mergedMealsAndSymptoms[date].symptoms} 
-                meals={mergedMealsAndSymptoms[date].meals} />
+                date={ moment(date, 'YYYY-MM-DD').format('MMM Do') }
+                symptoms={ mergedMealsAndSymptoms[date].symptoms } 
+                meals={ mergedMealsAndSymptoms[date].meals } />
         })
-
+        
         return (
-            <div>
-                {mapDates}
-            </div>
+            <Tiles fill >
+                { mapDates }
+            </Tiles>
         )
     }
 }

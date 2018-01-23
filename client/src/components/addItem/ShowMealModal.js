@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Modal } from 'react-bootstrap';
 import InputField from '../reusables/InputField'
 import ToggleRadioButtons from '../reusables/ToggleRadioButtons';
 import { updateMeal } from '../../actions/meals/updateMeal';
-
+import Layer from 'grommet/components/Layer';
+import Form from 'grommet/components/Form';
+import Button from 'grommet/components/Button';
+import Footer from 'grommet/components/Footer';
 
 class ShowMealModal extends Component {   
     
@@ -19,10 +21,6 @@ class ShowMealModal extends Component {
         })
     }
 
-    handleRadioOnChange = (value) => {
-        this.setState({ meal_type: value })
-    }
-
     handleOnSubmit = (e) => {
         e.preventDefault();
         this.props.updateMeal(this.state)
@@ -34,42 +32,43 @@ class ShowMealModal extends Component {
     closeModal = () => this.setState({ showModal: false})
     
     render() {
-        const { ingredients, date, meal_type } = this.state
+        const { ingredients, date, meal_type, showModal } = this.state
         
         return (
-            <div style={{ display: 'inline-block' }}>                
-                <div>
-                    <Button
-                        bsSize="xsmall"
-                        onClick={this.launchModal}
-                    >
-                    {this.props.meal_type.charAt(0).toUpperCase()}
-                    </Button>
-
-                    <Modal show={this.state.showModal} onHide={this.closeModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Edit your {date} {this.props.meal_type}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <form onSubmit={this.handleOnSubmit}>                    
+            <div style={{ display: 'inline-block' }}>
+                    <Button primary
+                        box
+                        separator='right'
+                        label={ this.props.meal_type.charAt(0).toUpperCase() }
+                        size="xsmall"
+                        onClick={ this.launchModal } />
+                { showModal && 
+                    <Layer closer
+                        overlayClose
+                        onClose={ this.closeModal }>
+                        <Form pad='small'
+                            onSubmit={ this.handleOnSubmit }> 
+                            <h2>Edit your { date } { this.props.meal_type }</h2>
                              <ToggleRadioButtons
-                                currentValue={meal_type}
+                                currentValue={ meal_type }
                                 name='meal_type'
-                                fields={['breakfast', 'lunch', 'dinner', 'snack']}
-                                onChangeCb={this.handleRadioOnChange}/>
+                                fields={ ['breakfast', 'lunch', 'dinner', 'snack'] }
+                                onChangeCb={ this.handleOnChange }/>
                             <InputField name="ingredients" 
                                 type="text"
-                                value={ingredients}
-                                onChangeCb={this.handleOnChange}
-                                placeholder={"Eg: eggs, bacon, salad"}/>
-                        </form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={this.handleOnSubmit}>Update</Button>
-                    </Modal.Footer>
-                    </Modal>
-                </div>
-                
+                                value={ ingredients }
+                                onChangeCb={ this.handleOnChange }
+                                placeholder={ "Eg: eggs, bacon, salad" }/>
+                            <Footer pad='small' 
+                                justify='center'>
+                                <Button type="submit"
+                                    primary
+                                    pad='small'
+                                    label='Update' />
+                        </Footer>
+                        </Form>
+                    </Layer>
+                }
             </div>
         )
     }

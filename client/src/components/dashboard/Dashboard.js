@@ -25,7 +25,7 @@ export default class Dashboard extends Component {
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         window.addEventListener('resize', this.updateWindowDimensions);
     }
 
@@ -36,11 +36,12 @@ export default class Dashboard extends Component {
     updateWindowDimensions() {
         this.setState({ 
             windowWidth: window.innerWidth, 
-            windowHeight: window.innerHeight });
+            windowHeight: window.innerHeight 
+        });
     }
 
-    handleClick = (e) => {
-        const component = componentList[e.target.id]
+    handleOnClick = (e) => {
+        const component = componentList[e.target.id] || componentList[e.currentTarget.id]
         this.setState({
             activeComp: component
         })
@@ -60,22 +61,23 @@ export default class Dashboard extends Component {
                     <Box flex={ true }
                         justify='end'
                         direction='row'
-                        responsive>
+                        responsive >
                         <Menu icon={ <UserIcon /> }
                             dropAlign={{ "right": "right" }}>
-                            <Anchor href='#'
-                                className='active'>
+                            <Anchor href='#' >
                                 Settings
+                            </Anchor>
+                            <Anchor href='#' >
+                                Log Out
                             </Anchor>
                         </Menu>
                     </Box>
                 </Header>
                 <Split flex='right'
-                    showOnResponsive='both'
-                    fixed={ false }>
-                        <PrimaryNavigation windowWidth={ windowWidth }
-                            responsiveRender={ responsiveRender }
-                            onClickCB={ this.handleClick }/>
+                    showOnResponsive='both' >
+                        <PrimaryNavigation onClickCB={ this.handleOnClick } 
+                            windowWidth={ windowWidth }
+                            responsiveRender={ responsiveRender } />
                         <MainContent activeComp={ activeComp } />
                 </Split>
             </div>

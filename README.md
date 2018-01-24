@@ -14,3 +14,9 @@
     `rails db:migrate`
 * Deployment instructions:
     `rake start` opens on localhost:3000
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> develop/restructure

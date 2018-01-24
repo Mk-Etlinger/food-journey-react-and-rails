@@ -1,5 +1,7 @@
 # README
 
+![alt text](./public/Root_Journal_Mockup.png "Root Journal Mockup")
+
 * Ruby/Rails version:
     2.3.4/5.1.4
 * React Version:
@@ -14,9 +16,3 @@
     `rails db:migrate`
 * Deployment instructions:
     `rake start` opens on localhost:3000
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> develop/restructure

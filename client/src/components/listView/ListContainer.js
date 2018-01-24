@@ -48,7 +48,8 @@ class ListContainer extends Component {
         return (
             <Box flex
                 colorIndex='light-2'>
-                <Tabs activeIndex={ this.state.activeIndex } 
+                <Tabs style={{ backgroundColor: 'white', marginTop: '0' }} 
+                    activeIndex={ this.state.activeIndex } 
                     onActive={ this.handleClick }>
                     <Tab id='IndexView' title='All Meals'>
                         { isMealLoaded && <ActiveComp meals={ meals } 

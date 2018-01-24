@@ -35,8 +35,8 @@ class DataContainer extends Component {
             isMostSymptomaticFoodsLoaded = Object.keys(mostSymptomaticFoods).length > 0
 
         return (
-            <Box full 
-                pad='medium'
+            <Box flex
+                pad='large'
                 colorIndex='light-2'>
                 { isSymptomLoaded && <RelationView symptomsIndex={ symptoms }/> }
             </Box>

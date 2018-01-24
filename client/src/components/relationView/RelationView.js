@@ -1,5 +1,6 @@
 import React from 'react';
 import Map from 'grommet/components/Map';
+import Box from 'grommet/components/Box';
 
 export default ({ symptomsIndex }) => {
 
@@ -33,21 +34,27 @@ export default ({ symptomsIndex }) => {
     })
     
     return (
-        <Map linkColorIndex='neutral-3'
-            data={{
-            "categories": [
-                {
-                "id": "symptoms-map",
-                "label": "Symptoms",
-                "items": mergedSymptoms
-                },
-                {
-                "id": "triggers-map",
-                "label": "Triggers",
-                "items": uniqueTriggers
-                }
-            ],
-            "links": mergedLinks
-        }} />
+        <Box full 
+            colorIndex='light-2'>
+            <Box flex 
+                direction='column'>
+            <Map vertical
+                data={{
+                "categories": [
+                    {
+                    "id": "symptoms-map",
+                    "label": "Symptoms",
+                    "items": mergedSymptoms
+                    },
+                    {
+                    "id": "triggers-map",
+                    "label": "Triggers",
+                    "items": uniqueTriggers
+                    }
+                ],
+                "links": mergedLinks
+            }} />
+            </Box>
+        </Box>
     )
 }

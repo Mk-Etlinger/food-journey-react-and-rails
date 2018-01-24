@@ -8,6 +8,7 @@ import { getMostSymptomaticFoods } from '../../actions/getMostSymptomaticFoods';
 import Tabs from 'grommet/components/Tabs';
 import Tab from 'grommet/components/Tab';
 import Paragraph from 'grommet/components/Paragraph';
+import Box from 'grommet/components/Box';
 
 class ListContainer extends Component {
     constructor() {
@@ -45,7 +46,8 @@ class ListContainer extends Component {
             isMostSymptomaticFoodsLoaded = Object.keys(mostSymptomaticFoods).length > 0
 
         return (
-            <div>
+            <Box flex
+                colorIndex='light-2'>
                 <Tabs activeIndex={ this.state.activeIndex } 
                     onActive={ this.handleClick }>
                     <Tab id='IndexView' title='All Meals'>
@@ -61,7 +63,7 @@ class ListContainer extends Component {
                         }
                     </Tab>
                 </Tabs>
-            </div>
+            </Box>
         )
     };
 }

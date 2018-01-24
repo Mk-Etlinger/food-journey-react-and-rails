@@ -9,7 +9,6 @@ import InheritIcon from 'grommet/components/icons/base/Inherit';
 const PrimaryNavigation = ({ windowWidth, onClickCB, responsiveRender }) => {
     return (
         <Box colorIndex='neutral-4'
-            style={{ height: '100%' }}
             align='stretch'
             size={ splitLeftStyling }>
             <Columns
@@ -59,11 +58,6 @@ const PrimaryNavigation = ({ windowWidth, onClickCB, responsiveRender }) => {
         </Box>
     )
 }
-
-// const splitLeftStyling = {
-//     height: 'full',
-//     width: 'small',
-// }
 
 const splitLeftStyling = {
     width: { min: 'small', max: 'full' }

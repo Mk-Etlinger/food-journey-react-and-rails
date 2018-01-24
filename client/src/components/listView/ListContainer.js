@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { getMeals } from '../../actions/meals/meals';
 import { getSymptoms } from '../../actions/symptoms/symptoms';
 import { getMostSymptomaticFoods } from '../../actions/getMostSymptomaticFoods';
+import Tabs from 'grommet/components/Tabs';
+import Tab from 'grommet/components/Tab';
+import Paragraph from 'grommet/components/Paragraph';
 
 class ListContainer extends Component {
     constructor() {
@@ -12,15 +15,17 @@ class ListContainer extends Component {
 
         this.state = {
             activeComp: IndexView,
+            activeIndex: 0
         }
 
         this.handleClick = this.handleClick.bind(this)
     }
 
     handleClick = (e) => {
-        const component = componentList[e.target.id]
+        const component = componentList[e]
         this.setState({
-            activeComp: component
+            activeComp: component,
+            activeIndex: e
         })
     }
 
@@ -41,17 +46,21 @@ class ListContainer extends Component {
 
         return (
             <div>
-                { isMealLoaded && <ActiveComp meals={ meals } 
-                    symptoms={ symptoms } 
-                    mostSymptomaticFoods={ mostSymptomaticFoods }/> 
-                }
-
-                <div style={ OverviewDivStyle }>
-                    <h2 id="IndexView" onClick={ this.handleClick }>All Meals</h2>
-                </div>
-                <div style={ OverviewDivStyle }>
-                    <h2 id="TopTriggersView" onClick={ this.handleClick }>Top Triggers</h2>
-                </div>
+                <Tabs activeIndex={ this.state.activeIndex } 
+                    onActive={ this.handleClick }>
+                    <Tab id='IndexView' title='All Meals'>
+                        { isMealLoaded && <ActiveComp meals={ meals } 
+                            symptoms={ symptoms } 
+                            mostSymptomaticFoods={ mostSymptomaticFoods }/> 
+                        }
+                    </Tab>
+                    <Tab title='Top Triggers'>
+                       { isMealLoaded && <ActiveComp meals={ meals } 
+                            symptoms={ symptoms } 
+                            mostSymptomaticFoods={ mostSymptomaticFoods }/> 
+                        }
+                    </Tab>
+                </Tabs>
             </div>
         )
     };
@@ -63,18 +72,10 @@ ListContainer.defaultProps = {
     symptoms: [],
 }
 
-const componentList = {
+const componentList = [
     IndexView,
     TopTriggersView
-};
-
-let OverviewDivStyle = {
-    display: 'inline-block', 
-    cursor: 'pointer', 
-    width: '200px',
-    border: 'solid black', 
-    margin: '10px auto 0 auto'
-}
+];
 
 const mapStateToProps = (state) => {
     return ({

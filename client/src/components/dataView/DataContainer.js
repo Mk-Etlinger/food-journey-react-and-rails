@@ -45,7 +45,8 @@ class DataContainer extends Component {
 
         return (
             <div>
-                <Tabs activeIndex={ this.state.activeIndex } 
+                <Tabs style={{ backgroundColor: 'white', marginTop: '0' }}
+                    activeIndex={ this.state.activeIndex } 
                     onActive={ this.handleClick }>
                     <Tab id='IndexView' title='Top Triggers'>
                         { isMostSymptomaticFoodsLoaded && <ActiveComp 

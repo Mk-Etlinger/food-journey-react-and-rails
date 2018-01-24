@@ -12,8 +12,7 @@ const PrimaryNavigation = ({ windowWidth, onClickCB, responsiveRender }) => {
             style={{ height: '100%' }}
             align='stretch'
             size={ splitLeftStyling }>
-            <Columns masonry={ windowWidth < 718 }
-                maxCount={ 1 }
+            <Columns
                 size='small'
                 justify='center'>
                 <Box id='AddItem'
@@ -61,13 +60,13 @@ const PrimaryNavigation = ({ windowWidth, onClickCB, responsiveRender }) => {
     )
 }
 
-const splitLeftStyling = {
-    height: 'full',
-    width: 'small',
-}
-
 // const splitLeftStyling = {
-//     width: { min: 'small', max: 'full' }
+//     height: 'full',
+//     width: 'small',
 // }
+
+const splitLeftStyling = {
+    width: { min: 'small', max: 'full' }
+}
 
 export default PrimaryNavigation;

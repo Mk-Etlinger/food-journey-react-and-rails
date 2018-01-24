@@ -1,33 +1,45 @@
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import Form from 'grommet/components/Form';
+import FormField from 'grommet/components/FormField';
+import TextInput from 'grommet/components/TextInput';
+import PasswordInput from 'grommet/components/PasswordInput';
+import NumberInput from 'grommet/components/NumberInput';
 
-export default ({ value, name, displayName, type, placeholder, onChangeCb }) => {
+export default ({ value, name, displayName, textarea, type, placeholder, onChangeCb }) => {
+    const Component = inputFieldComps[ type ]
     return (
-        type === 'textarea' ?
-            <div>                    
-                <FormGroup controlId="formControlsTextarea">
-                    <ControlLabel>{ displayName || splitToCapitalize(name) }:</ControlLabel>
-                    <span>{ ' ' }</span>
-                    <FormControl value={  value}
-                        name={name}
-                        onChange={ onChangeCb }
-                        placeholder={ placeholder }
-                        componentClass="textarea" />
-                </FormGroup>
-            </div>
-        :
-            <div style={{ margin: '0 0 10px 0' }}>
-                <FormGroup bsSize="small">
-                <ControlLabel>{displayName || splitToCapitalize(name)}:</ControlLabel>
-                <span>{ ' ' }</span>
-                <FormControl type={ type } 
-                    placeholder={placeholder}
+        textarea ?
+            <fieldset>
+                <FormField label={ displayName || splitToCapitalize(name) }
+                    htmlFor='notes'>
+                <textarea rows="5" 
+                    value={ value }
+                    type='text' 
+                    id='description' 
                     name={ name }
-                    value={ value } 
+                    placeholder={ placeholder }
                     onChange={ onChangeCb } />
-                </FormGroup>
-            </div>
+                </FormField>
+            </fieldset>
+        :
+            <FormField>
+                { displayName || splitToCapitalize(name) }:
+                <Component id='item1'
+                    onChange={ onChangeCb }
+                    onDOMChange={ onChangeCb }
+                    placeholder={ placeholder }
+                    name={ name }
+                    value={ value } />
+            </FormField>
+
     )
+}
+
+const inputFieldComps = {
+    text: TextInput,
+    number: NumberInput,
+    password: PasswordInput
 }
 
 const splitToCapitalize = (name) => {    

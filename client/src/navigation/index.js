@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Home from '../components/home/Home';
 import User from '../components/home/User';
-import { Dashboard } from '../components/dashboard/Dashboard';
+import Dashboard from '../components/dashboard/Dashboard';
 import Overview from '../components/overview/Overview';
 import { DefaultLayout } from './DefaultLayout';
 import { LoggedInLayout } from './LoggedInLayout';

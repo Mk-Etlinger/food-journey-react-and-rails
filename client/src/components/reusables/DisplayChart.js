@@ -49,6 +49,6 @@ export default ({ mostSymptomaticFoods = {} }) => {
                     columns={ 3 } />
                 </Layers>
             </Chart>
-            </Chart>
+        </Chart>
     )
 }

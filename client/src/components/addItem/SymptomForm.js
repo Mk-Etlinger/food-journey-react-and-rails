@@ -4,7 +4,10 @@ import { createSymptom } from '../../actions/symptoms/createSymptom';
 import { updateSymptomFormData } from '../../actions/symptomForm';
 import { hideMealButton, showMealButton } from '../../actions/toggleMealButton';
 import { connect } from 'react-redux';
-import { Button, Form } from 'react-bootstrap';
+import AddIcon from 'grommet/components/icons/base/Add';
+import Form from 'grommet/components/Form';
+import Button from 'grommet/components/Button';
+import Footer from 'grommet/components/Footer';
 
 class SymptomForm extends Component {
     constructor() {
@@ -53,56 +56,59 @@ class SymptomForm extends Component {
         
         return (
             this.state.showForm ?
-            <div style={divStyle}>
-                <span onClick={this.handleHideForm} style={{ margin: '0 0 99% 97%', cursor: 'pointer' }}>x</span>
-                <Form inline onSubmit={this.handleOnSubmit} >
+            <div style={ divStyle }>
+                <Form compact onSubmit={ this.handleOnSubmit } >
+                    <span onClick={ this.handleHideForm } style={{  margin: '0 0 99% 97%', cursor: 'pointer'  }}>x</span>
                     <InputField name="description" 
-                        type="text" value={description} 
-                        onChangeCb={this.handleOnChange}
-                        placeholder={"What's ailing you?"}/>
+                        type="text" 
+                        value={ description } 
+                        onChangeCb={ this.handleOnChange }
+                        placeholder={ "What's ailing you?" }/>
                     <InputField name="severity"
                         type="number" 
-                        value={severity} 
-                        onChangeCb={this.handleOnChange}/>
+                        value={ severity } 
+                        onChangeCb={ this.handleOnChange }/>
                     <InputField name="stress_level" 
                         displayName="Stress level"
-                        value={stress_level} 
+                        value={ stress_level } 
                         type="number"
-                        onChangeCb={this.handleOnChange}/>
+                        onChangeCb={ this.handleOnChange }/>
                     <InputField name="occurred_at"
                         displayName="Duration in hours" 
                         type="number" 
-                        value={occurred_at} 
-                        onChangeCb={this.handleOnChange}/>                    
+                        value={ occurred_at } 
+                        onChangeCb={ this.handleOnChange }/>                    
                     
-                    {this.state.showNotes ?
+                    { this.state.showNotes ?
                         <InputField name="notes" 
-                            type="textarea" 
-                            value={notes} 
-                            onChangeCb={this.handleOnChange}
-                            placeholder={"Notes..."}/>
+                            textarea={ true }
+                            value={ notes } 
+                            onChangeCb={ this.handleOnChange }
+                            placeholder={ "Notes..." }/>
                        
                     :
-                        <Button bsSize="small"
-                            bsStyle="primary"  
-                            onClick={this.handleShowNotes}>
-                            + Notes
-                        </Button>
+                        <Button id='notes'
+                            icon={ <AddIcon /> }
+                            onClick={this.handleShowNotes}
+                            label='notes' />
                     }
-                    <br/>
-                    <input type="submit" style={{ marginTop: '5px' }} value="Create Symptom"/>
+                    <Footer pad='small' 
+                        justify='center'>
+                        <Button type="submit"
+                            primary
+                            pad='small'
+                            label="Create Meal"/>
+                    </Footer>
                 </Form>              
             </div>
             :
             <div>
-                {mealFormData.active || 
-                    <Button 
-                        bsStyle="primary" 
-                        bsSize="large" 
-                        onClick={this.handleShowForm}
-                        >
-                        + Symptom
-                        </Button>}
+                { mealFormData.active || 
+                    <Button id='SymptomForm'
+                        icon={ <AddIcon /> }
+                        label='Symptom'
+                        onClick={ this.handleShowForm } />
+                }
             </div>
         )
     }
@@ -123,7 +129,6 @@ export default connect(mapStateToProps, {
     })(SymptomForm);
 
 let divStyle = { 
-    width: '40%', 
     border: '1px solid  #d8edf3', 
     boxShadow: '2px 6px 6px grey', 
     borderRadius: '4px' , 

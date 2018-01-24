@@ -1,8 +1,8 @@
 import React from 'react';
 import Table from 'grommet/components/Table';
 import TableRow from 'grommet/components/TableRow';
-import { Grid, Col, Row } from 'react-bootstrap';
 import DisplayChart from '../reusables/DisplayChart';
+import Box from 'grommet/components/Box';
 
 export default ({ mostSymptomaticFoods }) => {
     const ingredientList = Object.keys(mostSymptomaticFoods).map((food, i) => 
@@ -12,8 +12,11 @@ export default ({ mostSymptomaticFoods }) => {
         </TableRow>
     );
     return (
-        <div>   
+        <div> 
+            <Box margin='large'
+                align='center' >  
             <DisplayChart mostSymptomaticFoods={ mostSymptomaticFoods } />
+            </Box>
         </div>
     );
 }

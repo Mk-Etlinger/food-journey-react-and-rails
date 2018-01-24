@@ -58,7 +58,7 @@ export default ({ meals, symptoms }) => {
                     >Meal Type
                 </TableHeaderColumn>
                 <TableHeaderColumn width="45%"
-                    tdStyle={{overflow: 'scroll'}} 
+                    tdStyle={{ overflow: 'scroll' }} 
                     dataFormat={ ingredientsFormatter }
                     >Ingredients
                 </TableHeaderColumn>

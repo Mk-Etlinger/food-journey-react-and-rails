@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getMeals } from '../../actions/meals/meals';
 import { getSymptoms } from '../../actions/symptoms/symptoms';
 import { getMostSymptomaticFoods } from '../../actions/getMostSymptomaticFoods';
+import Box from 'grommet/components/Box';
 
 class DataContainer extends Component {
     constructor() {
@@ -29,16 +30,16 @@ class DataContainer extends Component {
     render(){
         const { meals } = this.props.meals, 
             { symptoms } = this.props.symptoms,
-            { mostSymptomaticFoods } = this.props.overviewQueries,
-            { compActive } = this.state
-        const isMealLoaded = meals.length > 0,
-            isSymptomLoaded = symptoms.length > 0,
+            { mostSymptomaticFoods } = this.props.overviewQueries
+        const isSymptomLoaded = symptoms.length > 0,
             isMostSymptomaticFoodsLoaded = Object.keys(mostSymptomaticFoods).length > 0
 
         return (
-            <div>
-                { isSymptomLoaded && <RelationView symptomsIndex={symptoms}/> }
-            </div>
+            <Box full 
+                pad='medium'
+                colorIndex='light-2'>
+                { isSymptomLoaded && <RelationView symptomsIndex={ symptoms }/> }
+            </Box>
         )
     };
 }

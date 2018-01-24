@@ -22,22 +22,6 @@ export default class Dashboard extends Component {
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight
         }
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    }
-
-    componentWillMount() {
-        window.addEventListener('resize', this.updateWindowDimensions);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
-
-    updateWindowDimensions() {
-        this.setState({ 
-            windowWidth: window.innerWidth, 
-            windowHeight: window.innerHeight 
-        });
     }
 
     handleOnClick = (e) => {
@@ -58,7 +42,7 @@ export default class Dashboard extends Component {
                     <Title margin='small'>
                         Root Journal
                     </Title>
-                    <Box flex={ true }
+                    <Box flex
                         justify='end'
                         direction='row'
                         responsive >
@@ -75,8 +59,7 @@ export default class Dashboard extends Component {
                 </Header>
                 <Split flex='right'
                     showOnResponsive='both' >
-                        <PrimaryNavigation onClickCB={ this.handleOnClick } 
-                            windowWidth={ windowWidth }
+                        <PrimaryNavigation onClickCB={ this.handleOnClick }
                             responsiveRender={ responsiveRender } />
                         <MainContent activeComp={ activeComp } />
                 </Split>
@@ -90,3 +73,19 @@ const componentList = {
     DataContainer,
     RelationContainer
 };
+
+
+    // componentWillMount() {
+    //     window.addEventListener('resize', this.updateWindowDimensions);
+    // }
+
+    // componentWillUnmount() {
+    //     window.removeEventListener('resize', this.updateWindowDimensions);
+    // }
+
+    // updateWindowDimensions() {
+    //     this.setState({ 
+    //         windowWidth: window.innerWidth, 
+    //         windowHeight: window.innerHeight 
+    //     });
+    // }

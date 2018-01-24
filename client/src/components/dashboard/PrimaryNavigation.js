@@ -8,7 +8,8 @@ import InheritIcon from 'grommet/components/icons/base/Inherit';
 
 const PrimaryNavigation = ({ windowWidth, onClickCB, responsiveRender }) => {
     return (
-        <Box colorIndex='neutral-4'
+        <Box flex 
+            colorIndex='neutral-4'
             align='stretch'
             size={ splitLeftStyling }>
             <Columns

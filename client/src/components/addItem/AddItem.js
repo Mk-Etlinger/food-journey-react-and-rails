@@ -6,21 +6,19 @@ import Box from 'grommet/components/Box';
 
 export const AddItem = () => {
     return (            
-        <div>
+        <Box flex>
             <Box
                 direction='row'
                 align='start'
                 justify='center'
                 colorIndex='light-2'>
                 <Box
-                    flex
                     alignSelf='center'
                     margin='large'
                     colorIndex='light-1'> 
                     <MealForm />
                 </Box>
                 <Box
-                    flex
                     alignSelf='center'
                     margin='large'
                     colorIndex='light-1'> 
@@ -28,7 +26,7 @@ export const AddItem = () => {
                 </Box>
             </Box>
             
-            <Box full
+            <Box flex
                 justify='center'
                 colorIndex='light-2'>
                 <h2>Recent</h2> 
@@ -38,6 +36,25 @@ export const AddItem = () => {
                     <DateDisplay />
                 </Box>
             </Box>
-        </div>
+        </Box>
     )
 }
+
+{/*<Box full={true}>
+  <Box tag='header' direction='row' justify='between' align='center'>
+
+  </Box>
+  <Box flex='grow' direction='row'>
+    <Box align='center'>
+
+    </Box>
+    <Box flex={true} direction='row'>
+      <Box basis='1/2'>
+      
+      </Box>
+      <Box basis='1/2'>
+      
+      </Box>
+    </Box>
+  </Box>
+</Box>*/}

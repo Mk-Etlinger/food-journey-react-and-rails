@@ -36,7 +36,8 @@ export default class Dashboard extends Component {
         const responsiveRender = windowWidth < 718 ? 'xsmall' : 'large'
 
         return (
-            <div>
+                <Box full 
+                    colorIndex='neutral-4'>
                 <Header size='small'
                     colorIndex='grey-1'>
                     <Title margin='small'>
@@ -63,7 +64,7 @@ export default class Dashboard extends Component {
                             responsiveRender={ responsiveRender } />
                         <MainContent activeComp={ activeComp } />
                 </Split>
-            </div>
+                </Box>
         )
     }
 }

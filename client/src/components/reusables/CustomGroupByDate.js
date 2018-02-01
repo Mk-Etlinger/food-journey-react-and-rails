@@ -8,13 +8,3 @@ Array.prototype.customGroupByDate = function() {
         return key
     }, {})
 }
-
-// Array.prototype.customGroupByDate = function(prop) {
-//     debugger;
-//     return this.reduce(function(groups, item) {
-//         var val = item[prop];
-//         groups[val] = groups[val] || [];
-//         groups[val].push(item);
-//         return groups;
-//     }, {});
-// }

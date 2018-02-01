@@ -9,6 +9,9 @@ import AddIcon from 'grommet/components/icons/base/Add';
 import Form from 'grommet/components/Form';
 import Footer from 'grommet/components/Footer';
 import Button from 'grommet/components/Button';
+import FormFields from 'grommet/components/FormFields';
+import Box from 'grommet/components/Box';
+import Layer from 'grommet/components/Layer';
 
 class MealForm extends Component {
     constructor() {
@@ -48,30 +51,36 @@ class MealForm extends Component {
     render() {
         const { ingredients, meal_type } = this.state
         const { symptomFormData } = this.props
-        let divStyle = { border: '1px solid  #d8edf3', boxShadow: '2px 6px 6px grey', borderRadius: '4px' , padding: '20px', margin: '0 auto 0 auto' }
+
         return (
             this.state.showForm ?
-                    <Form pad='small' 
-                        onSubmit={ this.handleOnSubmit }>
-                        <span onClick={ this.handleHideForm } style={{ margin: '0 0 99% 97%', cursor: 'pointer' }}>x</span>
-                        <ToggleRadioButtons
-                            currentValue={ meal_type }
-                            name='meal_type'
-                            fields={ ['breakfast', 'lunch', 'dinner', 'snack'] }
-                            onChangeCb={ this.handleOnChange }/>
-                        <InputField name="ingredients" 
-                            type="text"
-                            value={ ingredients }
-                            onChangeCb={ this.handleOnChange }
-                            placeholder={ "Eg: eggs, bacon, salad" }/>
+                <Layer closer
+                    overlayClose
+                    onClose={ this.handleHideForm }>
+                    <Form 
+                        onSubmit={ this.handleOnSubmit }> 
+                        <FormFields>
+                            <h2>What's on the Menu?</h2>
+                            <ToggleRadioButtons
+                                currentValue={ meal_type }
+                                name='meal_type'
+                                fields={ ['breakfast', 'lunch', 'dinner', 'snack'] }
+                                onChangeCb={ this.handleOnChange }/>
+                            <InputField name="ingredients" 
+                                type="text"
+                                value={ ingredients }
+                                onChangeCb={ this.handleOnChange }
+                                placeholder={ "Eg: eggs, bacon, salad" }/>
+                        </FormFields>
                         <Footer pad='small' 
                             justify='center'>
                             <Button type="submit"
                                 primary
                                 pad='small'
-                                label="Create Meal"/>
+                                label='Add' />
                         </Footer>
                     </Form>
+                </Layer>
             :
                 <div>
                     { symptomFormData.active || 
@@ -98,3 +107,4 @@ export default connect(mapStateToProps, {
     showSymptomButton,
     updateMealFormData 
 })(MealForm);
+

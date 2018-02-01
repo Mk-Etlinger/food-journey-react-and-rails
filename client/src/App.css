@@ -2,20 +2,8 @@
   text-align: center;
 }
 
-.App-header {
-  background-color: #222;
-  height: 100px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
 .grommetux-map__category-label {
-    font-size: 14px;
-    font-size: 1.8rem;
+    font-size: 1.2rem;
     line-height: 1.71429;
     margin-bottom: 12px;
 }

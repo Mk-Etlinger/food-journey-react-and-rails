@@ -38,16 +38,12 @@ export default ({ mostSymptomaticFoods = {} }) => {
         <Chart verticalAlignWith='meter-1-id'>
             <Axis count={ 5 }
                 labels={[{"index": 2, "label": (highestValue / 2) + 1 }, {"index": 4, "label": highestValue + 2 }]}
-                vertical={ true } />
-            <Chart vertical={ true }
+                vertical />
+            <Chart vertical
                 verticalAlignWith='meter-1-id'>
                 <Base>
                     { meterValues }
                 </Base>
-                <Layers>
-                <Grid rows={ 5 }
-                    columns={ 3 } />
-                </Layers>
             </Chart>
         </Chart>
     )

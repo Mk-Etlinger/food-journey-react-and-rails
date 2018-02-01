@@ -1,5 +1,4 @@
 import React from 'react';
-import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import RadioButton from 'grommet/components/RadioButton';
 
 export default ({ fields, currentValue, name, onChangeCb }) => {
@@ -15,7 +14,7 @@ export default ({ fields, currentValue, name, onChangeCb }) => {
     })
     
     return (
-        <div style={{ margin: '0 0 10px 0' }}>
+        <div style={{ margin: '0 0 1em 0' }}>
             { radioButtons }
         </div>
     )

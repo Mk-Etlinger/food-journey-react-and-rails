@@ -1,13 +1,13 @@
 import React from 'react';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import Form from 'grommet/components/Form';
 import FormField from 'grommet/components/FormField';
 import TextInput from 'grommet/components/TextInput';
 import PasswordInput from 'grommet/components/PasswordInput';
 import NumberInput from 'grommet/components/NumberInput';
 
-export default ({ value, name, displayName, textarea, type, placeholder, onChangeCb }) => {
+export default ({ value, id, name, step, displayName, textarea, type, placeholder, onChangeCb }) => {
     const Component = inputFieldComps[ type ]
+
     return (
         textarea ?
             <fieldset>
@@ -23,12 +23,12 @@ export default ({ value, name, displayName, textarea, type, placeholder, onChang
                 </FormField>
             </fieldset>
         :
-            <FormField>
-                { displayName || splitToCapitalize(name) }:
-                <Component id='item1'
+            <FormField label={ displayName || splitToCapitalize(name) }>
+                <Component id={ id }
+                    step={ step }
                     onChange={ onChangeCb }
                     onDOMChange={ onChangeCb }
-                    placeholder={ placeholder }
+                    placeHolder={ placeholder }
                     name={ name }
                     value={ value } />
             </FormField>

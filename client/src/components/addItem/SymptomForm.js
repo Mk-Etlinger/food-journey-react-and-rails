@@ -4,10 +4,14 @@ import { createSymptom } from '../../actions/symptoms/createSymptom';
 import { updateSymptomFormData } from '../../actions/symptomForm';
 import { hideMealButton, showMealButton } from '../../actions/toggleMealButton';
 import { connect } from 'react-redux';
+import FormFields from 'grommet/components/FormFields';
+import EditIcon from 'grommet/components/icons/base/Edit';
 import AddIcon from 'grommet/components/icons/base/Add';
 import Form from 'grommet/components/Form';
 import Button from 'grommet/components/Button';
 import Footer from 'grommet/components/Footer';
+import Layer from 'grommet/components/Layer';
+import Box from 'grommet/components/Box';
 
 class SymptomForm extends Component {
     constructor() {
@@ -17,10 +21,10 @@ class SymptomForm extends Component {
             showForm: false,
             showNotes: false,
             description: '',
-            severity: 0,
-            stress_level: 0,
+            severity: '',
+            stress_level: '',
             notes: '',
-            occurred_at: 0,
+            occurred_at: '',
         }
     }
 
@@ -39,13 +43,13 @@ class SymptomForm extends Component {
     }
     
     handleHideForm = () => {
-        this.setState({ showForm: false })
+        this.setState({ showForm: false, showNotes: false })
         this.props.showMealButton()
     }
 
     handleOnSubmit = (e) => {
         e.preventDefault();
-        this.setState({ showForm: false })
+        this.setState({ showForm: false, showNotes: false })
         this.props.createSymptom(this.state)
         this.props.showMealButton()
     }    
@@ -56,51 +60,62 @@ class SymptomForm extends Component {
         
         return (
             this.state.showForm ?
-            <div style={ divStyle }>
-                <Form compact onSubmit={ this.handleOnSubmit } >
-                    <span onClick={ this.handleHideForm } style={{  margin: '0 0 99% 97%', cursor: 'pointer'  }}>x</span>
-                    <InputField name="description" 
-                        type="text" 
-                        value={ description } 
-                        onChangeCb={ this.handleOnChange }
-                        placeholder={ "What's ailing you?" }/>
-                    <InputField name="severity"
-                        type="number" 
-                        value={ severity } 
-                        onChangeCb={ this.handleOnChange }/>
-                    <InputField name="stress_level" 
-                        displayName="Stress level"
-                        value={ stress_level } 
-                        type="number"
-                        onChangeCb={ this.handleOnChange }/>
-                    <InputField name="occurred_at"
-                        displayName="Duration in hours" 
-                        type="number" 
-                        value={ occurred_at } 
-                        onChangeCb={ this.handleOnChange }/>                    
-                    
-                    { this.state.showNotes ?
-                        <InputField name="notes" 
-                            textarea={ true }
-                            value={ notes } 
+                 <Layer closer
+                    overlayClose
+                    onClose={ this.handleHideForm }>
+                    <h2>What's Ailing You?</h2>
+                    <Form pad='small'
+                        onSubmit={ this.handleOnSubmit }>
+                        <InputField name="description" 
+                            placeholder="Headache, bloating, etc."
+                            type="text" 
+                            value={ description } 
                             onChangeCb={ this.handleOnChange }
-                            placeholder={ "Notes..." }/>
-                       
-                    :
-                        <Button id='notes'
-                            icon={ <AddIcon /> }
-                            onClick={this.handleShowNotes}
-                            label='notes' />
-                    }
-                    <Footer pad='small' 
-                        justify='center'>
-                        <Button type="submit"
-                            primary
-                            pad='small'
-                            label="Create Meal"/>
-                    </Footer>
-                </Form>              
-            </div>
+                            />
+                        <InputField name="severity"
+                            type="number"
+                            placeholder="1-10"
+                            value={ severity } 
+                            onChangeCb={ this.handleOnChange }/>
+                        <InputField name="stress_level" 
+                            displayName="Stress level"
+                            placeholder="1-10"
+                            type="number" 
+                            value={ stress_level } 
+                            onChangeCb={ this.handleOnChange }/>
+                        <InputField name="occurred_at"
+                            displayName="When did the symptoms begin?"
+                            placeholder="0.5 hrs"
+                            step='.5'
+                            type="number" 
+                            value={ occurred_at } 
+                            onChangeCb={ this.handleOnChange }/>
+                        { this.state.showNotes ?
+                            <InputField name="notes" 
+                                textarea={ true }
+                                value={ notes } 
+                                onChangeCb={ this.handleOnChange }
+                                placeholder="Note your experience" />
+                        
+                        :
+                            <Box margin={{ top: 'small' }}
+                                align='start'>  
+                                <Button id='notes'
+                                    plain
+                                    icon={ <EditIcon /> }
+                                    onClick={this.handleShowNotes}
+                                    label='notes' />
+                            </Box>
+                        }                 
+                        <Footer pad='small' 
+                            justify='center'>
+                            <Button type="submit"
+                                primary
+                                pad='small'
+                                label='Add' />
+                        </Footer>
+                    </Form>
+                </Layer> 
             :
             <div>
                 { mealFormData.active || 

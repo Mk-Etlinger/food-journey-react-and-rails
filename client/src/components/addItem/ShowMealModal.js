@@ -8,7 +8,7 @@ import Form from 'grommet/components/Form';
 import Button from 'grommet/components/Button';
 import Footer from 'grommet/components/Footer';
 
-class ShowMealModal extends Component {   
+class ShowMealModal extends Component {
     
     componentWillMount() {
         this.setState({ ...this.props, showModal: false, })
@@ -40,11 +40,10 @@ class ShowMealModal extends Component {
                         box
                         separator='right'
                         label={ this.props.meal_type.charAt(0).toUpperCase() }
-                        size="xsmall"
                         onClick={ this.launchModal } />
                 { showModal && 
-                    <Layer closer
-                        overlayClose
+                    <Layer overlayClose
+                        closer
                         onClose={ this.closeModal }>
                         <Form pad='small'
                             onSubmit={ this.handleOnSubmit }> 

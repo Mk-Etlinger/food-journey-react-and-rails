@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
 export default ({ meals, symptoms }) => {
     function ingredientsFormatter(cell, row) {
@@ -36,7 +37,7 @@ export default ({ meals, symptoms }) => {
 
     return (
         <div>
-            <BootstrapTable data={meals} 
+            <BootstrapTable data={ meals } 
                 striped hover
                 expandableRow={ isExpandableRow }
                 expandComponent={ expandComponent }>

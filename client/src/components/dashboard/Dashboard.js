@@ -30,33 +30,17 @@ export default class Dashboard extends Component {
             activeComp: component
         })
     }
+    
+    handleLogout = () => {
+        localStorage.jwt = ''
+    }
 
     render() {
         const { windowWidth, activeComp } = this.state
         const responsiveRender = windowWidth < 718 ? 'xsmall' : 'large'
 
         return (
-            <Box full>
-                <Header size='small'
-                    colorIndex='grey-1'>
-                    <Title margin='small'>
-                        Root Journal
-                    </Title>
-                    <Box flex
-                        justify='end'
-                        direction='row'
-                        responsive >
-                        <Menu icon={ <UserIcon /> }
-                            dropAlign={{ "right": "right" }}>
-                            <Anchor href='#' >
-                                Settings
-                            </Anchor>
-                            <Anchor href='#' >
-                                Log Out
-                            </Anchor>
-                        </Menu>
-                    </Box>
-                </Header>
+            <Box flex>
                 <Split flex='right'
                     showOnResponsive='both' >
                     <Box style={{ height: '100%' }} 

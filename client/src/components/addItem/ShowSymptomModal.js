@@ -51,13 +51,12 @@ class ShowSymptomModal extends Component {
                     colorIndex='neutral-1'
                     separator='right'
                     label='+'
-                    size="xsmall"
                     onClick={ this.launchModal } />
                 { showModal && 
                     <Layer closer
                         overlayClose
                         onClose={ this.closeModal }>
-                        <h2>Edit your { date } { this.props.description }</h2>
+                        <h2 style={{ marginTop: '5px' }}>Edit your { date } { this.props.description }</h2>
                         <Form pad='small'
                             onSubmit={ this.handleOnSubmit }>
                             <InputField name="severity"

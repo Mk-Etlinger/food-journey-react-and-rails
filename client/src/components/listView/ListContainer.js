@@ -7,7 +7,6 @@ import { getSymptoms } from '../../actions/symptoms/symptoms';
 import { getMostSymptomaticFoods } from '../../actions/getMostSymptomaticFoods';
 import Tabs from 'grommet/components/Tabs';
 import Tab from 'grommet/components/Tab';
-import Paragraph from 'grommet/components/Paragraph';
 import Box from 'grommet/components/Box';
 
 class ListContainer extends Component {

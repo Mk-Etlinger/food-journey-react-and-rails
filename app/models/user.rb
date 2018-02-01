@@ -3,14 +3,19 @@ class User < ApplicationRecord
   has_many :meals 
   has_many :symptoms
 
-  def self.find_or_create_from_auth_hash(auth)		
-    where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
-      user.name = auth.info.name
-      user.provider = auth.provider
-      user.uid = auth.uid			
-      user.image = auth.info.image
-      user.save!
-		end
-	end
+  def self.from_token_request(request)
+    # Returns a valid user, `nil` or raise `Knock.not_found_exception_class_name`
+    email = request.params["auth"] && request.params["auth"]["email"]
+    password = request.params["auth"]["password"]
+    user = self.find_by(email:email)
+  
+    if user
+      user
+    elsif request.params["auth"]["register"]
+      User.create(email: email, password: password)
+    else
+      nil
+    end
+  end
   
 end

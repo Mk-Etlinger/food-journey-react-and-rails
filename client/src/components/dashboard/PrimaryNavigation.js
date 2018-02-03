@@ -1,12 +1,14 @@
 import React from 'react';
 import Columns from 'grommet/components/Columns';
 import Box from 'grommet/components/Box';
-import AnalyticsIcon from 'grommet/components/icons/base/Analytics';
+import Anchor from 'grommet/components/Anchor';
+import Heading from 'grommet/components/Heading';
+import PieChartIcon from 'grommet/components/icons/base/PieChart';
 import BookIcon from 'grommet/components/icons/base/Book';
 import AddCircleIcon from 'grommet/components/icons/base/AddCircle';
 import InheritIcon from 'grommet/components/icons/base/Inherit';
 
-const PrimaryNavigation = ({ windowWidth, onClickCB, responsiveRender }) => {
+const PrimaryNavigation = ({ windowWidth, onClickCB }) => {
     return (
         <Box flex 
             colorIndex='neutral-4'
@@ -15,37 +17,31 @@ const PrimaryNavigation = ({ windowWidth, onClickCB, responsiveRender }) => {
             <Columns
                 size='small'
                 justify='center'>
-                <Box id='AddItem'
-                    pad='large'
+                <Box id='entries'
+                    pad='medium'
+                    alignSelf='center'
+                    separator='bottom'
+                    colorIndex='neutral-4' >
+                    <Anchor icon={ <BookIcon size='medium'/> }
+                        path='/dashboard/entries' 
+                        onMouseEnter={this.someHandler}
+                        onMouseLeave={this.someOtherHandler}>
+                        {/*<Heading className='hide' tag='h4'>
+                            Entries
+                        </Heading>*/}
+                    </Anchor>
+                </Box>
+                <Box id='analytics'
+                    pad='medium'
                     alignSelf='center'
                     separator='bottom'
                     colorIndex='neutral-4'
                     onClick={ onClickCB } >
-                    <div id='AddItem' onClick={ onClickCB }>
-                        <AddCircleIcon size='medium' />
-                    </div>
+                    <Anchor icon={ <PieChartIcon size='medium'/> }
+                        path='/dashboard/analytics' />
+                       
                 </Box>
-                <Box id='ListContainer'
-                    pad='large'
-                    alignSelf='center'
-                    separator='bottom'
-                    colorIndex='neutral-4'
-                    onClick={ onClickCB } >
-                    <div id='ListContainer' onClick={ onClickCB }>
-                        <BookIcon size='medium' />
-                    </div>
-                </Box>
-                <Box id='DataContainer'
-                    pad='large'
-                    alignSelf='center'
-                    separator='bottom'
-                    colorIndex='neutral-4'
-                    onClick={ onClickCB } >
-                    <div id='DataContainer' onClick={ onClickCB }>
-                        <AnalyticsIcon size='medium' />
-                    </div>
-                </Box>
-                <Box id='RelationContainer' 
+                {/*<Box id='RelationContainer' 
                     pad='large'
                     alignSelf='center'
                     separator='bottom'
@@ -54,7 +50,7 @@ const PrimaryNavigation = ({ windowWidth, onClickCB, responsiveRender }) => {
                     <div id='RelationContainer' onClick={ onClickCB }>
                         <InheritIcon size='medium' />
                     </div>
-                </Box>
+                </Box>*/}
             </Columns>
         </Box>
     )

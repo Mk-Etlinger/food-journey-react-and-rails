@@ -9,12 +9,17 @@ const MainContent = ({ activeComp: ActiveComponent, ...props }) => {
             pad='small'
             colorIndex='light-2'>
             { ActiveComponent !== AddItem && 
-                <AddCircleIcon style={{ cursor: 'pointer' }} id='addItem'
+                <AddCircleIcon style={ addIconStyling } id='addItem'
                     size='medium' 
                     onClick={ () => props.history.replace('/dashboard/addItem') } /> }
             { ActiveComponent && <ActiveComponent /> }
         </Box>
     )
+}
+
+const addIconStyling = { 
+    cursor: 'pointer',
+    marginLeft: '4em'
 }
 
 export default MainContent;

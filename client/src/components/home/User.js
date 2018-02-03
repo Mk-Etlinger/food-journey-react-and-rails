@@ -60,11 +60,6 @@ class User extends Component {
     }    
 
     render() {
-
-        const {  activeComp } = this.state
-
-        const loginIsActive = activeComp === '/login'
-        
         return (
             <Box direction='row' 
                 justify='center'>      

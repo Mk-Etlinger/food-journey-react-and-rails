@@ -34,7 +34,7 @@ class ListContainer extends Component {
 		this.props.getSymptoms();
         this.props.getMostSymptomaticFoods();
     };
-    
+
     render(){
         const { meals } = this.props.meals, 
             { symptoms } = this.props.symptoms,
@@ -47,7 +47,7 @@ class ListContainer extends Component {
         return (
             <Box flex
                 colorIndex='light-2'>
-                <Tabs style={{ backgroundColor: 'white', marginTop: '0' }} 
+                <Tabs style={{ backgroundColor: 'white' }} 
                     activeIndex={ this.state.activeIndex } 
                     onActive={ this.handleClick }>
                     <Tab id='IndexView' title='All Meals'>

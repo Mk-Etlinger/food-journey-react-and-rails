@@ -6,6 +6,7 @@ import { getSymptoms } from '../../actions/symptoms/symptoms';
 import { getMostSymptomaticFoods } from '../../actions/getMostSymptomaticFoods';
 import Tabs from 'grommet/components/Tabs';
 import Tab from 'grommet/components/Tab';
+import Box from 'grommet/components/Box';
 import Paragraph from 'grommet/components/Paragraph';
 
 class DataContainer extends Component {
@@ -44,8 +45,8 @@ class DataContainer extends Component {
             isMostSymptomaticFoodsLoaded = Object.keys(mostSymptomaticFoods).length > 0
 
         return (
-            <div>
-                <Tabs style={{ backgroundColor: 'white' }}
+            <Box style={{ width: { min: 'small', max: 'large' } }}>
+                <Tabs
                     activeIndex={ this.state.activeIndex } 
                     onActive={ this.handleClick }>
                     <Tab id='IndexView' title='Top Triggers'>
@@ -54,7 +55,7 @@ class DataContainer extends Component {
                         }
                     </Tab>
                 </Tabs>
-            </div>
+            </Box>
         )
     };
 }

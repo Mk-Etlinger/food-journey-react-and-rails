@@ -46,23 +46,26 @@ class ListContainer extends Component {
 
         return (
             <Box flex
+                align='center'
                 colorIndex='light-2'>
-                <Tabs style={{ backgroundColor: 'white' }} 
-                    activeIndex={ this.state.activeIndex } 
-                    onActive={ this.handleClick }>
-                    <Tab id='IndexView' title='All Meals'>
+                <Box size={{ width: { min: 'small', max: 'xxlarge' } }} >
+                    <Tabs 
+                        activeIndex={ this.state.activeIndex } 
+                        onActive={ this.handleClick }>
+                        <Tab id='IndexView' title='All Meals'>
+                            { isMealLoaded && <ActiveComp meals={ meals } 
+                                symptoms={ symptoms } 
+                                mostSymptomaticFoods={ mostSymptomaticFoods }/> 
+                            }
+                        </Tab>
+                        <Tab title='Top Triggers'>
                         { isMealLoaded && <ActiveComp meals={ meals } 
-                            symptoms={ symptoms } 
-                            mostSymptomaticFoods={ mostSymptomaticFoods }/> 
-                        }
-                    </Tab>
-                    <Tab title='Top Triggers'>
-                       { isMealLoaded && <ActiveComp meals={ meals } 
-                            symptoms={ symptoms } 
-                            mostSymptomaticFoods={ mostSymptomaticFoods }/> 
-                        }
-                    </Tab>
-                </Tabs>
+                                symptoms={ symptoms } 
+                                mostSymptomaticFoods={ mostSymptomaticFoods }/> 
+                            }
+                        </Tab>
+                    </Tabs>
+                </Box>
             </Box>
         )
     };

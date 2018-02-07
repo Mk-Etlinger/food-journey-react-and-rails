@@ -34,26 +34,26 @@ export default ({ symptomsIndex }) => {
     })
     
     return (
-        <Box full 
+        <Box full
             colorIndex='light-2'>
             <Box flex 
                 direction='column'>
-            <Map vertical
-                data={{
-                "categories": [
-                    {
-                    "id": "symptoms-map",
-                    "label": "Symptoms",
-                    "items": mergedSymptoms
-                    },
-                    {
-                    "id": "triggers-map",
-                    "label": "Triggers",
-                    "items": uniqueTriggers
-                    }
-                ],
-                "links": mergedLinks
-            }} />
+                <Map vertical
+                    data={{
+                    "categories": [
+                        {
+                        "id": "symptoms-map",
+                        "label": "Symptoms",
+                        "items": mergedSymptoms
+                        },
+                        {
+                        "id": "triggers-map",
+                        "label": "Triggers",
+                        "items": uniqueTriggers
+                        }
+                    ],
+                    "links": mergedLinks
+                }} />
             </Box>
         </Box>
     )

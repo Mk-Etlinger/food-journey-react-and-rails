@@ -8,56 +8,52 @@ import BookIcon from 'grommet/components/icons/base/Book';
 import AddCircleIcon from 'grommet/components/icons/base/AddCircle';
 import InheritIcon from 'grommet/components/icons/base/Inherit';
 
-const PrimaryNavigation = ({ windowWidth, onClickCB }) => {
+const PrimaryNavigation = () => {
     return (
-        <Box flex 
-            colorIndex='neutral-4'
-            align='stretch'
-            size={ splitLeftStyling }>
-            <Columns
-                size='small'
-                justify='center'>
-                <Box id='entries'
-                    pad='medium'
-                    alignSelf='center'
-                    separator='bottom'
-                    colorIndex='neutral-4' >
-                    <Anchor icon={ <BookIcon size='medium'/> }
-                        path='/dashboard/entries' 
-                        onMouseEnter={this.someHandler}
-                        onMouseLeave={this.someOtherHandler}>
-                        {/*<Heading className='hide' tag='h4'>
-                            Entries
-                        </Heading>*/}
-                    </Anchor>
-                </Box>
-                <Box id='analytics'
-                    pad='medium'
-                    alignSelf='center'
-                    separator='bottom'
-                    colorIndex='neutral-4'
-                    onClick={ onClickCB } >
-                    <Anchor icon={ <PieChartIcon size='medium'/> }
-                        path='/dashboard/analytics' />
-                       
-                </Box>
-                {/*<Box id='RelationContainer' 
-                    pad='large'
-                    alignSelf='center'
-                    separator='bottom'
-                    colorIndex='neutral-4'
-                    onClick={ onClickCB } >
-                    <div id='RelationContainer' onClick={ onClickCB }>
-                        <InheritIcon size='medium' />
-                    </div>
-                </Box>*/}
-            </Columns>
+        <Box justify='start'
+            margin='medium' 
+            direction='row' >
+            <Box id='entries'
+                basis="1/3"
+                alignSelf='center'
+                colorIndex='light-2' >
+                <Anchor icon={ <BookIcon size='medium'/> }
+                    path='/dashboard/entries' >
+                    <Heading tag='h4'>
+                        Entries
+                    </Heading>
+                </Anchor>
+            </Box>
+            <Box id='analytics'
+                basis="1/3"
+                alignSelf='center'
+                separator='left'
+                colorIndex='light-2'>
+                <Anchor icon={ <PieChartIcon size='medium'/> }
+                    path='/dashboard/analytics'>
+                    <Heading tag='h4'>
+                        Analyze
+                    </Heading>
+                </Anchor>
+            </Box>
+            <Box id='RelationContainer' 
+                basis="1/3"
+                alignSelf='center'
+                separator='left'
+                colorIndex='light-2'>
+                <Anchor icon={ <InheritIcon size='medium'/> }
+                    path='/dashboard/relations' >
+                    <Heading tag='h4'>
+                        Visualize
+                    </Heading>
+                </Anchor>
+            </Box>
         </Box>
     )
 }
 
-const splitLeftStyling = {
-    width: { min: 'small', max: 'full' }
-}
+// const splitLeftStyling = {
+//     width: { min: 'small', max: 'full' }
+// }
 
 export default PrimaryNavigation;

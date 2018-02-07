@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import MealFormLayer from './MealFormLayer';
 import InputField from '../reusables/InputField';
 import ToggleRadioButtons from '../reusables/ToggleRadioButtons';
 import { createMeal } from '../../actions/meals/createMeal';
-import { updateMealFormData } from '../../actions/mealForm';
-import { hideSymptomButton, showSymptomButton } from '../../actions/toggleSymptomButton';
+import { toggleMealModal } from '../../actions/meals/toggleMealModal';
 import AddIcon from 'grommet/components/icons/base/Add';
 import Form from 'grommet/components/Form';
 import Footer from 'grommet/components/Footer';
@@ -14,97 +14,57 @@ import Box from 'grommet/components/Box';
 import Layer from 'grommet/components/Layer';
 
 class MealForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-            showForm: false,
             meal_type: '',
             ingredients: '',
         }
-
-        this.handleOnChange = this.handleOnChange.bind(this)
     }
 
     handleOnChange = (e) => {
         const { name, value } = e.target
-        this.setState({ [name]: value })
+        this.setState({ [ name ]: value })
     }
 
     handleShowForm = () => {
-        this.setState({ showForm: true })
-        this.props.hideSymptomButton()
+        this.props.toggleMealModal( true )
     }
     
     handleHideForm = () => {
-        this.setState({ showForm: false })
-        this.props.showSymptomButton()
+        this.props.toggleMealModal( false )
     }
 
     handleOnSubmit = (e) => {
         e.preventDefault();
-        this.props.createMeal(this.state)
-        this.setState({ showForm: false })
-        this.props.showSymptomButton()
+        this.props.createMeal( this.state )
+        this.props.toggleMealModal( false )
     }
 
     render() {
-        const { ingredients, meal_type } = this.state
-        const { symptomFormData } = this.props
+        const { isVisible } = this.props.mealFormData
 
         return (
-            this.state.showForm ?
-                <Layer closer
-                    overlayClose
-                    onClose={ this.handleHideForm }>
-                    <Form 
-                        onSubmit={ this.handleOnSubmit }> 
-                        <FormFields>
-                            <h2>What's on the Menu?</h2>
-                            <ToggleRadioButtons
-                                currentValue={ meal_type }
-                                name='meal_type'
-                                fields={ ['breakfast', 'lunch', 'dinner', 'snack'] }
-                                onChangeCb={ this.handleOnChange }/>
-                            <InputField name="ingredients" 
-                                type="text"
-                                value={ ingredients }
-                                onChangeCb={ this.handleOnChange }
-                                placeholder={ "Eg: eggs, bacon, salad" }/>
-                        </FormFields>
-                        <Footer pad='small' 
-                            justify='center'>
-                            <Button type="submit"
-                                primary
-                                pad='small'
-                                label='Add' />
-                        </Footer>
-                    </Form>
-                </Layer>
-            :
-                <div>
-                    { symptomFormData.active || 
-                        <Button id='MealForm'
-                            icon={ <AddIcon /> }
-                            label='Meal'
-                            onClick={ this.handleShowForm } />
-                    }
-                </div>
-            
+            isVisible && 
+                <MealFormLayer { ...this.state }
+                    hideFormCB={ this.handleHideForm }
+                    onSubmitCB={ this.handleOnSubmit }
+                    onChangeCB={ this.handleOnChange }/>
+            ||
+                <div style={{ display: 'none' }}></div>
         )
     }
 }
 
 const mapStateToProps = state => {
     return {
-        symptomFormData: state.symptomFormData
+        mealFormData: state.mealFormData,
     }
 }
 
 export default connect(mapStateToProps, { 
     createMeal,
-    hideSymptomButton,
-    showSymptomButton,
-    updateMealFormData 
+    toggleMealModal 
 })(MealForm);
 

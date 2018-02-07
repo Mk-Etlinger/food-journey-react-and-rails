@@ -8,7 +8,7 @@ import { hideSymptomButton, showSymptomButton } from '../../actions/toggleSympto
 import Form from 'grommet/components/Form';
 import Button from 'grommet/components/Button';
 import AddIcon from 'grommet/components/icons/base/Add';
-import DateDisplay from './DateDisplay';
+import RecentsContainer from './RecentsContainer';
 import Box from 'grommet/components/Box';
 
 class AddItemContainer extends Component {
@@ -79,7 +79,7 @@ class AddItemContainer extends Component {
                     }
                 </div>
             }
-                <DateDisplay />
+                <RecentsContainer />
             </div>
         )
     }

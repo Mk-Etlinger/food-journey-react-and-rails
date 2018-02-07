@@ -3,7 +3,7 @@ import Table from 'grommet/components/Table';
 
 export default ({ tableRows, tableHeaders }) => {
     return (
-         <Table>
+        <Table>
             <thead>
                 { tableHeaders }
             </thead>

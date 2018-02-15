@@ -9,9 +9,9 @@ const addUpdatedMeal = meal => {
     }
 }
 
-export const updateMeal = (state) => {
+export const updateMeal = ( state ) => {
     return dispatch => {
-        return fetch(`${API_URL}/meals/${state.mealId}`, {
+        return fetch(`${ API_URL }/meals/${ state.mealId }`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -7,3 +7,27 @@
     line-height: 1.71429;
     margin-bottom: 12px;
 }
+
+.darkGreenBG {
+  background-color: #8EB4B4;
+}
+
+.mediumGreenBG {
+  background-color: #9BB7B7;
+}
+
+.lightGreenBG {
+  background-color: #E9F0F0;
+}
+
+.borderMain {
+  border: 2px solid lightGrey;
+}
+
+.borderBoxShadow {
+  box-shadow: -4px 6px 10px lightGrey;
+}
+
+.borderBoxShadowSmall {
+  box-shadow: -2px 3px 10px lightGrey;
+}

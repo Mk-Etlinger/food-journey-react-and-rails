@@ -31,3 +31,7 @@
 .borderBoxShadowSmall {
   box-shadow: -2px 3px 10px lightGrey;
 }
+
+.borderBoxShadowNav {
+  box-shadow: 0px 5px 10px lightGrey;
+}

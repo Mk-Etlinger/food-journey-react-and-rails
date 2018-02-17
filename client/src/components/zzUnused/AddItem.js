@@ -1,5 +1,5 @@
 import React from 'react';
-import MealForm from './MealForm';
+import MealFormContainer from './MealFormContainer';
 import SymptomForm from './SymptomForm';
 import RecentsContainer from './RecentsContainer';
 import Box from 'grommet/components/Box';
@@ -15,7 +15,7 @@ export const AddItem = () => {
                         alignSelf='center'
                         margin='large'
                         colorIndex='light-1'> 
-                        <MealForm />
+                        <MealFormContainer />
                     </Box>
                 </Box>
                 <Box basis='1/2'>

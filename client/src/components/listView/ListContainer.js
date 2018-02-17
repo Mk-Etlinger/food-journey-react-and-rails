@@ -8,6 +8,7 @@ import { getMostSymptomaticFoods } from '../../actions/getMostSymptomaticFoods';
 import Tabs from 'grommet/components/Tabs';
 import Tab from 'grommet/components/Tab';
 import Box from 'grommet/components/Box';
+import Heading from 'grommet/components/Heading';
 
 class ListContainer extends Component {
     constructor() {
@@ -47,24 +48,28 @@ class ListContainer extends Component {
         return (
             <Box flex
                 align='center'
+                margin='small'
                 colorIndex='light-2'>
-                <Box size={{ width: { min: 'small', max: 'xxlarge' } }} >
-                    <Tabs 
-                        activeIndex={ this.state.activeIndex } 
-                        onActive={ this.handleClick }>
-                        <Tab id='IndexView' title='All Meals'>
-                            { isMealLoaded && <ActiveComp meals={ meals } 
-                                symptoms={ symptoms } 
-                                mostSymptomaticFoods={ mostSymptomaticFoods }/> 
-                            }
-                        </Tab>
-                        <Tab title='Top Triggers'>
-                        { isMealLoaded && <ActiveComp meals={ meals } 
-                                symptoms={ symptoms } 
-                                mostSymptomaticFoods={ mostSymptomaticFoods }/> 
-                            }
-                        </Tab>
-                    </Tabs>
+                <Box size={{ width: 'xxlarge', height: 'large'}}>
+                    {/*<Box
+                        basis='1/4'>
+                        <Box pad='small' className='darkGreenBG' >
+                            <Heading align='start'>
+                            Entries
+                            </Heading>
+                        </Box>
+                    </Box>*/}
+                    <Box colorIndex='light-2'>
+                        <Tabs onActive={ this.handleClick }
+                            activeIndex={ this.state.activeIndex } >
+                            <Tab title='Entries' >
+                                { isMealLoaded && <ActiveComp meals={ meals } 
+                                    symptoms={ symptoms } 
+                                    mostSymptomaticFoods={ mostSymptomaticFoods }/> 
+                                }
+                            </Tab>
+                        </Tabs>
+                    </Box>
                 </Box>
             </Box>
         )

@@ -1,6 +1,7 @@
 import React from 'react';
-import Table from 'grommet/components/Table';
 import TableRow from 'grommet/components/TableRow';
+import Box from 'grommet/components/Box';
+import Heading from 'grommet/components/Heading';
 import GrommetTable from '../reusables/GrommetTable';
 
 export default ({ mostSymptomaticFoods }) => {
@@ -19,6 +20,20 @@ export default ({ mostSymptomaticFoods }) => {
     )
 
     return (
-        <GrommetTable  tableRows={ tableRows } tableHeaders={ tableHeaders } />
+         <Box direction='row'>
+            <Box pad='small' 
+                basis='1/4'>
+                <Heading tag='h2'>
+                    Top Triggers
+                </Heading>
+            </Box>
+            <Box className='borderMain'
+                pad='large'
+                colorIndex='light-1'
+                align='center'
+                basis='3/4' >
+                <GrommetTable tableRows={ tableRows } tableHeaders={ tableHeaders } />
+            </Box>
+        </Box>
     );
 }

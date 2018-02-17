@@ -1,19 +1,18 @@
 import React from 'react';
-import Columns from 'grommet/components/Columns';
 import Box from 'grommet/components/Box';
 import Anchor from 'grommet/components/Anchor';
 import Heading from 'grommet/components/Heading';
 import PieChartIcon from 'grommet/components/icons/base/PieChart';
 import BookIcon from 'grommet/components/icons/base/Book';
-import AddCircleIcon from 'grommet/components/icons/base/AddCircle';
 import InheritIcon from 'grommet/components/icons/base/Inherit';
 
 const PrimaryNavigation = () => {
     return (
         <Box justify='start'
-            margin='medium' 
+            margin={{ vertical: 'medium' }}
             direction='row' >
             <Box id='entries'
+                className='borderBoxShadowNav'
                 basis="1/3"
                 alignSelf='center'
                 colorIndex='light-2' >
@@ -25,6 +24,7 @@ const PrimaryNavigation = () => {
                 </Anchor>
             </Box>
             <Box id='analytics'
+                className='borderBoxShadowNav'
                 basis="1/3"
                 alignSelf='center'
                 separator='left'
@@ -37,6 +37,7 @@ const PrimaryNavigation = () => {
                 </Anchor>
             </Box>
             <Box id='RelationContainer' 
+                className='borderBoxShadowNav'
                 basis="1/3"
                 alignSelf='center'
                 separator='left'
@@ -51,9 +52,5 @@ const PrimaryNavigation = () => {
         </Box>
     )
 }
-
-// const splitLeftStyling = {
-//     width: { min: 'small', max: 'full' }
-// }
 
 export default PrimaryNavigation;

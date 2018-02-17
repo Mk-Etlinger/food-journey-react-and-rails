@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import moment from 'moment'
-import Table from 'grommet/components/Table';
 import TableRow from 'grommet/components/TableRow';
+import Box from 'grommet/components/Box';
+import Heading from 'grommet/components/Heading';
+import Header from 'grommet/components/Header';
+import Anchor from 'grommet/components/Anchor';
+import SendIcon from 'grommet/components/icons/base/Send';
 import GrommetTable from '../reusables/GrommetTable';
 // import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 // import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
@@ -13,25 +17,53 @@ export default ({ meals, symptoms }) => {
             <th>Date</th>
             <th>Meal</th>
             <th>Ingredients</th>
-            <th>Ailments</th>
         </tr>
     )
 
     const tableRows = meals.map(( meal, i ) =>
         <TableRow key={ meal.id } >
             <td>{ meal.id }</td>
-            <td>{ moment(meal.created_at).format('DD/MM/YY') }</td>
+            <td>{ moment.utc(meal.created_at).format('MM/DD/YY') }</td>
             <td>{ meal.meal_type }</td> 
             <td>{ meal.ingredients.map(( ingredient, i ) => 
-                <span><a href="#"> { ingredient.name }</a>
+                <span key={ ingredient.id }><a href="#"> { ingredient.name }</a>
                 { i !== meal.ingredients.length - 1 && ', ' }</span> 
-            )}</td> 
-            <td>CLICK TO EXPAND</td> 
+            )}</td>  
         </TableRow>
     );
 
     return (
-        <GrommetTable tableHeaders={ tableHeaders } tableRows={ tableRows }/>
+        <Box pad='medium' 
+            direction='row'>
+            <Box margin={{ right: 'small' }}
+                basis='1/4'>
+                <Box onClick={ () => alert('Coming Soon') } pad='small' className='darkGreenBG borderBoxShadowSmall' >
+                    <Heading align='start' tag='h4'>
+                        <SendIcon colorIndex='light-1' /> <span style={{ marginLeft: '10px'}} >Share your entries</span>
+                    </Heading>
+                </Box>
+            </Box>
+            <Box pad='small'
+                className='borderBoxShadowSmall'
+                colorIndex='light-1'
+                align='center'
+                basis='3/4' >
+                <Box alignSelf='end'>
+                    <Header >
+                        {/*<Heading align='start' tag='h4'>
+                            All
+                        </Heading>
+                        <Heading align='start' tag='h4'>
+                            Triggers
+                        </Heading>*/}
+                        <Heading align='start' tag='h4'>
+                            Export
+                        </Heading>
+                    </Header>
+                </Box>
+                <GrommetTable selectable tableHeaders={ tableHeaders } tableRows={ tableRows }/>
+            </Box>
+        </Box>
     )
 }
 

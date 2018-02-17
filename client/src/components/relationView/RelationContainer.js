@@ -5,17 +5,10 @@ import { getMeals } from '../../actions/meals/meals';
 import { getSymptoms } from '../../actions/symptoms/symptoms';
 import { getMostSymptomaticFoods } from '../../actions/getMostSymptomaticFoods';
 import Box from 'grommet/components/Box';
+import Heading from 'grommet/components/Heading';
 
 class DataContainer extends Component {
-    constructor() {
-        super()
-
-        this.state = {
-            compActive: 'overview',
-        }
-
-        this.handleClick = this.handleClick.bind(this)
-    }
+   
 
     handleClick = (e) => {
         this.setState({ compActive: e.target.id }) 
@@ -35,10 +28,19 @@ class DataContainer extends Component {
             isMostSymptomaticFoodsLoaded = Object.keys(mostSymptomaticFoods).length > 0
 
         return (
-            <Box flex
-                pad='large'
-                colorIndex='light-2'>
-                { isSymptomLoaded && <RelationView symptomsIndex={ symptoms }/> }
+            <Box margin={{ top: 'small' }}>
+                <Heading tag='h2'>Symptoms and Possible Triggers</Heading>
+                <Box direction='row'
+                    size={{ width: 'xxlarge', height: 'large' }}
+                    alignSelf='center'
+                    margin='small'>
+                <Box className='borderBoxShadowSmall'
+                    flex
+                    basis='large'
+                    colorIndex='light-1'>
+                    { isSymptomLoaded && <RelationView symptomsIndex={ symptoms }/> }
+                </Box>
+                </Box>
             </Box>
         )
     };

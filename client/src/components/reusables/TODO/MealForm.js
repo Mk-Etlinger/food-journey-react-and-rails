@@ -5,9 +5,8 @@ import Form from 'grommet/components/Form';
 import Button from 'grommet/components/Button';
 import AddIcon from 'grommet/components/icons/base/Add';
 
-export const MealForm = ({ onSubmitCB, onChangeCb, formData, hideForm }) => {
+export const MealFormContainer = ({ onSubmitCB, onChangeCb, formData, hideForm }) => {
     const { meal_type, ingredients } = formData
-    console.log(ingredients)
     return (
         <div style={ divStyle }>
             <span onClick={ hideForm } style={{ margin: '0 0 99% 97%', cursor: 'pointer' }}>x</span>

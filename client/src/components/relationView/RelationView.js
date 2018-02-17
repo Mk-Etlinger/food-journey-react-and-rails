@@ -34,10 +34,10 @@ export default ({ symptomsIndex }) => {
     })
     
     return (
-        <Box full
-            colorIndex='light-2'>
-            <Box flex 
-                direction='column'>
+        <Box flex
+            colorIndex='light-1'>
+            <Box flex
+                margin={{ top: 'small', horizontal: 'small' }} >
                 <Map vertical
                     data={{
                     "categories": [

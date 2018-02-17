@@ -3,23 +3,18 @@ import { connect } from 'react-redux';
 import Box from 'grommet/components/Box';
 import Anchor from 'grommet/components/Anchor';
 import DashboardView from './DashboardView';
-import SymptomForm from '../addItem/SymptomForm';
-import MealForm from '../addItem/MealForm';
 import { toggleMealModal } from '../../actions/meals/toggleMealModal';
 import { toggleSymptomModal } from '../../actions/symptoms/toggleSymptomModal';
 import AddCircleIcon from 'grommet/components/icons/base/AddCircle';
 
 const MainContent = ({ activeComp: ActiveComponent, ...props }) => {
     return (
-        <Box 
-            pad='small'
-            colorIndex='light-2'>
+        <Box>
             { ActiveComponent !== DashboardView &&
                 <Box 
                     style={ boxStyling }
                     direction='row'
-                    colorIndex='light-2'
-                    margin={{ botton: 'small' }}>
+                    colorIndex='light-2'>
                     <Anchor icon={ <AddCircleIcon size='medium' /> }
                         onClick={ () => props.toggleMealModal( true ) }
                         label='Meal' /> 
@@ -29,15 +24,15 @@ const MainContent = ({ activeComp: ActiveComponent, ...props }) => {
                         label='Symptom' />
                 </Box>
             }
-            { ActiveComponent && <ActiveComponent { ...props }/> }
-            <MealForm />
-            <SymptomForm />
+            { ActiveComponent &&
+                <ActiveComponent { ...props }/> 
+            }
         </Box>
     )
 }
 
 const boxStyling = { 
-    marginLeft: '4em',
+    marginLeft: '10em',
     zIndex: 1,
 }
 

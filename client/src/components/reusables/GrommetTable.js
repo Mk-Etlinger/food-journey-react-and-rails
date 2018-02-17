@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Table from 'grommet/components/Table';
 
-export default ({ tableRows, tableHeaders }) => {
+export default ({ tableRows, tableHeaders, scrollable, selectable }) => {
     return (
-        <Table>
+        <Table selectable>
             <thead>
                 { tableHeaders }
             </thead>

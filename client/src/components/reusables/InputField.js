@@ -1,5 +1,4 @@
 import React from 'react';
-import Form from 'grommet/components/Form';
 import FormField from 'grommet/components/FormField';
 import TextInput from 'grommet/components/TextInput';
 import PasswordInput from 'grommet/components/PasswordInput';

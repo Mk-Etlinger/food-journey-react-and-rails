@@ -1,6 +1,5 @@
 import React from 'react';
-import Chart, { Axis, Grid, Bar, Base, Layers } from 'grommet/components/chart/Chart';
-import Legend from 'grommet/components/Legend';
+import Chart, { Axis, Base } from 'grommet/components/chart/Chart';
 import Box from 'grommet/components/Box';
 import Value from 'grommet/components/Value';
 import Meter from 'grommet/components/Meter';
@@ -9,15 +8,15 @@ import Label from 'grommet/components/Label';
 export default ({ mostSymptomaticFoods = {} }) => {
     
     let highestValue = Object.values(mostSymptomaticFoods)[0]
-    let legendLabels = Object.keys(mostSymptomaticFoods).map(( food, i ) => {
-        return { "label": food, "colorIndex": `graph-${ i + 1 }`}
-    })
+    // let legendLabels = Object.keys(mostSymptomaticFoods).map(( food, i ) => {
+    //     return { "label": food, "colorIndex": `graph-${ i + 1 }`}
+    // })
 
     let meterValues = Object.keys(mostSymptomaticFoods).map(( food, i ) => {
         let barValue = mostSymptomaticFoods[food]
         return (
             <Box key={ i } 
-                align='center'
+                align='start'
                 pad={{ "horizontal": "small", "between": "small" }}>
                 <Value value={ barValue }
                     active={ false } />

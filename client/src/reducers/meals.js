@@ -1,6 +1,7 @@
 const initialState = {
     meals: [],
     recentMeals: [],
+    showMealSuccessMessage: false,
 }
 
 export default ( state = initialState, action ) => {
@@ -20,7 +21,12 @@ export default ( state = initialState, action ) => {
         case 'CREATE_MEAL_SUCCESS':
             return Object.assign({}, state, {
                 meals: [ action.meal, ...state.meals ],
-                recentMeals: [ action.meal, ...state.recentMeals ]
+                recentMeals: [ action.meal, ...state.recentMeals ],
+                showMealSuccessMessage: true
+            })
+        case 'SHOW_MEAL_SUCCESS_MESSAGE':
+            return Object.assign({}, state, { 
+                showMealSuccessMessage: action.isVisible
             })
         default:
             return state;

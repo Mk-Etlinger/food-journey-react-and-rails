@@ -1,6 +1,7 @@
 const initialState = {
     symptoms: [],
     recentSymptoms: [],
+    showSymptomSuccessMessage: false
 }
 
 export default (state = initialState, action) => {
@@ -17,7 +18,12 @@ export default (state = initialState, action) => {
             return Object.assign({}, state, { recentSymptoms: updatedSymptomsArray })
         case 'CREATE_SYMPTOM_SUCCESS':
             return Object.assign({}, state, { 
-                recentSymptoms: [action.symptom, ...state.recentSymptoms]
+                recentSymptoms: [action.symptom, ...state.recentSymptoms],
+                showSymptomSuccessMessage: true
+            })
+        case 'SHOW_SYMPTOM_SUCCESS_MESSAGE':
+            return Object.assign({}, state, { 
+                showSymptomSuccessMessage: action.isVisible
             })
         default:
             return state;

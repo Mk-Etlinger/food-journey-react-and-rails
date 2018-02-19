@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import IndexView from './IndexView';
 import TopTriggersView from './TopTriggersView';
+import ListSubPageView from './ListSubPageView';
 import { connect } from 'react-redux';
 import { getMeals } from '../../actions/meals/meals';
 import { getSymptoms } from '../../actions/symptoms/symptoms';
@@ -18,11 +19,9 @@ class ListContainer extends Component {
             activeComp: IndexView,
             activeIndex: 0
         }
-
-        this.handleClick = this.handleClick.bind(this)
     }
 
-    handleClick = (e) => {
+    handleOnActive = (e) => {
         const component = componentList[e]
         this.setState({
             activeComp: component,
@@ -40,35 +39,27 @@ class ListContainer extends Component {
         const { meals } = this.props.meals, 
             { symptoms } = this.props.symptoms,
             { mostSymptomaticFoods } = this.props.overviewQueries,
-            { activeComp: ActiveComp } = this.state
-        const isMealLoaded = meals.length > 0,
-            isSymptomLoaded = symptoms.length > 0,
-            isMostSymptomaticFoodsLoaded = Object.keys(mostSymptomaticFoods).length > 0
+            { activeComp: ActiveComp, activeIndex } = this.state
 
         return (
             <Box flex
                 align='center'
                 margin='small'
                 colorIndex='light-2'>
+                <Box style={{ marginRight: '10em' }}
+                    alignSelf='center'>
+                    <Heading strong>
+                        Entries
+                    </Heading>
+                </Box>
                 <Box size={{ width: 'xxlarge', height: 'large'}}>
-                    {/*<Box
-                        basis='1/4'>
-                        <Box pad='small' className='darkGreenBG' >
-                            <Heading align='start'>
-                            Entries
-                            </Heading>
-                        </Box>
-                    </Box>*/}
                     <Box colorIndex='light-2'>
-                        <Tabs onActive={ this.handleClick }
-                            activeIndex={ this.state.activeIndex } >
-                            <Tab title='Entries' >
-                                { isMealLoaded && <ActiveComp meals={ meals } 
-                                    symptoms={ symptoms } 
-                                    mostSymptomaticFoods={ mostSymptomaticFoods }/> 
-                                }
-                            </Tab>
-                        </Tabs>
+                        <ListSubPageView ActiveComp={ ActiveComp }
+                            onActiveCB={ this.handleOnActive }
+                            activeIndex={ activeIndex }
+                            mostSymptomaticFoods={ mostSymptomaticFoods }
+                            meals={ meals } 
+                            symptoms={ symptoms } />
                     </Box>
                 </Box>
             </Box>

@@ -17,6 +17,16 @@ class Dashboard extends Component {
         }
     }
 
+    checkAuth()  {
+        if (!localStorage.jwt) {
+            this.props.history.push('/')
+        }
+    }
+
+    componentDidMount() {
+       this.checkAuth()
+    }
+
     handleLogout = () => {
         localStorage.jwt = ''
     }

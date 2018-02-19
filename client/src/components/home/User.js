@@ -27,11 +27,13 @@ class User extends Component {
     checkAuth()  {
         // when added to redux store
         // if localStorage.jwt === this.props.jwt
-        this.props.history.push('/dashboard')
+        if (localStorage.jwt) {
+            this.props.history.push('/dashboard')
+        }
     }
 
     componentDidMount() {
-        if (localStorage.jwt) this.checkAuth()
+        this.checkAuth()
     }
 
     handleOnSubmit(e) {

@@ -29,7 +29,7 @@ class DataContainer extends Component {
 
         return (
             <Box margin={{ top: 'small' }}>
-                <Heading tag='h2'>Symptoms and Possible Triggers</Heading>
+                <Heading strong>Symptoms and Possible Triggers</Heading>
                 <Box direction='row'
                     size={{ width: 'xxlarge', height: 'large' }}
                     alignSelf='center'

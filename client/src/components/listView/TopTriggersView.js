@@ -1,6 +1,7 @@
 import React from 'react';
 import TableRow from 'grommet/components/TableRow';
 import Box from 'grommet/components/Box';
+import Header from 'grommet/components/Header';
 import Heading from 'grommet/components/Heading';
 import GrommetTable from '../reusables/GrommetTable';
 
@@ -20,20 +21,19 @@ export default ({ mostSymptomaticFoods }) => {
     )
 
     return (
-         <Box direction='row'>
-            <Box pad='small' 
-                basis='1/4'>
-                <Heading tag='h2'>
-                    Top Triggers
-                </Heading>
-            </Box>
-            <Box className='borderMain'
-                pad='large'
-                colorIndex='light-1'
-                align='center'
-                basis='3/4' >
-                <GrommetTable tableRows={ tableRows } tableHeaders={ tableHeaders } />
-            </Box>
+        <Box pad='small'
+            size={{ width: 'large' }}
+            colorIndex='light-1'
+            align='center'
+            flex> 
+            {/*<Box alignSelf='end'>
+                <Header>
+                    <Heading align='start' tag='h4'>
+                        Export
+                    </Heading>
+                </Header>
+            </Box>*/}
+            <GrommetTable selectable tableHeaders={ tableHeaders } tableRows={ tableRows }/>
         </Box>
     );
 }

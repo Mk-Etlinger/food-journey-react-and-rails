@@ -37,7 +37,17 @@ export const createSymptom = (state) => {
             })
         })
             .then(response => response.json())
-            .then(symptom => dispatch(addSymptom(symptom)))
+            .then(symptom => {
+                dispatch( addSymptom( symptom ))
+                setTimeout(() => dispatch( toggleSymptomSuccessMessage( false )), 3000)
+            })
             .catch(err => console.log("error of ", err))
+    }
+}
+
+export const toggleSymptomSuccessMessage = isVisible => {
+    return {
+        type: 'SHOW_SYMPTOM_SUCCESS_MESSAGE',
+        isVisible
     }
 }

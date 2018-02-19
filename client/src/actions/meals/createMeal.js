@@ -27,7 +27,17 @@ export const createMeal = (state) => {
                 })
             })
         .then(response => response.json())
-        .then(meal => dispatch(addMeal(meal)))
+        .then(meal => {
+            dispatch(addMeal(meal))
+            setTimeout(() => dispatch( toggleMealSuccessMessage( false )), 3000)
+        })
         .catch(err => console.log("error of ", err))
+    }
+}
+
+export const toggleMealSuccessMessage = isVisible => {
+    return {
+        type: 'SHOW_MEAL_SUCCESS_MESSAGE',
+        isVisible
     }
 }

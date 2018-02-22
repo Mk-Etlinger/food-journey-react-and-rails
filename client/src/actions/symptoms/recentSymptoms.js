@@ -11,11 +11,22 @@ const setRecentSymptoms = recentSymptoms => {
 
 export const getRecentSymptoms = () => {
     return dispatch => {
+        dispatch( isFetchingSymptoms( true ))
         return fetch(`${API_URL}/recent_symptoms`, {
 			headers: { "Authorization": getToken()} 
 		})
 			.then(response => response.json())
-			.then(recentSymptoms => dispatch(setRecentSymptoms(recentSymptoms)))
+			.then(recentSymptoms => {
+                dispatch(setRecentSymptoms(recentSymptoms))
+                dispatch( isFetchingSymptoms( false ))
+            })
 			.catch(error => console.log("The error is", error))
+    }
+}
+
+export const isFetchingSymptoms = isFetching => {
+    return {
+        type: 'TOGGLE_FETCH_SYMPTOMS',
+        isFetching
     }
 }

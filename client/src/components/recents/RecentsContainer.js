@@ -6,7 +6,7 @@ import { toggleMealSuccessMessage } from '../../actions/meals/createMeal';
 import { toggleSymptomSuccessMessage } from '../../actions/symptoms/createSymptom';
 import { getRecentSymptoms } from '../../actions/symptoms/recentSymptoms';
 import { connect } from 'react-redux';
-import * as customGroupByDate from '../utilities/CustomGroupByDate';
+import { customGroupByDate } from '../utilities/CustomGroupByDate';
 import { mergeObjectsByDate } from '../utilities/MergeObjectsByDate';
 import { GrommetStatus } from '../reusables/GrommetStatus';
 import Box from 'grommet/components/Box';
@@ -33,12 +33,12 @@ class RecentsContainer extends Component {
                 toggleMealSuccessMessage,
                 toggleSymptomSuccessMessage } = this.props
         
-        let symptomsByDate = recentSymptoms.customGroupByDate(),
-            mealsByDate = recentMeals.customGroupByDate()
+        let symptomsByDate = customGroupByDate( recentSymptoms ),
+            mealsByDate = customGroupByDate( recentMeals )
 
-        const mergedMealsAndSymptoms = mergeObjectsByDate(mealsByDate, symptomsByDate)
+        const mergedMealsAndSymptoms = mergeObjectsByDate( mealsByDate, symptomsByDate )
         
-        let mappedObjectsByDate = Object.keys(mergedMealsAndSymptoms).slice(0, 3).map( (date, i) => {
+        let mappedObjectsByDate = Object.keys( mergedMealsAndSymptoms ).slice(0, 3).map(( date, i ) => {
             return <DateDropdown key={ i } 
                 showUpdateModal={ this.props.updateModalIsVisible }
                 date={ moment(date, 'YYYY-MM-DD').format('MMM Do') }

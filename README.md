@@ -9,7 +9,7 @@ Here's what you can expect when using Root Journal:
 * Have a headache? Easily track it and then see if there's a correlation with what you're consuming.
 * Put the notebook down and easily log your your meals, Root Journal does the hard part for you and gives you clues to find your own root cause.
 
-![alt text](./public/Root_Journal_Mockup.png "Root Journal Mockup")
+![alt text](./public/root_journal_dashboard.png "Root Journal Dashboard")
 
 * Ruby/Rails version:
     2.3.4/5.1.4
@@ -18,10 +18,10 @@ Here's what you can expect when using Root Journal:
 * System dependencies:
     Grommet, Moment, Redux, Thunk +more
 * Configuration:
-    Create a User via `rails console` with `User.create(email: 'youremail.com', password: 'yourpassword')` (User registration coming soon)
+    You may need to run `npm install grommet-css --save` to properly link the css
 * Database creation:
     Postgresql: `rails db:create`
 * Database initialization:
     `rails db:migrate`
 * Deployment instructions:
-    `rake start` opens on localhost:3000
+    `rake start` opens client localhost:3000 and API on localhost:3001

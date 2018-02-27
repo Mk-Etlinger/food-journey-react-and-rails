@@ -11,8 +11,7 @@ const MainContent = ({ activeComp: ActiveComponent, ...props }) => {
     return (
         <Box>
             { ActiveComponent !== DashboardView &&
-                <Box 
-                    style={ boxStyling }
+                <Box style={ boxStyling }
                     direction='row'
                     colorIndex='light-2'>
                     <Anchor icon={ <AddCircleIcon size='medium' /> }

@@ -14,7 +14,7 @@ class MealModal extends Component {
         super(props)
 
         this.state = { 
-            ...this.props, 
+            ...props, 
         }
     }
 
@@ -64,7 +64,7 @@ class MealModal extends Component {
     }
 }
 
-export default connect(null, { updateMeal, toggleUpdateMealModal })(MealModal);
+export default connect( null, { updateMeal, toggleUpdateMealModal })( MealModal );
 
 const imgStyle = {
     marginRight: '10px'

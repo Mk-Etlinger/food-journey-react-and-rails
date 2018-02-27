@@ -11,24 +11,25 @@ import ListItem from 'grommet/components/ListItem';
 import symptomImage from '../../images/symptom_25px.png';
 
 class ShowSymptomModal extends Component {
-    constructor() {
-        super();
-    }
+    constructor( props ) {
+        super( props );
 
-    componentWillMount() {
-        this.setState({ ...this.props, showModal: false, })
+        this.state = { 
+            ...props, 
+            showModal: false, 
+        }
     }
 
     handleOnChange = (e) => {
         const { name, value } = e.target
         this.setState({
-            [name]: value
+            [ name ]: value
         })
     }
 
     handleOnSubmit = (e) => {
         e.preventDefault();
-        this.props.updateSymptom(this.state)
+        this.props.updateSymptom( this.state )
         this.closeModal()
     }
 
@@ -96,7 +97,7 @@ class ShowSymptomModal extends Component {
     }
 }
 
-export default connect(null, { updateSymptom })(ShowSymptomModal);
+export default connect( null, { updateSymptom })( ShowSymptomModal );
 
 const imgStyle = {
     marginRight: '16px'

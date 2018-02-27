@@ -9,9 +9,8 @@ import Tiles from 'grommet/components/Tiles';
 import Tile from 'grommet/components/Tile';
 import Paragraph from 'grommet/components/Paragraph';
 
-
 export default ({ date, meals = [], symptoms = [] }) => {
-    const mealButtons = meals.map(meal => {
+    const mealModals = meals.map(meal => {
         return <MealModal
             key={ meal.id }
             createdAt={ meal.created_at }
@@ -21,8 +20,8 @@ export default ({ date, meals = [], symptoms = [] }) => {
             ingredients={ meal.ingredients.map( ing => ing.name ).join(', ') }/>
      })
 
-    const symptomButtons = symptoms.map(symptom => {
-        return <SymptomModal 
+    const symptomModals = symptoms.map(symptom => {
+        return <SymptomModal
             key={ symptom.id }
             date={ date }
             description={ symptom.description }
@@ -49,20 +48,19 @@ export default ({ date, meals = [], symptoms = [] }) => {
                     </Heading>
                 </Header>
             </Box>
-                <Box align='start' >
-                    <Box separator='none' 
-                        align='center'>
-                        <Tiles size='small'>
-                            { mealButtons }
-                        </Tiles>  
-                    </Box>
-                    <Box separator='top'
-                        align='center'>
-                        <Tiles size='small'>
-                            { symptomButtons }
-                        </Tiles>
-                    </Box> 
+            <Box align='start' >
+                <Box align='center'>
+                    <Tiles size='small'>
+                        { mealModals }
+                    </Tiles>  
                 </Box>
+                <Box separator='top'
+                    align='center'>
+                    <Tiles size='small'>
+                        { symptomModals }
+                    </Tiles>
+                </Box> 
+            </Box>
         </Box>
     )
 }

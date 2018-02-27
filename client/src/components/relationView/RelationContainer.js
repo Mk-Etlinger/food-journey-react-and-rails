@@ -21,11 +21,10 @@ class DataContainer extends Component {
     };
     
     render(){
-        const { meals } = this.props.meals, 
-            { symptoms } = this.props.symptoms,
+        const { symptoms } = this.props.symptoms,
             { mostSymptomaticFoods } = this.props.overviewQueries
-        const isSymptomLoaded = symptoms.length > 0,
-            isMostSymptomaticFoodsLoaded = Object.keys(mostSymptomaticFoods).length > 0
+        const isSymptomLoaded = symptoms.length > 0
+            
 
         return (
             <Box margin={{ top: 'small' }}>

@@ -42,14 +42,14 @@ class RecentsContainer extends Component {
 
         const mergedMealsAndSymptoms = mergeObjectsByDate( mealsByDate, symptomsByDate )
         
-        let mappedObjectsByDate = Object.keys( mergedMealsAndSymptoms ).slice( 0, 3 ).map(( date, i ) => {
+        let recentEntriesByDate = Object.keys( mergedMealsAndSymptoms ).slice( 0, 3 ).map(( date, i ) => {
             return <DateDropdown key={ i } 
                 showUpdateModal={ this.props.updateModalIsVisible }
                 date={ moment(date, 'YYYY-MM-DD').format('MMM Do') }
                 symptoms={ mergedMealsAndSymptoms[date].symptoms } 
                 meals={ mergedMealsAndSymptoms[date].meals } />
         })
-        console.log(this.props.isFetchingSymptoms)
+
         return (
             <Box className='lightGreenBG'>
                 <DisplayMessageHelper showMessage={ showMealSuccessMessage }
@@ -62,7 +62,7 @@ class RecentsContainer extends Component {
                     status='ok' 
                     message='Success!' />
                     
-                { mappedObjectsByDate.length ?
+                { recentEntriesByDate.length ?
                     <Heading margin='small' tag='h3'>
                         Recent Entries
                     </Heading>
@@ -77,12 +77,12 @@ class RecentsContainer extends Component {
                 }
                 <Heading margin='small' tag='h3'>
                 </Heading>
-                <Box className='lightGreenBG' 
+                <Box size={{ height: { max: 'xlarge' }, width: { min: 'medium', max: 'xlarge' } }} 
+                    className='lightGreenBG' 
                     direction='row'
                     flex
-                    wrap
-                    size={{ height: { max: 'xlarge' }, width: { min: 'medium', max: 'xlarge' } }}> 
-                    { mappedObjectsByDate }
+                    wrap> 
+                    { recentEntriesByDate }
                 </Box>
             </Box>
         )

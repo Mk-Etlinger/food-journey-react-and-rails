@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 import { getMeals } from '../../actions/meals/meals';
 import { getSymptoms } from '../../actions/symptoms/symptoms';
 import { getMostSymptomaticFoods } from '../../actions/getMostSymptomaticFoods';
-import Tabs from 'grommet/components/Tabs';
-import Tab from 'grommet/components/Tab';
 import Box from 'grommet/components/Box';
 import Heading from 'grommet/components/Heading';
 

@@ -2,10 +2,6 @@ import React from 'react';
 import moment from 'moment'
 import TableRow from 'grommet/components/TableRow';
 import Box from 'grommet/components/Box';
-import Heading from 'grommet/components/Heading';
-import Header from 'grommet/components/Header';
-import Anchor from 'grommet/components/Anchor';
-import SendIcon from 'grommet/components/icons/base/Send';
 import GrommetTable from '../reusables/GrommetTable';
 
 export default ({ meals, symptoms }) => {

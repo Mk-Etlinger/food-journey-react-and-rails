@@ -6,8 +6,6 @@ import { getMeals } from '../../actions/meals/meals';
 import { getSymptoms } from '../../actions/symptoms/symptoms';
 import { getMostSymptomaticFoods } from '../../actions/getMostSymptomaticFoods';
 import Heading from 'grommet/components/Heading';
-import Tabs from 'grommet/components/Tabs';
-import Tab from 'grommet/components/Tab';
 import Box from 'grommet/components/Box';
 
 class DataContainer extends Component {
@@ -39,9 +37,6 @@ class DataContainer extends Component {
             { symptoms } = this.props.symptoms,
             { mostSymptomaticFoods } = this.props.overviewQueries,
             { ActiveComp, activeIndex } = this.state
-        const isMealLoaded = meals.length > 0,
-            isSymptomLoaded = symptoms.length > 0,
-            isMostSymptomaticFoodsLoaded = Object.keys(mostSymptomaticFoods).length > 0
 
         return (
             <Box flex

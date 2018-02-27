@@ -1,8 +1,6 @@
 import React from 'react';
 import TableRow from 'grommet/components/TableRow';
 import Box from 'grommet/components/Box';
-import Header from 'grommet/components/Header';
-import Heading from 'grommet/components/Heading';
 import GrommetTable from '../reusables/GrommetTable';
 
 export default ({ mostSymptomaticFoods }) => {

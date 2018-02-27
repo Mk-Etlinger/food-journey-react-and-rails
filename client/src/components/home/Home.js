@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { spinUpHeroku } from '../../actions/spinUpHeroku';
 import Hero from 'grommet/components/Hero';
 import Box from 'grommet/components/Box';
 import Button from 'grommet/components/Button';
@@ -7,16 +9,19 @@ import LoginIcon from 'grommet/components/icons/base/Login';
 import Card from 'grommet/components/Card';
 import heroImage from '../../images/food_journey_landing_photo_large.jpg';
 
-export default class Home extends Component {
+class Home extends Component {
 
     checkAuth()  {
         // when added to redux store
         // if localStorage.jwt === this.props.jwt
-        this.props.history.push('/dashboard')
+        if (localStorage.jwt) {
+            this.props.history.push('/dashboard')
+        }
     }
 
     componentDidMount() {
-        if (localStorage.jwt) this.checkAuth()
+        this.props.spinUpHeroku()
+        this.checkAuth()
     }
 
     render() {        
@@ -53,4 +58,4 @@ export default class Home extends Component {
     }
 }
 
-
+export default connect(null, { spinUpHeroku })(Home)

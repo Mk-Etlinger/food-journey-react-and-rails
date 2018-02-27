@@ -10,7 +10,6 @@ const DashboardView = ({ ...props }) => {
         <Box className='borderBoxShadowSmall'
             margin={{ top: 'small' }}
             size={{ width: 'xxlarge', height: { max: 'large'} }}
-            separator='bottom'
             alignSelf='center'
             direction='row'
             colorIndex='light-1'>

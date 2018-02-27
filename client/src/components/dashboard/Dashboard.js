@@ -27,15 +27,9 @@ class Dashboard extends Component {
        this.checkAuth()
     }
 
-    handleLogout = () => {
-        localStorage.jwt = ''
-    }
-
     render() {
         return (
-            <Box style={{ boxSizing: 'border-box' }} 
-                full
-                colorIndex='light-2'
+            <Box colorIndex='light-2'
                 pad='small'>
                 <MainContent  { ...this.props }/>
                 <PrimaryNavigation { ...this.props }/>
